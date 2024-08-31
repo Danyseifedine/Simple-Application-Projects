@@ -37,19 +37,4 @@ This repository contains a collection of 25 web-based utility applications desig
 - Real-time previews where applicable
 - Copy-to-clipboard functionality for generated content
 
-## Installation
-
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/web-dev-utilities.git
-   ```
-2. Navigate to the project directory:
-   ```
-   cd web-dev-utilities
-   ```
-3. Open the desired application's HTML file in your web browser.
-
-## Usage
-
-Each application can be accessed by opening its corresponding HTML file in a web browser. Detailed usage instructions for each utility can be found within the application interface.
 
