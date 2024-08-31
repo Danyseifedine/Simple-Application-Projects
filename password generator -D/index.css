@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    --color: #E1E1E1;
+    background-color: #f5f5f5;
+    background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+    background-size: 30px 30px;
+    background-position: -5px -5px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 750px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.password-display {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+#password {
+    flex-grow: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px 0 0 8px;
+    transition: border-color 0.3s ease;
+}
+
+#password:focus {
+    outline: none;
+    border-color: #2196F3;
+}
+
+#copy-btn {
+    padding: 0.75rem 1.25rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#copy-btn:hover {
+    background-color: #45a049;
+}
+
+.options {
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.option label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #2196F3;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-right: 0.5rem;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #2196F3;
+    border-color: #2196F3;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '\2714';
+    font-size: 14px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#generate-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.3s ease;
+}
+
+#generate-btn:hover {
+    background-color: #1e88e5;
+}
+
+.strength-meter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+#strength {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 12px;
+    margin-top: 8px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#strength::-webkit-progress-bar {
+    background-color: #f0f0f0;
+}
+
+#strength::-webkit-progress-value {
+    transition: width 0.3s ease;
+}
+
+#strength.weak::-webkit-progress-value {
+    background-color: #ff4d4d;
+}
+
+#strength.medium::-webkit-progress-value {
+    background-color: #ffa500;
+}
+
+#strength.strong::-webkit-progress-value {
+    background-color: #4CAF50;
+}
+
+.password-history {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.password-history h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+#password-history {
+    list-style-type: none;
+    padding: 0;
+}
+
+#password-history li {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    #password, #copy-btn {
+        font-size: 0.9rem;
+    }
+
+    .options {
+        grid-template-columns: 1fr;
+    }
+
+    .option label {
+        font-size: 0.9rem;
+    }
+
+    input[type="number"] {
+        font-size: 0.9rem;
+    }
+
+    #generate-btn {
+        font-size: 1rem;
+    }
+}

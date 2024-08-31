@@ -1,0 +1,344 @@
+body {
+  width: 100%;
+  height: 100%;
+  --color: #E1E1E1;
+  background-color: #f5f5f5;
+  background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.transitionPreviewer_app {
+  width: 70%;
+}
+
+.transitionPreviewer_app h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 24px;
+}
+
+.transitionPreviewer_app .box {
+  display: flex;
+  gap: 1rem;
+}
+
+.transitionPreviewer_app .app_content {
+  display: flex;
+  width: 100%;
+}
+
+.transitionPreviewer_app [type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 0.4rem;
+  background: #E1E1E1;
+  outline: none;
+  border-radius: 0.25rem;
+}
+
+.transitionPreviewer_app [type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: hsl(240, 100%, 35%);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.transitionPreviewer_app [type="range"]::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: hsl(240, 100%, 35%);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.transitionPreviewer_app .controls {
+  width: 40%;
+  max-height: 80vh;
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 2rem;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  padding-right: 2rem;
+  padding-left: 0.5rem;
+}
+
+.transitionPreviewer_app ::-webkit-scrollbar {
+  width: 4px;
+}
+
+.transitionPreviewer_app ::-webkit-scrollbar-thumb {
+  background-color: hsl(240, 100%, 35%);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+.transitionPreviewer_app .control_options {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.transitionPreviewer_app .control-group span {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.transitionPreviewer_app .control {
+  width: 45%;
+}
+
+.transitionPreviewer_app .control label {
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.transitionPreviewer_app .control label span {
+  font-weight: 500;
+  font-size: 13px;
+  color: #000 !important;
+}
+
+.transitionPreviewer_app .control input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+}
+
+.transitionPreviewer_app .control select {
+  width: 100%;
+  border-radius: 0.25rem;
+  padding-block: 0.2rem;
+  cursor: pointer;
+  margin-top: 0.1rem;
+}
+
+.transitionPreviewer_app .outpud_code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  padding-inline: 3rem;
+}
+
+.transitionPreviewer_app .card {
+  width: 100%;
+  height: 350px;
+  background-color: #eaeaea;
+  border: 2px dashed #ccc;
+  border-radius: 0.25rem;
+  transition: border-color 0.3s ease;
+}
+
+.card:hover {
+  border-color: #007BFF;
+}
+
+.transitionPreviewer_app .card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50vh;
+}
+
+.transitionPreviewer_app .preview-box {
+  background-color: #fff;
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+.transitionPreviewer_app .code {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.transitionPreviewer_app textarea {
+  width: 97%;
+  height: 150px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: monospace;
+  resize: none;
+}
+
+.transitionPreviewer_app .btn_copy {
+  background-color: hsl(240, 100%, 35%);
+  color: #f5f5f5;
+  padding-inline: 1rem;
+  padding-block: 0.6rem;
+  border: 0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.transitionPreviewer_app .btn_copy:hover {
+  background-color: hsl(16, 100%, 48%);
+}
+
+.transitionPreviewer_app #reset-transition {
+  background-color: hsl(240, 100%, 35%);
+  color: #f5f5f5;
+  padding-inline: 1rem;
+  padding-block: 0.6rem;
+  border: 0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.transitionPreviewer_app #reset-transition:hover {
+  background-color: hsl(16, 100%, 48%);
+}
+
+.transitionPreviewer_app .toggle_div {
+  width: 100%;
+  text-align: end;
+  padding-bottom: 1rem;
+  display: none;
+}
+
+.transitionPreviewer_app .toggle-button {
+  background-color: hsl(240, 100%, 35%);
+  color: #f5f5f5;
+  padding-inline: 0.5rem;
+  padding-block: 0.1rem;
+  border: 0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.transitionPreviewer_app .toggle-button:hover {
+  background-color: hsl(16, 100%, 48%);
+}
+
+@media (max-width: 1204px) {
+
+  .transitionPreviewer_app {
+      width: 90%;
+  }
+
+  .transitionPreviewer_app .outpud_code {
+      padding-inline: 2rem;
+  }
+}
+
+@media (max-width: 1000px) {
+
+  .transitionPreviewer_app {
+      width: 95%;
+  }
+
+  .transitionPreviewer_app .outpud_code {
+      padding-inline: 2rem;
+  }
+}
+
+@media (max-width: 882px) {
+  .transitionPreviewer_app .controls {
+      width: 0;
+      padding: 0;
+      overflow: hidden;
+      display: none;
+      position: fixed;
+      z-index: 1000; 
+      min-height: 83vh;
+  }
+
+  .transitionPreviewer_app .controls.active {
+      width: 50%;
+      display: flex;
+      padding: 1rem;
+      padding-right: 2rem;
+      overflow: auto;
+  }
+
+  .transitionPreviewer_app .toggle_div {
+      display: block;
+  }
+
+  .transitionPreviewer_app .controls label {
+      font-size: 13px;
+  }
+
+  .transitionPreviewer_app .controls label span{
+      font-size: 13px;
+  }
+
+  .transitionPreviewer_app .outpud_code {
+      width: 100%;
+  }
+
+  .transitionPreviewer_app [type="range"] {
+      height: 0.3rem;
+  }
+  
+  .transitionPreviewer_app [type="range"]::-webkit-slider-thumb {
+      width: 0.5rem;
+      height: 0.5rem;
+  }
+  
+  .transitionPreviewer_app [type="range"]::-moz-range-thumb {
+      width: 0.8rem;
+      height: 0.8rem;
+  }
+  
+}
+
+@media (max-width: 650px) {
+  .transitionPreviewer_app {
+      width: 100%;
+  }
+
+  .transitionPreviewer_app .controls.active {
+      width: 70%;
+      padding: 0.5rem;
+      padding-right: 2rem;
+  }
+}
+
+@media (max-width: 427px) {
+
+  .transitionPreviewer_app .controls.active {
+      width: 60%;
+  }
+
+  
+  .transitionPreviewer_app .control {
+      width: 100%;
+  }
+}

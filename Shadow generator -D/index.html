@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" class="shadow-generator">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Box Shadow Generator</title>
+    <link rel="stylesheet" href="./index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced Box Shadow Generator</h1>
+        <div class="app-wrapper">
+            <div class="controls">
+                <div class="control-group">
+                    <label for="hOffset">Horizontal Offset: <span id="hOffsetValue">0px</span></label>
+                    <input type="range" id="hOffset" min="-50" max="50" value="0">
+                </div>
+                <div class="control-group">
+                    <label for="vOffset">Vertical Offset: <span id="vOffsetValue">0px</span></label>
+                    <input type="range" id="vOffset" min="-50" max="50" value="0">
+                </div>
+                <div class="control-group">
+                    <label for="blurRadius">Blur Radius: <span id="blurRadiusValue">0px</span></label>
+                    <input type="range" id="blurRadius" min="0" max="100" value="0">
+                </div>
+                <div class="control-group">
+                    <label for="spreadRadius">Spread Radius: <span id="spreadRadiusValue">0px</span></label>
+                    <input type="range" id="spreadRadius" min="-50" max="50" value="0">
+                </div>
+                <div class="control-group">
+                    <label for="shadowColor">Shadow Color:</label>
+                    <input type="color" id="shadowColor" value="#000000">
+                </div>
+                <div class="control-group">
+                    <label for="opacity">Opacity: <span id="opacityValue">100%</span></label>
+                    <input type="range" id="opacity" min="0" max="100" value="100">
+                </div>
+                <div class="control-group checkbox">
+                    <label for="inset">
+                        <input type="checkbox" id="inset">
+                        Inset Shadow
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label for="backgroundColor">Background Color:</label>
+                    <input type="color" id="backgroundColor" value="#ffffff">
+                </div>
+                <div class="control-group">
+                    <label for="borderRadius">Border Radius: <span id="borderRadiusValue">0px</span></label>
+                    <input type="range" id="borderRadius" min="0" max="50" value="0">
+                </div>
+                <div class="control-group checkbox">
+                    <label for="multiple">
+                        <input type="checkbox" id="multiple">
+                        Multiple Shadows
+                    </label>
+                </div>
+                <div class="control-group" id="secondColorGroup">
+                    <label for="secondShadowColor">Second Shadow Color:</label>
+                    <input type="color" id="secondShadowColor" value="#000000">
+                </div>
+            </div>
+            <div class="preview-section">
+                <div class="preview-box">
+                    <div id="preview" class="preview-rectangle"></div>
+                </div>
+                <div class="code-output">
+                    <textarea id="cssOutput" readonly></textarea>
+                    <button id="copy-css">Copy CSS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>

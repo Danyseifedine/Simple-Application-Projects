@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="navbar-generator">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <title>Advanced Navbar Generator</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Navbar Generator</h1>
+        <div id="navbar-preview">
+            <button id="preview-btn" style="margin-bottom: 10px;" class="btn btn-primary">Preview in New Tab</button>
+            <div id="navbar-container"></div>
+        </div>
+
+        <div id="generator-container">
+            <div class="tabs">
+                <button class="tab-btn" data-tab="general">General</button>
+                <button class="tab-btn" data-tab="spacing">Spacing</button>
+                <button class="tab-btn" data-tab="colors">Colors</button>
+                <button class="tab-btn" data-tab="border">Border</button>
+                <button class="tab-btn" data-tab="container">Container</button>
+                <button class="tab-btn" data-tab="positioning">Positioning</button>
+                <button class="tab-btn" data-tab="hover">Hover</button>
+                <button class="tab-btn" data-tab="animation">Animation</button>
+                <button class="tab-btn" data-tab="items">Menu Items</button>
+                <button class="tab-btn" data-tab="responsive">Responsive</button>
+            </div>
+
+            <div id="responsive" class="tab-content">
+                <h2>Responsive Settings</h2>
+                <div>
+                    <label for="burger-breakpoint">Burger Menu Breakpoint (px):</label>
+                    <input type="number" id="burger-breakpoint" min="300" max="1200" value="768">
+                </div>
+                <div>
+                    <label for="burger-color">Burger Icon Color:</label>
+                    <input type="color" id="burger-color" value="#ffffff">
+                </div>
+            </div>
+
+            <div id="general" class="tab-content active">
+                <h2>General Settings</h2>
+                <div class="input-group">
+                    <label for="brand-name">Brand Name:</label>
+                    <input type="text" id="brand-name" name="brand-name" placeholder="Enter brand name">
+                </div>
+                <div class="input-group">
+                    <label for="font-family">Font Family:</label>
+                    <select id="font-family">
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="Helvetica, sans-serif">Helvetica</option>
+                        <option value="Verdana, sans-serif">Verdana</option>
+                        <option value="Tahoma, sans-serif">Tahoma</option>
+                        <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="Georgia, serif">Georgia</option>
+                        <option value="'Palatino Linotype', serif">Palatino Linotype</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Lucida Console', monospace">Lucida Console</option>
+                    </select>
+                </div>
+                <div id="output-container">
+                    <h3>Generated HTML</h3>
+                    <pre id="output-html"></pre>
+                    <h3>Generated CSS</h3>
+                    <pre id="output-css"></pre>
+                    <h3>Generated JavaScript</h3>
+                    <pre id="output-js"></pre>
+                </div>
+            </div>
+
+            <div id="spacing" class="tab-content">
+                <h2>Spacing Settings</h2>
+                <h3>Navbar Padding</h3>
+                <div class="input-group">
+                    <label for="navbar-padding-top">Top (px):</label>
+                    <input type="number" id="navbar-padding-top" value="10" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-padding-right">Right (px):</label>
+                    <input type="number" id="navbar-padding-right" value="20" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-padding-bottom">Bottom (px):</label>
+                    <input type="number" id="navbar-padding-bottom" value="10" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-padding-left">Left (px):</label>
+                    <input type="number" id="navbar-padding-left" value="20" min="0" max="100">
+                </div>
+                <h3>Navbar Margin</h3>
+                <div class="input-group">
+                    <label for="navbar-margin-top">Top (px):</label>
+                    <input type="number" id="navbar-margin-top" value="0" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-margin-right">Right (px):</label>
+                    <input type="number" id="navbar-margin-right" value="0" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-margin-bottom">Bottom (px):</label>
+                    <input type="number" id="navbar-margin-bottom" value="0" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-margin-left">Left (px):</label>
+                    <input type="number" id="navbar-margin-left" value="0" min="0" max="100">
+                </div>
+                <h3>Menu Items Spacing</h3>
+                <div class="input-group">
+                    <label for="menu-item-margin">Margin between items (px):</label>
+                    <input type="number" id="menu-item-margin" value="10" min="0" max="100">
+                </div>
+                <div class="input-group">
+                    <label for="menu-item-padding">Padding for items (px):</label>
+                    <input type="number" id="menu-item-padding" value="5" min="0" max="50">
+                </div>
+            </div>
+
+            <div id="colors" class="tab-content">
+                <h2>Color Settings</h2>
+                <div class="input-group">
+                    <label for="navbar-bg-color">Navbar Background Color:</label>
+                    <input type="color" id="navbar-bg-color" value="#3498db">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-gradient">Use Gradient:</label>
+                    <input type="checkbox" id="navbar-gradient">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-gradient-color">Gradient End Color:</label>
+                    <input type="color" id="navbar-gradient-color" value="#2980b9">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-text-color">Navbar Text Color:</label>
+                    <input type="color" id="navbar-text-color" value="#ffffff">
+                </div>
+                <div class="input-group">
+                    <label for="menu-item-color">Menu Item Color:</label>
+                    <input type="color" id="menu-item-color" value="#ffffff">
+                </div>
+            </div>
+
+            <div id="border" class="tab-content">
+                <h2>Border Settings</h2>
+                <div class="input-group">
+                    <label for="navbar-border-width">Border Width (px):</label>
+                    <input type="number" id="navbar-border-width" value="0" min="0" max="10">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-border-color">Border Color:</label>
+                    <input type="color" id="navbar-border-color" value="#000000">
+                </div>
+                <div class="input-group">
+                    <label for="navbar-border-radius">Border Radius (px):</label>
+                    <input type="number" id="navbar-border-radius" value="0" min="0" max="50">
+                </div>
+            </div>
+
+            <div id="container" class="tab-content">
+                <h2>Container Settings</h2>
+                <div class="input-group">
+                    <label for="container-width">Width:</label>
+                    <input type="text" id="container-width" value="100%" placeholder="e.g., 1200px or 80%">
+                </div>
+            </div>
+
+            <div id="positioning" class="tab-content">
+                <h2>Positioning Settings</h2>
+                <div class="input-group">
+                    <label for="brand-position">Brand Position:</label>
+                    <select id="brand-position">
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="menu-position">Menu Position:</label>
+                    <select id="menu-position">
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="navbar-content-justify">Justify Content:</label>
+                    <select id="navbar-content-justify">
+                        <option value="space-between">Space Between</option>
+                        <option value="flex-start">Start</option>
+                        <option value="center">Center</option>
+                        <option value="flex-end">End</option>
+                        <option value="space-around">Space Around</option>
+                        <option value="space-evenly">Space Evenly</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="navbar-content-align">Align Items:</label>
+                    <select id="navbar-content-align">
+                        <option value="center">Center</option>
+                        <option value="flex-start">Start</option>
+                        <option value="flex-end">End</option>
+                        <option value="stretch">Stretch</option>
+                        <option value="baseline">Baseline</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="hover" class="tab-content">
+                <h2>Hover Effects</h2>
+                <div>
+                    <label for="hover-type">Hover Type:</label>
+                    <select id="hover-type">
+                        <option value="none">None</option>
+                        <option value="underline">Underline</option>
+                        <option value="overline">Overline</option>
+                        <option value="background">Background Color</option>
+                        <option value="text-color">Text Color</option>
+                        <option value="border-bottom">Border Bottom</option>
+                        <option value="border-top">Border Top</option>
+                        <option value="blur">Blur</option>
+                        <option value="glow">Glow</option>
+                        <option value="shadow">Text Shadow</option>
+                        <option value="outline">Outline</option>
+                        <option value="neon">Neon</option>
+                        <option value="gradient">Gradient</option>
+                        <option value="slide-bg">Slide Background</option>
+                        <option value="shutter">Shutter Effect</option>
+                        <option value="bubble">Bubble Effect</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="hover-duration">Animation Duration (s):</label>
+                    <input type="number" id="hover-duration" min="0.1" max="2" step="0.1" value="0.3">
+                </div>
+                <div>
+                    <label for="hover-timing-function">Timing Function:</label>
+                    <select id="hover-timing-function">
+                        <option value="ease">Ease</option>
+                        <option value="linear">Linear</option>
+                        <option value="ease-in">Ease In</option>
+                        <option value="ease-out">Ease Out</option>
+                        <option value="ease-in-out">Ease In Out</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="animation" class="tab-content">
+                <h2>Animation Settings</h2>
+                <div class="input-group">
+                    <label for="navbar-animation">Navbar Animation:</label>
+                    <select id="navbar-animation">
+                        <option value="none">None</option>
+                        <option value="fade-in">Fade In</option>
+                        <option value="slide-down">Slide Down</option>
+                        <option value="slide-up">Slide Up</option>
+                        <option value="slide-left">Slide Left</option>
+                        <option value="slide-right">Slide Right</option>
+                        <option value="zoom-in">Zoom In</option>
+                        <option value="bounce">Bounce</option>
+                        <option value="rotate">Rotate</option>
+                        <option value="flip">Flip</option>
+                        <option value="swing">Swing</option>
+                        <option value="elastic">Elastic</option>
+                        <option value="jello">Jello</option>
+                        <option value="rubberBand">Rubber Band</option>
+                        <option value="lightSpeedIn">Light Speed In</option>
+                        <option value="rollIn">Roll In</option>
+                        <option value="zoomInRotate">Zoom In Rotate</option>
+                        <option value="slideExpandUp">Slide Expand Up</option>
+                        <option value="bounceInRotate">Bounce In Rotate</option>
+                        <option value="flipInX">Flip In X</option>
+                        <option value="flipInY">Flip In Y</option>
+                        <option value="glitchAppear">Glitch Appear</option>
+                        <option value="neonPulse">Neon Pulse</option>
+                        <option value="liquidReveal">Liquid Reveal</option>
+                        <option value="explosionIn">Explosion In</option>
+                        <option value="bounceStretch">Bounce Stretch</option>
+                        <option value="spiralIn">Spiral In</option>
+                        <option value="paintDrip">Paint Drip</option>
+                        <option value="electricSlide">Electric Slide</option>
+                        <option value="dimensionalRift">Dimensional Rift</option>
+                    </select>
+                </div>
+                <div id="animation-options" style="display: none;">
+                    <div class="input-group">
+                        <label for="animation-duration">Duration (s):</label>
+                        <input type="number" id="animation-duration" min="0.1" max="10" step="0.1" value="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="animation-delay">Delay (s):</label>
+                        <input type="number" id="animation-delay" min="0" max="10" step="0.1" value="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="animation-iteration-count">Iteration Count:</label>
+                        <input type="number" id="animation-iteration-count" min="1" max="infinite" value="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="animation-timing-function">Timing Function:</label>
+                        <select id="animation-timing-function">
+                            <option value="ease">Ease</option>
+                            <option value="linear">Linear</option>
+                            <option value="ease-in">Ease In</option>
+                            <option value="ease-out">Ease Out</option>
+                            <option value="ease-in-out">Ease In Out</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="items" class="tab-content">
+                <h2>Menu Items</h2>
+                <div id="menu-items-container">
+                    <div id="left-items" class="item-section">
+                        <h3>Left Items</h3>
+                        <div class="items-list"></div>
+                    </div>
+                    <div id="center-items" class="item-section">
+                        <h3>Center Items</h3>
+                        <div class="items-list"></div>
+                    </div>
+                    <div id="right-items" class="item-section">
+                        <h3>Right Items</h3>
+                        <div class="items-list"></div>
+                    </div>
+                </div>
+                <div class="add-item-controls">
+                    <input type="text" id="new-item-name" placeholder="Item Name">
+                    <input type="text" id="new-item-link" placeholder="Item Link">
+                    <select id="new-item-position">
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                    </select>
+                    <button id="add-item-btn"><i class="fas fa-plus"></i> Add Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="index.js"></script>
+
+</html>

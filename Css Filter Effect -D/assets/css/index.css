@@ -1,0 +1,355 @@
+body {
+    width: 100%;
+    height: 100%;
+    --color: #E1E1E1;
+    background-color: #f5f5f5;
+    background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+    background-size: 30px 30px;
+    background-position: -5px -5px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.filterEffect_app {
+    width: 70%;
+}
+
+.filterEffect_app h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 24px;
+}
+
+.filterEffect_app .box {
+    display: flex;
+    gap: 1rem;
+}
+
+.filterEffect_app .app_content {
+    display: flex;
+    width: 100%;
+}
+
+.filterEffect_app [type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 0.4rem;
+    background: #E1E1E1;
+    outline: none;
+    border-radius: 0.25rem;
+}
+
+.filterEffect_app [type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: hsl(240, 100%, 35%);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.filterEffect_app [type="range"]::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: hsl(240, 100%, 35%);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.filterEffect_app .controls {
+    width: 40%;
+    max-height: 80vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding-block: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 2rem;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+    padding-right: 2rem;
+    padding-left: 0.5rem;
+}
+
+.filterEffect_app ::-webkit-scrollbar {
+    width: 4px;
+}
+
+.filterEffect_app ::-webkit-scrollbar-thumb {
+    background-color: hsl(240, 100%, 35%);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+.filterEffect_app .control_options {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.filterEffect_app .control-group span {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.filterEffect_app .control {
+    width: 45%;
+}
+
+.filterEffect_app .control label {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.filterEffect_app .control label span {
+    font-weight: 500;
+    font-size: 13px;
+    color: #000 !important;
+}
+
+.filterEffect_app .control input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+}
+
+.filterEffect_app .control select {
+    width: 100%;
+    border-radius: 0.25rem;
+    padding-block: 0.2rem;
+    cursor: pointer;
+    margin-top: 0.1rem;
+}
+
+.filterEffect_app .outpud_code {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    padding-inline: 3rem;
+}
+
+.filterEffect_app .card {
+    width: 100%;
+    height: 350px;
+    background-color: #eaeaea;
+    border: 2px dashed #ccc;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.3s ease;
+}
+
+.card:hover {
+    border-color: #007BFF;
+}
+
+.filterEffect_app .card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 10px;
+}
+
+.filterEffect_app .card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.filterEffect_app .card-content h3 {
+    text-align: center;
+    margin: 0;
+    color: #aaa;
+    font-size: 18px;
+}
+
+.filterEffect_app .code {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.filterEffect_app textarea {
+    width: 97%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: monospace;
+    resize: none;
+}
+
+.filterEffect_app .btn_copy {
+    background-color: hsl(240, 100%, 35%);
+    color: #f5f5f5;
+    padding-inline: 1rem;
+    padding-block: 0.6rem;
+    border: 0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.filterEffect_app .btn_copy:hover {
+    background-color: hsl(16, 100%, 48%);
+}
+
+.filterEffect_app #downloadButton {
+    background-color: hsl(240, 100%, 35%);
+    color: #f5f5f5;
+    padding-inline: 1rem;
+    padding-block: 0.6rem;
+    border: 0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.filterEffect_app #downloadButton:hover {
+    background-color: hsl(16, 100%, 48%);
+}
+
+.filterEffect_app .toggle_div {
+    width: 100%;
+    text-align: end;
+    padding-bottom: 1rem;
+    display: none;
+}
+
+.filterEffect_app .toggle-button {
+    background-color: hsl(240, 100%, 35%);
+    color: #f5f5f5;
+    padding-inline: 0.5rem;
+    padding-block: 0.1rem;
+    border: 0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.filterEffect_app .toggle-button:hover {
+    background-color: hsl(16, 100%, 48%);
+}
+
+@media (max-width: 1204px) {
+
+    .filterEffect_app {
+        width: 90%;
+    }
+
+    .filterEffect_app .outpud_code {
+        padding-inline: 2rem;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    .filterEffect_app {
+        width: 95%;
+    }
+
+    .filterEffect_app .outpud_code {
+        padding-inline: 2rem;
+    }
+}
+
+@media (max-width: 882px) {
+    .filterEffect_app .controls {
+        width: 0;
+        padding: 0;
+        overflow: hidden;
+        display: none;
+        position: fixed;
+        z-index: 1000; 
+        min-height: 83vh;
+    }
+
+    .filterEffect_app .controls.active {
+        width: 50%;
+        display: flex;
+        padding: 1rem;
+        padding-right: 2rem;
+        overflow: auto;
+    }
+
+    .filterEffect_app .toggle_div {
+        display: block;
+    }
+
+    .filterEffect_app .controls label {
+        font-size: 13px;
+    }
+
+    .filterEffect_app .controls label span{
+        font-size: 13px;
+    }
+
+    .filterEffect_app .outpud_code {
+        width: 100%;
+    }
+
+    .filterEffect_app [type="range"] {
+        height: 0.3rem;
+    }
+    
+    .filterEffect_app [type="range"]::-webkit-slider-thumb {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+    
+    .filterEffect_app [type="range"]::-moz-range-thumb {
+        width: 0.8rem;
+        height: 0.8rem;
+    }
+    
+}
+
+@media (max-width: 650px) {
+    .filterEffect_app {
+        width: 100%;
+    }
+
+    .filterEffect_app .controls.active {
+        width: 70%;
+        padding: 0.5rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (max-width: 427px) {
+
+    .filterEffect_app .controls.active {
+        width: 60%;
+    }
+
+    
+    .filterEffect_app .control {
+        width: 100%;
+    }
+}

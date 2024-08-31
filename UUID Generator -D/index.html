@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced UUID Generator</title>
+    <style>
+        body {
+            width: 100%;
+            background-color: #f5f5f5;
+            background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #34495e;
+        }
+        input, select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex-grow: 1;
+            font-size: 0.9rem;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #output {
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            padding: 1rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced UUID Generator</h1>
+        
+        <div class="input-group">
+            <label for="uuidCount">Number of UUIDs:</label>
+            <input type="number" id="uuidCount" min="1" max="100" value="1" placeholder="Enter number of UUIDs">
+        </div>
+        
+        <div class="input-group">
+            <label for="customPattern">Custom Pattern:</label>
+            <input type="text" id="customPattern" placeholder="e.g., xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx">
+        </div>
+        
+        <div class="input-group">
+            <label for="uuidToValidate">UUID to Validate:</label>
+            <input type="text" id="uuidToValidate" placeholder="Enter UUID to validate">
+        </div>
+        
+        <div class="input-group">
+            <label for="uuidToDecode">UUID to Decode:</label>
+            <input type="text" id="uuidToDecode" placeholder="Enter UUID to decode">
+        </div>
+        
+        <div class="input-group">
+            <label for="uuidFormat">UUID Format:</label>
+            <select id="uuidFormat">
+                <option value="standard">Standard</option>
+                <option value="hex">Hexadecimal</option>
+                <option value="base64">Base64</option>
+            </select>
+        </div>
+        
+        <div class="button-group">
+            <!-- <button onclick="generateUUID()" style="display: none;">Generate UUID</button> -->
+            <button onclick="generateMultipleUUIDs()">Generate UUIDs</button>
+            <button onclick="generateCustomUUID()">Generate Custom UUID</button>
+            <button onclick="validateUUID()">Validate UUID</button>
+            <button onclick="decodeUUID()">Decode UUID</button>
+            <button onclick="convertUUID()">Convert UUID Format</button>
+            <button onclick="copyToClipboard()">Copy to Clipboard</button>
+            <button onclick="clearOutput()">Clear Output</button>
+        </div>
+        
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function generateUUID() {
+            const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+            return uuid;
+        }
+
+        function generateMultipleUUIDs() {
+            const count = parseInt(document.getElementById('uuidCount').value);
+            let uuids = [];
+            for (let i = 0; i < count; i++) {
+                uuids.push(generateUUID());
+            }
+            displayOutput(uuids.join('\n'));
+        }
+
+        function generateCustomUUID() {
+            const pattern = document.getElementById('customPattern').value || 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
+            const uuid = pattern.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+            displayOutput(uuid);
+        }
+
+        function validateUUID() {
+            const uuid = document.getElementById('uuidToValidate').value;
+            const regex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+            const isValid = regex.test(uuid);
+            displayOutput(isValid ? 'Valid UUID' : 'Invalid UUID');
+        }
+
+        function decodeUUID() {
+            const uuid = document.getElementById('uuidToDecode').value;
+            const parts = uuid.split('-');
+            const version = parseInt(parts[2].charAt(0), 16);
+            const variant = (parseInt(parts[3].charAt(0), 16) >> 2).toString(2).padStart(2, '0');
+            displayOutput(`Version: ${version}\nVariant: ${variant}`);
+        }
+
+        function convertUUID() {
+            const uuid = document.getElementById('uuidToDecode').value.replace(/-/g, '');
+            const format = document.getElementById('uuidFormat').value;
+            let result;
+            switch (format) {
+                case 'hex':
+                    result = uuid;
+                    break;
+                case 'base64':
+                    result = btoa(uuid.match(/\w{2}/g).map(function(a) {
+                        return String.fromCharCode(parseInt(a, 16));
+                    }).join("")).replace(/=/g, '');
+                    break;
+                default:
+                    result = uuid.replace(/(\w{8})(\w{4})(\w{4})(\w{4})(\w{12})/, '$1-$2-$3-$4-$5');
+            }
+            displayOutput(result);
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            const textarea = document.createElement('textarea');
+            textarea.value = output.textContent;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Copied to clipboard!');
+        }
+
+        function clearOutput() {
+            document.getElementById('output').textContent = '';
+        }
+
+        function displayOutput(content) {
+            document.getElementById('output').textContent = content;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" class="path-generator">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Clip Path Generator</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Clip Path Generator</h1>
+        <div class="controls">
+            <select id="shape-selector">
+                <option value="rectangle">Rectangle</option>
+                <option value="triangle">Triangle</option>
+                <option value="circle">Custom</option>
+            </select>
+            <button id="generate-random-shape">Generate Random Shape</button>
+            <button id="add-point">Add Point</button>
+            <h4 for="color-picker">Gradient Start:</h4>
+            <input type="color" id="color-picker" value="#3498db">
+            <h4 for="gradient-color-picker">Gradient End:</h4>
+            <input type="color" id="gradient-color-picker" value="#000">
+            <h4 for="opacity-slider">Opacity:</h4>
+            <input type="range" id="opacity-slider" min="0" max="1" step="0.01" value="1">
+        </div>
+
+        <div class="preview-container">
+            <svg id="svg-preview" width="300" height="300">
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#3498db" />
+                        <stop offset="100%" stop-color="#ffffff" />
+                    </linearGradient>
+                </defs>
+                <path id="path" d="M50,50 L250,50 L250,250 L50,250 Z" fill="url(#gradient)" />
+            </svg>
+        </div>
+        <div class="css-code">
+            <h4>Generated CSS</h4>
+            <pre id="generated-css"></pre>
+        </div>
+        <button id="copy-button">Copy CSS</button>
+        <button id="download-button">Download SVG</button>
+        <div id="download-modal" class="modal">
+            <div class="modal-content">
+                <h3>Specify SVG Size</h3>
+                <label for="svg-width">Width:</label>
+                <input type="number" id="svg-width" value="300" min="1">
+                <label for="svg-height">Height:</label>
+                <input type="number" id="svg-height" value="300" min="1">
+                <div class="button-group">
+                    <button id="confirm-download">Download</button>
+                    <button id="cancel-download">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Powered by Lebify | Dany Seifeddine</p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/simplex-noise@2.4.0/simplex-noise.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Filter Effects</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+<body>
+
+    <div class="filterEffect_app">
+        <h1>CSS Filter Effects</h1>
+
+        <div class="box">
+            <div class="app_content">
+
+                <div class="controls">
+
+                    <div class="control-group">
+                        <span>Basic Filters</span>
+                        <div class="control_options">
+                            <div class="control">
+                                <label for="blur">Blur: <span id="blurValue" class="range-value"></span></label>
+                                <input type="range" id="blur" name="blur" min="0" max="10" step="0.1" value="0">
+                            </div>
+                            <div class="control">
+                                <label for="brightness">Brightness: <span id="brightnessValue" class="range-value"></span></label>
+                                <input type="range" id="brightness" name="brightness" min="0" max="2" step="0.1" value="1">
+                            </div>
+                            <div class="control">
+                                <label for="contrast">Contrast: <span id="contrastValue" class="range-value"></span></label>
+                                <input type="range" id="contrast" name="contrast" min="0" max="2" step="0.1" value="1">
+                            </div>
+                            <div class="control">
+                                <label for="grayscale">Grayscale: <span id="grayscaleValue" class="range-value"></span></label>
+                                <input type="range" id="grayscale" name="grayscale" min="0" max="1" step="0.1">
+                            </div>
+                            <div class="control">
+                                <label for="saturation">Saturation: <span id="saturationValue" class="range-value"></span></label>
+                                <input type="range" id="saturation" name="saturation" min="0" max="2" step="0.1" value="1">
+                            </div>
+                            <div class="control">
+                                <label for="hue-rotate">Hue Rotate: <span id="hueRotateValue" class="range-value"></span></label>
+                                <input type="range" id="hue-rotate" name="hue-rotate" min="0" max="360" step="1">
+                            </div>
+                            <div class="control">
+                                <label for="sepia">Sepia: <span id="sepiaValue" class="range-value"></span></label>
+                                <input type="range" id="sepia" name="sepia" min="0" max="1" step="0.1">
+                            </div>
+                            <div class="control">
+                                <label for="opacity">Opacity: <span id="opacityValue" class="range-value"></span></label>
+                                <input type="range" id="opacity" name="opacity" min="0" max="1" step="0.1" value="1">
+                            </div>
+                            <div class="control" style="display: flex; align-items: center; gap: 0.1rem;">
+                                <input type="checkbox" id="invert" name="invert" style="cursor: pointer;">
+                                <label for="invert" style="cursor: pointer;">Invert</label>
+                            </div>
+                            <div class="control" style="display: flex; align-items: center; gap: 0.1rem; flex-wrap: wrap;">
+                                <label for="clip-path">Clip Path:</label>
+                                <select id="clip-path" name="clip-path">
+                                    <option value="none">None</option>
+                                    <option value="circle(50%)">Circle</option>
+                                    <option value="ellipse(50% 25%)">Ellipse</option>
+                                    <option value="polygon(50% 0%, 100% 100%, 0% 100%)">Triangle</option>
+                                    <option value="inset(10%)">Inset</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <span>Drop Shadow</span>
+                        <div class="control_options">
+                            <div class="control">
+                                <label for="drop-shadow-x">X Offset: <span id="dropShadowXValue" class="range-value"></span></label>
+                                <input type="range" id="drop-shadow-x" name="drop-shadow-x" min="-20" max="20" step="1" value="0">
+                            </div>
+                            <div class="control">
+                                <label for="drop-shadow-y">Y Offset: <span id="dropShadowYValue" class="range-value"></span></label>
+                                <input type="range" id="drop-shadow-y" name="drop-shadow-y" min="-20" max="20" step="1" value="0">
+                            </div>
+                            <div class="control">
+                                <label for="drop-shadow-blur">Blur: <span id="dropShadowBlurValue" class="range-value"></span></label>
+                                <input type="range" id="drop-shadow-blur" name="drop-shadow-blur" min="0" max="30" step="1">
+                            </div>
+                            <div class="control">
+                                <label for="drop-shadow-color">Color:</label>
+                                <input type="color" id="drop-shadow-color" name="drop-shadow-color" value="#000000"
+                                 style="width: 100%; padding: 0; border: 0; outline: 0; margin-top: 0.3rem; cursor: pointer;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <span>Transform</span>
+                        <div class="control_options">
+                            <div class="control">
+                                <label for="rotate">Rotate: <span class="range-value"></span></label>
+                                <input type="range" id="rotate" name="rotate" min="0" max="360" step="1" value="0">
+                            </div>
+                            <div class="control">
+                                <label for="scale">Scale: <span class="range-value"></span></label>
+                                <input type="range" id="scale" name="scale" min="0.5" max="2" step="0.1" value="1">
+                            </div>
+                            <div class="control">
+                                <label for="translate-x">Translate X: <span class="range-value"></span></label>
+                                <input type="range" id="translate-x" name="translate-x" min="-100" max="100" step="1">
+                            </div>
+                            <div class="control">
+                                <label for="translate-y">Translate Y: <span class="range-value"></span></label>
+                                <input type="range" id="translate-y" name="translate-y" min="-100" max="100" step="1">
+                            </div>
+                            <div class="control">
+                                <label for="skew-x">Skew X: <span id="skewXValue" class="range-value"></span></label>
+                                <input type="range" id="skew-x" name="skew-x" min="-360" max="360" step="1" value="0">
+                            </div>
+                            <div class="control">
+                                <label for="skew-y">Skew Y: <span id="skewYValue" class="range-value"></span></label>
+                                <input type="range" id="skew-y" name="skew-y" min="-360" max="360" step="1" value="0">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <span>Image Dimensions</span>
+                        <div class="control_options">
+                            <div class="control">
+                                <label for="border-radius">Border Radius: <span class="range-value"></span></label>
+                                <input type="range" id="border-radius" name="border-radius" min="0" max="100" step="1" value="0">
+                            </div>
+                            <div class="control">
+                                <label for="width">Width: <span class="range-value"></span></label>
+                                <input type="range" id="width" name="width" min="0" max="100" step="1" value="100">
+                            </div>
+                            <div class="control">
+                                <label for="height">Height: <span class="range-value"></span></label>
+                                <input type="range" id="height" name="height" min="0" max="100" step="1" value="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+                <div class="outpud_code">
+    
+                    <div class="toggle_div">
+                        <button class="toggle-button">☰</button>
+                    </div>
+
+                    <div class="card">
+                        <img id="preview" src="default-image.png" class="card-image" style="display: none;">
+                        <div class="output_card" onclick="document.getElementById('fileInput').click();">
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;"
+                                onchange="previewImage(event)">
+                            <div class="card-content">
+                                <h3 id="placeholder">Click to upload an image</h3>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="code" style="text-align: end;">
+                        <textarea id="textarea_code"></textarea>
+                        <button type="button" class="btn_copy" id="copy-css">Copy Code</button>
+                        <button type="button" id="downloadButton">Download image</button>
+                    </div>
+
+                </div>
+
+            </div>
+    
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+
+<script src="./assets/js/index.js"></script>
+
+</html>

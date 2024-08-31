@@ -1,0 +1,9 @@
+The Smart Discount Calculator is a user-friendly web application designed to help shoppers and businesses calculate discounts quickly and accurately. It offers a range of features to accommodate various discount scenarios, from simple percentage reductions to complex bulk pricing. With its intuitive interface and comprehensive functionality, it's an essential tool for savvy consumers and retail managers alike.
+Key Features:
+Multi-currency support (USD, EUR, GBP)
+Flexible discount types (percentage or fixed amount)
+Coupon code integration for additional discounts
+Loyalty points system for further savings
+Tax calculation option for more accurate pricing
+Bulk discount table for quantity-based pricing
+Price comparison display showing original vs. discounted totals

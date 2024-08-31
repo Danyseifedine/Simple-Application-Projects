@@ -1,0 +1,10 @@
+The Time Calculator is a versatile web application designed to simplify time-based calculations. It offers an intuitive interface for adding or subtracting time from a given start time, as well as calculating the difference between two time points. With its clean design and user-friendly features, this tool is perfect for both personal and professional use in managing schedules, planning events, or tracking time intervals.
+
+
+Add/Subtract Time: Easily add or subtract hours and minutes from a specified start time.
+Time Difference Calculator: Compute the duration between two given time points.
+24-Hour Format Support: All calculations and results are presented in the 24-hour time format for precision and clarity.
+Tabbed Interface: Switch seamlessly between different calculation modes using the intuitive tab-based navigation.
+Responsive Design: The app is fully responsive, ensuring a consistent experience across desktop and mobile devices.
+Input Validation: Built-in error checking prevents invalid inputs and provides user feedback for accurate calculations.
+Instant Results: Calculations are performed and displayed immediately, allowing for quick time management decisions.

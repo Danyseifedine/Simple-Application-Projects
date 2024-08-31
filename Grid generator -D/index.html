@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="grid-generator">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS Grid Layout Generator</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <div id="grid-preview">
+        <!-- Preview of the grid layout -->
+    </div>
+
+    <div id="sidebar" class="open">
+
+        <div id="grid-controls">
+
+            <label for="rows">Rows:</label>
+
+            <input type="number" id="rows" value="2">
+
+            <label for="columns">Columns:</label>
+
+            <input type="number" id="columns" value="2">
+
+            <label for="row-gap">Row Gap:</label>
+
+            <input type="number" id="row-gap" value="10">
+
+            <label for="column-gap">Column Gap:</label>
+
+            <input type="number" id="column-gap" value="10">
+
+            <button id="generate-grid">Generate Grid</button>
+        </div>
+
+
+        <div id="framework-buttons">
+            <button id="show-css">Show CSS</button>
+
+            <button id="show-tailwind">Show Tailwind</button>
+
+            <button id="show-responsive">Show Responsive CSS</button>
+
+        </div>
+
+
+        <div id="bottom-buttons">
+
+            <button id="save-config">Save Configuration</button>
+
+            <button id="load-config">Load Configuration</button>
+
+        </div>
+    </div>
+
+
+    <button id="toggle-sidebar">☰</button>
+
+
+    <!-- Modal Structure -->
+
+    <div id="css-modal" class="modal">
+
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <h3 id="modal-title">Generated CSS:</h3>
+
+            <pre id="css-output"></pre>
+
+            <button id="copy-css">Copy CSS</button>
+
+            <button id="export-css">Export CSS</button>
+
+            <button id="export-json">Export to JSON</button>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+
+    <!-- Powered by Lebify -->
+    <div class="footer">
+
+        Powered by Lebify | Dany seifeddine
+
+    </div>
+</body>
+
+</html>

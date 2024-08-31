@@ -1,0 +1,28 @@
+### Description:
+This QR Code Generator is a versatile web application that allows 
+users to create customized QR codes quickly and easily. It offers 
+a clean, user-friendly interface with options to generate QR codes 
+for various purposes such as plain text, URLs, email addresses, 
+and phone numbers. The app provides flexibility in QR code 
+appearance, including size and color customization, as well 
+as error correction level selection. With built-in history 
+functionality, users can keep track of and redownload their 
+previously generated QR codes. The responsive design ensures a 
+seamless experience across different devices.
+
+###Features of the QR Code Generator app:
+1. Multiple QR code types: Plain text, URL, Email, Phone number
+2. Customizable QR code size: Small, Medium, Large
+3. Adjustable error correction levels: Low, Medium, Quartile, High
+4. Color customization for QR codes
+5. One-click QR code generation
+6. Instant QR code preview
+7. Download functionality for generated QR codes
+8. History feature to store recent QR codes
+9. Ability to download QR codes from history
+10. Responsive design for various screen sizes
+11. Clean and intuitive user interface
+12. Real-time QR code updates as options are changed
+13. SVG-based QR code generation for high quality
+14. PNG download option for compatibility
+15. Collapsible history section to save space

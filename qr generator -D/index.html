@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            width: 100%;
+            background-color: #f5f5f5;
+            background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 500px;
+            margin: 2rem 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .form-column {
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        .form-column:last-child {
+            margin-right: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        input[type="color"] {
+            height: 40px;
+            padding: 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #qrcode {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        #qrcode img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #download {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        #download a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .history-container {
+            margin-top: 2rem;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 1rem;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .history-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .history-content.open {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .history-item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .history-item-text {
+            flex-grow: 1;
+            word-break: break-all;
+            margin-right: 1rem;
+            min-width: 0;
+        }
+
+        .history-item-download {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            width: 80px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .history-item-download:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <div class="form-row">
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="qr-type">QR Code Type:</label>
+                    <select id="qr-type">
+                        <option value="text">Plain Text</option>
+                        <option value="url">URL</option>
+                        <option value="email">Email</option>
+                        <option value="phone">Phone Number</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="size">Size:</label>
+                    <select id="size">
+                        <option value="100">Small</option>
+                        <option value="200" selected>Medium</option>
+                        <option value="300">Large</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="error-correction">Error Correction Level:</label>
+                    <select id="error-correction">
+                        <option value="L">Low (7%)</option>
+                        <option value="M" selected>Medium (15%)</option>
+                        <option value="Q">Quartile (25%)</option>
+                        <option value="H">High (30%)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="qr-color">QR Code Color:</label>
+                    <input type="color" id="qr-color" value="#000000">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input">Enter data:</label>
+            <textarea id="input" placeholder="Enter text or URL"></textarea>
+        </div>
+        <button onclick="generateQR()">Generate QR Code</button>
+        <div id="qrcode"></div>
+        <div id="download">
+            <a href="#" download="qrcode.png">Download QR Code</a>
+        </div>
+        <div class="history-container">
+            <div class="history-header" onclick="toggleHistory()">
+                <h2>History</h2>
+                <i id="history-arrow" class="fas fa-chevron-down"></i>
+            </div>
+            <div id="history-content" class="history-content">
+                <div id="history"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let history = JSON.parse(localStorage.getItem('qrHistory')) || [];
+
+        function generateQR() {
+            const type = document.getElementById('qr-type').value;
+            const input = document.getElementById('input').value;
+            const size = parseInt(document.getElementById('size').value);
+            const errorCorrection = document.getElementById('error-correction').value;
+            const color = document.getElementById('qr-color').value;
+
+            let data = input;
+            switch (type) {
+                case 'url':
+                    data = input.startsWith('http') ? input : 'https://' + input;
+                    break;
+                case 'email':
+                    data = 'mailto:' + input;
+                    break;
+                case 'phone':
+                    data = 'tel:' + input;
+                    break;
+            }
+
+            const qrCode = generateQRCodeSVG(data, size, errorCorrection, color);
+
+            const qrCodeDiv = document.getElementById('qrcode');
+            qrCodeDiv.innerHTML = qrCode;
+
+            const downloadLink = document.getElementById('download');
+            downloadLink.style.display = 'block';
+
+            // Convert SVG to PNG for download
+            const svgElement = qrCodeDiv.querySelector('svg');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+
+            const img = new Image();
+            const svgBlob = new Blob([qrCode], { type: 'image/svg+xml;charset=utf-8' });
+            const svgUrl = URL.createObjectURL(svgBlob);
+
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0, size, size);
+                URL.revokeObjectURL(svgUrl);
+
+                const pngUrl = canvas.toDataURL('image/png');
+                downloadLink.querySelector('a').href = pngUrl;
+                downloadLink.querySelector('a').download = 'qrcode.png';
+            };
+
+            img.src = svgUrl;
+
+            // Add to history
+            history.unshift({
+                text: input,
+                type: type,
+                data: data,
+                size: size,
+                errorCorrection: errorCorrection,
+                color: color
+            });
+            if (history.length > 5) history.pop();
+            localStorage.setItem('qrHistory', JSON.stringify(history));
+            updateHistory();
+        }
+
+        function generateQRCodeSVG(data, size, errorCorrection, color) {
+            const qr = qrcode(0, errorCorrection);
+            qr.addData(data);
+            qr.make();
+
+            const cellSize = size / qr.getModuleCount();
+            const svgSize = size;
+
+            let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${svgSize}" height="${svgSize}" viewBox="0 0 ${svgSize} ${svgSize}">`;
+            svg += `<rect width="100%" height="100%" fill="white"/>`;
+
+            for (let row = 0; row < qr.getModuleCount(); row++) {
+                for (let col = 0; col < qr.getModuleCount(); col++) {
+                    if (qr.isDark(row, col)) {
+                        svg += `<rect x="${col * cellSize}" y="${row * cellSize}" width="${cellSize}" height="${cellSize}" fill="${color}"/>`;
+                    }
+                }
+            }
+
+            svg += '</svg>';
+            return svg;
+        }
+
+        function updateHistory() {
+            const historyDiv = document.getElementById('history');
+            historyDiv.innerHTML = '';
+            history.forEach((item, index) => {
+                const qrCode = generateQRCodeSVG(item.data, item.size, item.errorCorrection, item.color);
+                const svgUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(qrCode);
+
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <img src="${svgUrl}" alt="QR Code">
+                    <div class="history-item-text">${item.text}</div>
+                    <button class="history-item-download" onclick="downloadHistoryItem(${index})">Download</button>
+                `;
+                historyDiv.appendChild(historyItem);
+            });
+        }
+
+        function downloadHistoryItem(index) {
+            const item = history[index];
+            const qrCode = generateQRCodeSVG(item.data, item.size, item.errorCorrection, item.color);
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const size = parseInt(item.size);
+            canvas.width = size;
+            canvas.height = size;
+
+            const img = new Image();
+            const svgBlob = new Blob([qrCode], { type: 'image/svg+xml;charset=utf-8' });
+            const svgUrl = URL.createObjectURL(svgBlob);
+
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0, size, size);
+                URL.revokeObjectURL(svgUrl);
+
+                const pngUrl = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.href = pngUrl;
+                link.download = `qrcode_${index + 1}.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            img.src = svgUrl;
+        }
+
+        function toggleHistory() {
+            const historyContent = document.getElementById('history-content');
+            const historyArrow = document.getElementById('history-arrow');
+            historyContent.classList.toggle('open');
+            historyArrow.classList.toggle('fa-chevron-up');
+            historyArrow.classList.toggle('fa-chevron-down');
+        }
+
+        // Initial history update
+        updateHistory();
+    </script>
+</body>
+
+</html>

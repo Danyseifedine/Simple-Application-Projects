@@ -1,0 +1,15 @@
+Our Flexbox Generator is a powerful and intuitive tool designed to help developers create responsive
+layouts with ease. This app allows you to experiment with all Flexbox properties in a user-friendly
+ interface, enabling real-time visualization of changes. Whether you're a seasoned developer or
+ just getting started, our Flexbox Generator simplifies the process of mastering CSS Flexbox.
+ With features designed to enhance your workflow and boost productivity, creating flexible and
+ dynamic layouts has never been easier.
+
+User-Friendly Interface: Clean, intuitive UI for effortless navigation.
+Comprehensive Flexbox Property Options: Full range of Flexbox properties in one place.
+Real-Time Preview: Interactive area that updates instantly.
+CSS Code Generation Box: Displays CSS code for the current configuration.
+Reset Button: Resets all properties to default values.
+Add Item Button: Easily add new div elements to the container.
+Tailwind CSS Code Generation Button: Generates equivalent Tailwind CSS classes.
+Bootstrap Code Generation Button: Generates equivalent Bootstrap classes.

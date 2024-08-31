@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Ipsum Generator</title>
+    <style>
+        body {
+            --color: #E1E1E1;
+            background-color: #f5f5f5;
+            background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+        }
+        .input-row .input-group {
+            width: 48%;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        input[type="number"], select, input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+        .slider {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            margin: 0.5rem 0.25rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            margin-top: 1.5rem;
+            border: 1px solid #ccc;
+            padding: 1rem;
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        #wordCount {
+            margin-top: 0.5rem;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lorem Ipsum Generator</h1>
+        
+        <div class="input-row">
+            <div class="input-group">
+                <label for="paragraphs">Number of paragraphs:</label>
+                <input type="number" id="paragraphs" min="1" max="10" value="3">
+            </div>
+            <div class="input-group">
+                <label for="length">Paragraph length:</label>
+                <select id="length">
+                    <option value="short">Short</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="long">Long</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="sentenceVariation">Sentence length variation:</label>
+            <input type="range" id="sentenceVariation" min="0" max="100" value="50" class="slider">
+        </div>
+        
+        <div class="input-row">
+            <div class="input-group">
+                <label for="language">Language:</label>
+                <select id="language">
+                    <option value="latin" selected>Latin</option>
+                    <option value="english">English</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="format">Output format:</label>
+                <select id="format">
+                    <option value="plain" selected>Plain text</option>
+                    <option value="html">HTML</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="customWords">Custom words (comma-separated):</label>
+            <input type="text" id="customWords" placeholder="e.g., lorem, ipsum, dolor">
+        </div>
+        
+        <div class="input-row">
+            <div class="input-group">
+                <label>
+                    <input type="checkbox" id="startWithLorem" checked>
+                    Start with "Lorem ipsum"
+                </label>
+            </div>
+            <div class="input-group">
+                <label>
+                    <input type="checkbox" id="punctuation" checked>
+                    Include punctuation
+                </label>
+            </div>
+        </div>
+        
+        <div class="input-row">
+            <div class="input-group">
+                <label>
+                    <input type="checkbox" id="capitalizeFirstLetter" checked>
+                    Capitalize first letter
+                </label>
+            </div>
+            <div class="input-group">
+                <label for="textCase">Text case:</label>
+                <select id="textCase">
+                    <option value="normal" selected>Normal</option>
+                    <option value="uppercase">UPPERCASE</option>
+                    <option value="lowercase">lowercase</option>
+                </select>
+            </div>
+        </div>
+        
+        <button onclick="generateLoremIpsum()">Generate</button>
+        <button onclick="copyToClipboard()">Copy</button>
+        <button onclick="resetForm()">Reset</button>
+        
+        <div id="output"></div>
+        <div id="wordCount"></div>
+    </div>
+
+    <script>
+        function generateLoremIpsum() {
+            const paragraphs = document.getElementById('paragraphs').value;
+            const length = document.getElementById('length').value;
+            const startWithLorem = document.getElementById('startWithLorem').checked;
+            const language = document.getElementById('language').value;
+            const format = document.getElementById('format').value;
+            const sentenceVariation = document.getElementById('sentenceVariation').value;
+            const includePunctuation = document.getElementById('punctuation').checked;
+            const customWords = document.getElementById('customWords').value.split(',').map(word => word.trim());
+            const capitalizeFirstLetter = document.getElementById('capitalizeFirstLetter').checked;
+            const textCase = document.getElementById('textCase').value;
+
+            const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
+            let words = "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.".split(' ');
+
+            if (customWords.length > 0) {
+                words = words.concat(customWords);
+            }
+
+            let result = '';
+            let totalWords = 0;
+
+            for (let i = 0; i < paragraphs; i++) {
+                let paragraph = '';
+                const sentenceCount = length === 'short' ? 3 : length === 'medium' ? 5 : 8;
+
+                for (let j = 0; j < sentenceCount; j++) {
+                    if (i === 0 && j === 0 && startWithLorem) {
+                        paragraph += lorem;
+                        totalWords += lorem.split(' ').length;
+                    } else {
+                        const sentenceLength = Math.floor(Math.random() * (parseInt(sentenceVariation) / 10)) + 5;
+                        let sentence = words.sort(() => 0.5 - Math.random()).slice(0, sentenceLength).join(' ');
+                        
+                        if (includePunctuation) {
+                            sentence += '.';
+                        }
+
+                        if (j === 0 && capitalizeFirstLetter) {
+                            sentence = sentence.charAt(0).toUpperCase() + sentence.slice(1);
+                        }
+
+                        paragraph += sentence + ' ';
+                        totalWords += sentenceLength;
+                    }
+                }
+
+                if (format === 'html') {
+                    result += `<p>${paragraph.trim()}</p>\n`;
+                } else {
+                    result += paragraph.trim() + '\n\n';
+                }
+            }
+
+            if (language === 'english') {
+                result = result.replace(/Lorem ipsum/g, "Here is some").replace(/lorem ipsum/g, "here is some");
+            }
+
+            switch (textCase) {
+                case 'uppercase':
+                    result = result.toUpperCase();
+                    break;
+                case 'lowercase':
+                    result = result.toLowerCase();
+                    break;
+            }
+
+            document.getElementById('output').textContent = result;
+            document.getElementById('wordCount').textContent = `Total words: ${totalWords}`;
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            const textArea = document.createElement('textarea');
+            textArea.value = output.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('Text copied to clipboard!');
+        }
+
+        function resetForm() {
+            document.getElementById('paragraphs').value = 3;
+            document.getElementById('length').value = 'medium';
+            document.getElementById('startWithLorem').checked = true;
+            document.getElementById('language').value = 'latin';
+            document.getElementById('format').value = 'plain';
+            document.getElementById('sentenceVariation').value = 50;
+            document.getElementById('punctuation').checked = true;
+            document.getElementById('customWords').value = '';
+            document.getElementById('capitalizeFirstLetter').checked = true;
+            document.getElementById('textCase').value = 'normal';
+            document.getElementById('output').textContent = '';
+            document.getElementById('wordCount').textContent = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Stopwatch</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --bg-color: #ecf0f1;
+            --text-color: #2c3e50;
+        }
+        body {
+            width: 100%;
+            background-color: #f5f5f5;
+            background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .clock {
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        #display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        #startStop { background-color: var(--secondary-color); }
+        #reset { background-color: var(--accent-color); }
+        #lap { background-color: var(--primary-color); }
+        #countdown { background-color: #9b59b6; }
+        #split { background-color: #f39c12; }
+        #share { background-color: #1abc9c; }
+        #theme { background-color: #34495e; }
+        #fullscreen { background-color: #95a5a6; }
+        #laps {
+            max-height: 150px;
+            overflow-y: auto;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .lap-time {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        .lap-time:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        #countdownInput {
+            margin-top: 10px;
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Clock hands */
+        .clock-hand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: 50% 100%;
+            background-color: var(--text-color);
+        }
+        .hour-hand {
+            width: 4px;
+            height: 50px;
+            transform: translate(-50%, -100%) rotate(0deg);
+        }
+        .minute-hand {
+            width: 3px;
+            height: 70px;
+            transform: translate(-50%, -100%) rotate(0deg);
+        }
+        .second-hand {
+            width: 2px;
+            height: 80px;
+            background-color: var(--accent-color);
+            transform: translate(-50%, -100%) rotate(0deg);
+        }
+
+        /* Dark theme */
+        body.dark {
+            --bg-color: #2c3e50;
+            --text-color: #ecf0f1;
+        }
+        body.dark .container, body.dark .clock {
+            background-color: #34495e;
+        }
+        body.dark .lap-time:nth-child(even) {
+            background-color: #2c3e50;
+        }
+
+        /* Colorful theme */
+        body.colorful {
+            --bg-color: #3498db;
+            --text-color: #ffffff;
+        }
+        body.colorful .container {
+            background-color: #e74c3c;
+        }
+        body.colorful .clock {
+            background-color: #f39c12;
+        }
+        body.colorful .lap-time:nth-child(even) {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="clock">
+            <div class="clock-hand hour-hand"></div>
+            <div class="clock-hand minute-hand"></div>
+            <div class="clock-hand second-hand"></div>
+            <div id="display">00:00:00.000</div>
+        </div>
+        <div class="buttons">
+            <button id="startStop">Start</button>
+            <button id="reset">Reset</button>
+            <button id="lap">Lap</button>
+            <button id="countdown">Countdown</button>
+            <button id="split">Split</button>
+            <button id="share">Share</button>
+            <button id="theme">Theme</button>
+            <button id="fullscreen">Fullscreen</button>
+        </div>
+        <input type="number" id="countdownInput" placeholder="Enter countdown time (seconds)" style="display: none;">
+        <div id="laps"></div>
+    </div>
+    <script>
+        let startTime;
+        let elapsedTime = 0;
+        let timerInterval;
+        let running = false;
+        let lapTimes = [];
+        let splitTime = 0;
+        let countdownTime = 0;
+        const themes = ['light', 'dark', 'colorful'];
+        let currentTheme = 0;
+    
+        const display = document.getElementById('display');
+        const startStopButton = document.getElementById('startStop');
+        const resetButton = document.getElementById('reset');
+        const lapButton = document.getElementById('lap');
+        const countdownButton = document.getElementById('countdown');
+        const splitButton = document.getElementById('split');
+        const shareButton = document.getElementById('share');
+        const themeButton = document.getElementById('theme');
+        const fullscreenButton = document.getElementById('fullscreen');
+        const lapsDiv = document.getElementById('laps');
+        const countdownInput = document.getElementById('countdownInput');
+    
+        function startStop() {
+            if (running) {
+                clearInterval(timerInterval);
+                startStopButton.textContent = 'Start';
+                running = false;
+            } else {
+                startTime = Date.now() - elapsedTime;
+                timerInterval = setInterval(updateTime, 10);
+                startStopButton.textContent = 'Stop';
+                running = true;
+            }
+        }
+    
+        function reset() {
+            clearInterval(timerInterval);
+            display.textContent = '00:00:00.000';
+            display.style.color = '';
+            elapsedTime = 0;
+            startStopButton.textContent = 'Start';
+            running = false;
+            lapTimes = [];
+            splitTime = 0;
+            lapsDiv.innerHTML = '';
+            countdownTime = 0;
+            countdownInput.style.display = 'none';
+            updateClockHands(0);
+        }
+    
+        function updateTime() {
+            if (countdownTime > 0) {
+                countdownTime -= 10;
+                if (countdownTime <= 0) {
+                    clearInterval(timerInterval);
+                    running = false;
+                    startStopButton.textContent = 'Start';
+                    display.style.color = 'red';
+                } else {
+                    display.style.color = '';
+                }
+                display.textContent = formatTime(Math.max(0, countdownTime));
+            } else {
+                const currentTime = Date.now();
+                elapsedTime = currentTime - startTime;
+                display.textContent = formatTime(elapsedTime);
+                updateClockHands(elapsedTime);
+            }
+        }
+    
+        function formatTime(time) {
+            let hours = Math.floor(time / 3600000);
+            let minutes = Math.floor((time % 3600000) / 60000);
+            let seconds = Math.floor((time % 60000) / 1000);
+            let milliseconds = time % 1000;
+    
+            return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}.${pad(milliseconds, 3)}`;
+        }
+    
+        function pad(num, size = 2) {
+            return num.toString().padStart(size, '0');
+        }
+    
+        function lap() {
+            if (running) {
+                lapTimes.push(elapsedTime);
+                const lapTime = document.createElement('div');
+                lapTime.className = 'lap-time';
+                lapTime.textContent = `Lap ${lapTimes.length}: ${formatTime(elapsedTime)}`;
+                lapsDiv.insertBefore(lapTime, lapsDiv.firstChild);
+            }
+        }
+    
+        function toggleCountdown() {
+            countdownInput.style.display = countdownInput.style.display === 'none' ? 'block' : 'none';
+        }
+    
+        function startCountdown() {
+            const seconds = parseInt(countdownInput.value);
+            if (seconds > 0) {
+                countdownTime = seconds * 1000;
+                elapsedTime = 0;
+                startTime = Date.now();
+                running = true;
+                startStopButton.textContent = 'Stop';
+                timerInterval = setInterval(updateTime, 10);
+                countdownInput.style.display = 'none';
+            }
+        }
+    
+        function split() {
+            if (running) {
+                const currentSplitTime = elapsedTime - splitTime;
+                splitTime = elapsedTime;
+                const splitElement = document.createElement('div');
+                splitElement.className = 'lap-time';
+                splitElement.textContent = `Split: ${formatTime(currentSplitTime)}`;
+                lapsDiv.insertBefore(splitElement, lapsDiv.firstChild);
+            }
+        }
+    
+        function share() {
+            const text = `My stopwatch time: ${display.textContent}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Stopwatch Time',
+                    text: text
+                }).catch(console.error);
+            } else {
+                alert('Sharing is not supported on this browser. Time: ' + text);
+            }
+        }
+    
+        function toggleTheme() {
+            currentTheme = (currentTheme + 1) % themes.length;
+            document.body.className = themes[currentTheme];
+            themeButton.textContent = `Theme: ${themes[currentTheme]}`;
+        }
+    
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    
+        function updateClockHands(time) {
+            const seconds = (time / 1000) % 60;
+            const minutes = (time / 60000) % 60;
+            const hours = (time / 3600000) % 12;
+    
+            document.querySelector('.second-hand').style.transform = `translate(-50%, -100%) rotate(${seconds * 6}deg)`;
+            document.querySelector('.minute-hand').style.transform = `translate(-50%, -100%) rotate(${minutes * 6}deg)`;
+            document.querySelector('.hour-hand').style.transform = `translate(-50%, -100%) rotate(${hours * 30}deg)`;
+        }
+    
+        startStopButton.addEventListener('click', startStop);
+        resetButton.addEventListener('click', reset);
+        lapButton.addEventListener('click', lap);
+        countdownButton.addEventListener('click', toggleCountdown);
+        countdownInput.addEventListener('change', startCountdown);
+        splitButton.addEventListener('click', split);
+        shareButton.addEventListener('click', share);
+        themeButton.addEventListener('click', toggleTheme);
+        fullscreenButton.addEventListener('click', toggleFullscreen);
+    </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Time Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            background-color: #f5f5f5;
+            background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        input[type="time"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9e9e9;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .tab.active {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced Time Calculator</h1>
+        
+        <div class="tab-container">
+            <div class="tab active" data-tab="add-subtract">Add/Subtract</div>
+            <div class="tab" data-tab="difference">Time Difference</div>
+        </div>
+
+        <div id="add-subtract" class="tab-content active">
+            <div class="input-group">
+                <label for="startTime">Start Time:</label>
+                <input type="time" id="startTime" required>
+            </div>
+            <div class="input-group">
+                <label for="operation">Operation:</label>
+                <select id="operation">
+                    <option value="add">Add</option>
+                    <option value="subtract">Subtract</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="hours">Hours:</label>
+                <input type="number" id="hours" min="0" value="0">
+            </div>
+            <div class="input-group">
+                <label for="minutes">Minutes:</label>
+                <input type="number" id="minutes" min="0" max="59" value="0">
+            </div>
+            <button onclick="calculateTime()">Calculate</button>
+        </div>
+
+        <div id="difference" class="tab-content">
+            <div class="input-group">
+                <label for="time1">Time 1:</label>
+                <input type="time" id="time1" required>
+            </div>
+            <div class="input-group">
+                <label for="time2">Time 2:</label>
+                <input type="time" id="time2" required>
+            </div>
+            <button onclick="calculateDifference()">Calculate Difference</button>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateTime() {
+            const startTime = document.getElementById('startTime').value;
+            const operation = document.getElementById('operation').value;
+            const hours = parseInt(document.getElementById('hours').value) || 0;
+            const minutes = parseInt(document.getElementById('minutes').value) || 0;
+
+            if (!startTime) {
+                alert('Please enter a start time');
+                return;
+            }
+
+            const [startHours, startMinutes] = startTime.split(':').map(Number);
+            let totalMinutes = startHours * 60 + startMinutes;
+
+            if (operation === 'add') {
+                totalMinutes += hours * 60 + minutes;
+            } else {
+                totalMinutes -= hours * 60 + minutes;
+            }
+
+            const resultHours = Math.floor(totalMinutes / 60) % 24;
+            const resultMinutes = totalMinutes % 60;
+
+            const result = `${resultHours.toString().padStart(2, '0')}:${resultMinutes.toString().padStart(2, '0')}`;
+            document.getElementById('result').textContent = `Result: ${result}`;
+        }
+
+        function calculateDifference() {
+            const time1 = document.getElementById('time1').value;
+            const time2 = document.getElementById('time2').value;
+
+            if (!time1 || !time2) {
+                alert('Please enter both times');
+                return;
+            }
+
+            const [hours1, minutes1] = time1.split(':').map(Number);
+            const [hours2, minutes2] = time2.split(':').map(Number);
+
+            const totalMinutes1 = hours1 * 60 + minutes1;
+            const totalMinutes2 = hours2 * 60 + minutes2;
+
+            let diffMinutes = Math.abs(totalMinutes2 - totalMinutes1);
+
+            const diffHours = Math.floor(diffMinutes / 60);
+            diffMinutes %= 60;
+
+            const result = `${diffHours} hours and ${diffMinutes} minutes`;
+            document.getElementById('result').textContent = `Time Difference: ${result}`;
+        }
+
+        // Tab functionality
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

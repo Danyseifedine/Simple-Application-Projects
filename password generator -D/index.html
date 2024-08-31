@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Advanced Password Generator</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced Password Generator</h1>
+        <div class="password-display">
+            <input type="text" id="password" readonly>
+            <button id="copy-btn">Copy</button>
+        </div>
+        <div class="options">
+            <div class="option">
+                <label for="uppercase">Include Uppercase</label>
+                <input type="checkbox" id="uppercase" checked>
+            </div>
+            <div class="option">
+                <label for="lowercase">Include Lowercase</label>
+                <input type="checkbox" id="lowercase" checked>
+            </div>
+            <div class="option">
+                <label for="numbers">Include Numbers</label>
+                <input type="checkbox" id="numbers" checked>
+            </div>
+            <div class="option">
+                <label for="symbols">Include Symbols</label>
+                <input type="checkbox" id="symbols" checked>
+            </div>
+            <div class="option">
+                <label for="exclude-similar">Exclude Similar Characters</label>
+                <input type="checkbox" id="exclude-similar">
+            </div>
+            <div class="option">
+                <label for="exclude-ambiguous">Exclude Ambiguous Characters</label>
+                <input type="checkbox" id="exclude-ambiguous">
+            </div>
+            <div class="option">
+                <label for="min-numbers">Minimum Numbers:</label>
+                <input type="number" id="min-numbers" min="0" max="10" value="1">
+            </div>
+            <div class="option">
+                <label for="min-symbols">Minimum Symbols:</label>
+                <input type="number" id="min-symbols" min="0" max="10" value="1">
+            </div>
+            <div class="option">
+                <label for="no-repeating">No Repeating Characters</label>
+                <input type="checkbox" id="no-repeating">
+            </div>
+            <div class="option">
+                <label for="begin-with-letter">Begin with Letter</label>
+                <input type="checkbox" id="begin-with-letter">
+            </div>
+        </div>
+        <div class="option">
+            <label for="length">Password Length:</label>
+            <input type="number" style="margin-bottom: 10px;" id="length" min="8" max="50" value="12">
+        </div>
+        <button id="generate-btn">Generate Password</button>
+
+        <div class="strength-meter">
+            <label for="strength">Password Strength:</label>
+            <progress id="strength" value="0" max="100"></progress>
+        </div>
+        <div class="password-history">
+            <h2>Password History</h2>
+            <ul id="password-history"></ul>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
+
+

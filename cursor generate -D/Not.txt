@@ -1,0 +1,28 @@
+### Description:
+Cursor Generator is a web-based tool that allows users to create 
+custom cursors for their websites or applications. With an 
+intuitive interface, it offers a variety of drawing tools, 
+including a pen and eraser, along with a color picker for precise 
+design. Users can adjust canvas sizes, set custom hotspots, and 
+even upload images as a starting point for their cursors.The app 
+provides real-time previews as you draw, ensuring you see exactly 
+how your cursor will look. Once satisfied with the design, users 
+can generate CSS code for easy implementation or download the 
+cursor as a .cur file. With features like clear canvas and 
+copy-to-clipboard functionality, Cursor Generator streamlines 
+the process of creating unique, personalized cursors for web 
+projects.
+
+### Features:
+1. Drawing Tools: Pen and eraser for pixel-perfect cursor design.
+2. Color Picker: Select colors directly from the canvas area.
+3. Canvas Size Options: Choose between 16x16, 32x32, or 64x64 pixels.
+4. Custom Color Selection: Pick any color for cursor creation.
+5. Hotspot Adjustment: Set cursor click point with X/Y coordinates.
+6. Image Upload: Use uploaded images as base for cursors.
+7. Real-time Preview: See cursor updates as you draw/edit.
+8. Clear Canvas: Reset to blank canvas with default cursor.
+9. Download .cur File: Save custom cursor for use in projects.
+10. Generate CSS: Create CSS code for custom cursor implementation.
+11. Copy CSS: Easily copy generated CSS to clipboard.
+12. Responsive Design: Works on various screen sizes and devices.

@@ -1,0 +1,20 @@
+### Description 
+
+This grid generator application allows users to create custom CSS grids by specifying columns,
+ rows, and gaps. Users can generate, copy, and export CSS and Tailwind code, including responsive
+ designs for smaller screens. The app also features configuration saving and loading for convenient
+ reuse of grid layouts.
+
+✔️ Customizable Grid Creation and Adjustment Options: Easily specify and modify columns, rows, and gaps to create your desired grid layout.
+
+✔️ CSS and Tailwind Code Generation Capabilities: Generate CSS and Tailwind code for your grid designs with a single click.
+
+✔️ Export Code to CSS or JSON Files: Export the generated code to CSS or JSON files for seamless integration into your projects.
+
+✔️ Responsive Design Options for Smaller Screens: Configure responsive grid designs to ensure compatibility across various devices.
+
+✔️ Save and Load Grid Configuration Settings: Save your grid configurations for future use and load them whenever needed.
+
+✔️ Real-Time Grid Preview and Visualization Functionality: Instantly preview and visualize your grid layouts as you create them.
+
+✔️ User-Friendly Interface for Easy Code Generation: Enjoy a clean, intuitive UI that simplifies the code generation process.

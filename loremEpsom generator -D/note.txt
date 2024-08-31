@@ -1,0 +1,10 @@
+A versatile and intuitive note-taking application designed to capture, organize, and enhance your ideas. Seamlessly sync across devices, collaborate with others, and boost your productivity with powerful organization tools. Perfect for students, professionals, and creative thinkers alike.
+
+Rich text editing with support for formatting, lists, and tables
+Voice-to-text note creation for hands-free input
+Tag-based organization system for easy categorization and searching
+Automatic cloud sync across multiple devices
+Collaborative editing for shared notes and projects
+Customizable templates for different note types (meeting minutes, journal entries, etc.)
+Attachment support for images, files, and web links
+Reminder system with push notifications for time-sensitive notes

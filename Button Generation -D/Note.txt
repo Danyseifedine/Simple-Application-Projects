@@ -1,0 +1,19 @@
+### Description
+
+This project is a Button Generator web application. It allows users to customize various aspects
+of a button's appearance through an interactive interface. The generator provides real-time 
+preview of the button and generates corresponding CSS code. Users can adjust text, border, shadow,
+padding, margin, and background properties.
+
+### Features
+
+Instant Preview: Real-time button preview with immediate visual feedback.
+Text Customization: Easily customize text properties, including content, font size, font family, font weight, font style, and color.
+Border Customization: Adjust border properties such as radius, size, and color to create unique button styles.
+Shadow Effects: Configure both box and text shadow effects for added depth and visual interest.
+Padding & Margin: Customize padding and margin settings to ensure perfect spacing and alignment.
+Background & Hover States: Personalize the background color and hover state to enhance interactivity.
+CSS Code Generation: Automatically generate CSS code for the created button style, streamlining the development process.
+Copy to Clipboard: Easily copy the generated CSS code to the clipboard with a single click.
+Clear Code: Reset the generated code to start over with new designs effortlessly.
+User-Friendly Interface: Enjoy a clean and intuitive interface with categorized styling options for a seamless user experience.

@@ -1,0 +1,9 @@
+The Markdown Previewer is a user-friendly web application that allows users to write Markdown text and see the rendered HTML output in real-time. It provides a split-screen interface with an editor on one side and a live preview on the other, making it easy to create and visualize formatted content. This tool is perfect for writers, developers, and content creators who want to quickly draft and preview Markdown documents.
+
+
+Real-time preview: See your Markdown rendered as HTML instantly as you type.
+Syntax highlighting: The editor provides color-coding for Markdown syntax, making it easier to write and read.
+Copy to clipboard: Quickly copy your Markdown text to the clipboard with a single click.
+Download options: Save your work as either a Markdown (.md) or HTML file.
+Clear functionality: Easily clear the editor content with a dedicated button.
+Responsive design: The app works well on both desktop and mobile devices.

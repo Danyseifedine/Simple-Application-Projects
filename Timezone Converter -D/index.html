@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <title>Time Zone Converter with Map</title>
+</head>
+
+<body>
+    <div class="timeZoneConverter_app">
+        <h1>Time Zone Converter</h1>
+        
+        <div class="box">
+
+            <div class="app_content">
+
+                <div class="controls">
+
+                    <div class="control-group">
+
+                        <span>Date and Time:</span>
+
+                        <div class="control_options">
+
+                            <div class="control">
+                                <input type="datetime-local" id="datetime" required>
+                            </div>
+    
+                            <div class="control">
+                                <button class="btn" onclick="setCurrentTime()">Set Current Time</button>
+                            </div>
+                            
+                            <div class="control">
+                                <label for="timeFormat">Time Format:</label>
+                                <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.2rem; flex-wrap: wrap;">
+                                    <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                        <input type="checkbox" id="timeFormat" value="12" checked>
+                                        12-hour
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                        <input type="checkbox" id="timeFormat" value="24">
+                                        24-hour
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="control">
+                                <label for="dateFormat">Date Format:</label>
+                                <div style="display: flex; align-items: center; gap: 1rem; margin-top: 0.2rem; flex-wrap: wrap;">
+                                    <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                        <input type="checkbox" id="dateFormat" value="MM/DD/YYYY" checked>
+                                        MM/DD/YYYY
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                        <input type="checkbox" id="dateFormat" value="DD/MM/YYYY">
+                                        DD/MM/YYYY
+                                    </label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+
+                    <div class="control-group">
+                        <span>Countries:</span>
+
+                        <div class="control_options">
+                            <div class="control">
+                                <label for="fromTimezone">From:</label>
+                                <select id="fromTimezone">
+                                    <option value="" selected>select a country</option>
+                                </select>
+                            </div>
+    
+                            <div class="control" style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                                <button class="swap_btn" onclick="swapCountries()">
+                                    <svg height="22" viewBox="0 0 48 48" width="22" xmlns="http://www.w3.org/2000/svg" fill="#ffff">
+                                        <path d="M32 34.02v-14.02h-4v14.02h-6l8 7.98 8-7.98h-6zm-14-28.02l-8 7.98h6v14.02h4v-14.02h6l-8-7.98z"/>
+                                        <path d="M0 0h48v48h-48z" fill="none"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <div class="control">
+                                <select id="toTimezone">
+                                    <option value="" selected>select a country</option>
+                                </select>
+                                <label for="toTimezone">To:</label>
+                            </div>
+
+                            <div class="control">
+                                <button class="btn" onclick="addToFavorites()">Add to Favorites</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="control-group">
+                        <span>Favorites</span>
+
+                        <div class="control_options">
+                            <div class="control">
+                                <select id="favorites" onchange="loadFavorite()">
+                                    <option value="">Favorites</option>
+                                </select>
+                            </div>
+
+                            <div class="control">
+                                <button class="btn" onclick="deleteFromFavorites()">Delete From Favorites</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="outpud">
+                    <div class="toggle_div">
+                        <button class="toggle-button">☰</button>
+                    </div>   
+                    
+                    <div class="map">
+                        <div id="map"></div>
+                    </div>
+
+                    <div class="results">
+                        <div id="result"></div>
+                        <div id="timeDifference"></div>
+                        <div id="myTime"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="./assets/js/index.js"></script>
+
+</html>

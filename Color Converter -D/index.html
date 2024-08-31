@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Converter</title>
+    <style>
+        body {
+            width: 100%;
+            background-color: #f5f5f5;
+            background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.8rem;
+        }
+        .color-preview {
+            width: 100%;
+            height: 80px;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        label {
+            flex: 0 0 50px;
+            font-weight: bold;
+            color: #555;
+        }
+        .input-wrapper {
+            flex-grow: 1;
+            display: flex;
+        }
+        input {
+            flex-grow: 1;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+            font-size: 0.9rem;
+        }
+        .copy-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        .copy-btn:hover {
+            background-color: #45a049;
+        }
+        .convert-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.7rem 1rem;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            font-size: 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .convert-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .feature-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .feature-btn {
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+            flex: 1;
+            margin: 0 0.25rem;
+        }
+        .feature-btn:hover {
+            background-color: #8e44ad;
+        }
+
+        .feature-btn:nth-child(4) {
+            background-color: #e74c3c;
+        }
+        .feature-btn:nth-child(4):hover {
+            background-color: #c0392b;
+        }
+        .note {
+            border-radius: 4px;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background-color: #e74c3c;
+            font-size: 0.8rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced Color Converter</h1>
+        <div class="color-preview" id="colorPreview"></div>
+        <div id="conversionResults"></div>
+                <div class="input-group">
+            <label for="hexInput">HEX:</label>
+            <div class="input-wrapper">
+                <input type="text" id="hexInput" placeholder="Enter HEX color">
+                <button class="copy-btn" onclick="copyToClipboard('hexInput')">Copy</button>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="rgbInput">RGB:</label>
+            <div class="input-wrapper">
+                <input type="text" id="rgbInput" placeholder="Enter RGB color">
+                <button class="copy-btn" onclick="copyToClipboard('rgbInput')">Copy</button>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="hslInput">HSL:</label>
+            <div class="input-wrapper">
+                <input type="text" id="hslInput" placeholder="Enter HSL color">
+                <button class="copy-btn" onclick="copyToClipboard('hslInput')">Copy</button>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="cmykInput">CMYK:</label>
+            <div class="input-wrapper">
+                <input type="text" id="cmykInput" placeholder="Enter CMYK color">
+                <button class="copy-btn" onclick="copyToClipboard('cmykInput')">Copy</button>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="hsvInput">HSV:</label>
+            <div class="input-wrapper">
+                <input type="text" id="hsvInput" placeholder="Enter HSV color">
+                <button class="copy-btn" onclick="copyToClipboard('hsvInput')">Copy</button>
+            </div>
+        </div>
+        <button class="convert-btn" onclick="convertColor()">Convert</button>
+
+        <div class="feature-buttons">
+            <button class="feature-btn" onclick="generateRandomColor()">Random Color</button>
+            <button class="feature-btn" onclick="generateComplementaryColor()">Complementary</button>
+            <button class="feature-btn" onclick="generateAnalogousColors()">Analogous</button>
+            <button class="feature-btn" onclick="resetConverter()">Reset</button>
+        </div>
+        <p class="note">Note: After generating analogous colors, click Reset to start over.</p>
+    </div>
+
+    <script>
+        const hexInput = document.getElementById('hexInput');
+        const rgbInput = document.getElementById('rgbInput');
+        const hslInput = document.getElementById('hslInput');
+        const cmykInput = document.getElementById('cmykInput');
+        const hsvInput = document.getElementById('hsvInput');
+        const colorPreview = document.getElementById('colorPreview');
+        const conversionResults = document.getElementById('conversionResults');
+    
+        function convertColor() {
+            let color;
+            if (hexInput.value) color = hexToRgb(hexInput.value);
+            else if (rgbInput.value) color = rgbStringToRgb(rgbInput.value);
+            else if (hslInput.value) color = hslStringToRgb(hslInput.value);
+            else if (cmykInput.value) color = cmykStringToRgb(cmykInput.value);
+            else if (hsvInput.value) color = hsvStringToRgb(hsvInput.value);
+    
+            if (color) {
+                updateColorPreview(color);
+                updateInputs(color);
+            } else {
+                resetConverter();
+            }
+        }
+    
+        function updateColorPreview(color) {
+            colorPreview.style.backgroundColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+        }
+    
+        function updateInputs(color) {
+            hexInput.value = rgbToHex(color);
+            rgbInput.value = `${color.r}, ${color.g}, ${color.b}`;
+            hslInput.value = rgbToHsl(color);
+            cmykInput.value = rgbToCmyk(color);
+            hsvInput.value = rgbToHsv(color);
+        }
+    
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+    
+        function rgbToHex(color) {
+            return `#${((1 << 24) + (color.r << 16) + (color.g << 8) + color.b).toString(16).slice(1)}`;
+        }
+    
+        function rgbStringToRgb(rgb) {
+            const [r, g, b] = rgb.split(',').map(x => parseInt(x.trim()));
+            return (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255) ? {r, g, b} : null;
+        }
+    
+        function hslStringToRgb(hsl) {
+            const [h, s, l] = hsl.split(',').map(x => parseFloat(x));
+            return hslToRgb(h / 360, s / 100, l / 100);
+        }
+    
+        function cmykStringToRgb(cmyk) {
+            const [c, m, y, k] = cmyk.split(',').map(x => parseFloat(x) / 100);
+            return cmykToRgb(c, m, y, k);
+        }
+    
+        function hsvStringToRgb(hsv) {
+            const [h, s, v] = hsv.split(',').map(x => parseFloat(x));
+            return hsvToRgb(h / 360, s / 100, v / 100);
+        }
+    
+        function rgbToHsl(color) {
+            let {r, g, b} = color;
+            r /= 255, g /= 255, b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, l = (max + min) / 2;
+    
+            if (max === min) {
+                h = s = 0;
+            } else {
+                const d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+    
+            return `${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%`;
+        }
+    
+        function hslToRgb(h, s, l) {
+            let r, g, b;
+    
+            if (s === 0) {
+                r = g = b = l;
+            } else {
+                const hue2rgb = (p, q, t) => {
+                    if (t < 0) t += 1;
+                    if (t > 1) t -= 1;
+                    if (t < 1/6) return p + (q - p) * 6 * t;
+                    if (t < 1/2) return q;
+                    if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                    return p;
+                };
+    
+                const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                const p = 2 * l - q;
+                r = hue2rgb(p, q, h + 1/3);
+                g = hue2rgb(p, q, h);
+                b = hue2rgb(p, q, h - 1/3);
+            }
+    
+            return {r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255)};
+        }
+    
+        function rgbToCmyk(color) {
+            let {r, g, b} = color;
+            r /= 255, g /= 255, b /= 255;
+            const k = 1 - Math.max(r, g, b);
+            const c = (1 - r - k) / (1 - k) || 0;
+            const m = (1 - g - k) / (1 - k) || 0;
+            const y = (1 - b - k) / (1 - k) || 0;
+    
+            return `${Math.round(c * 100)}%, ${Math.round(m * 100)}%, ${Math.round(y * 100)}%, ${Math.round(k * 100)}%`;
+        }
+    
+        function cmykToRgb(c, m, y, k) {
+            const r = 255 * (1 - c) * (1 - k);
+            const g = 255 * (1 - m) * (1 - k);
+            const b = 255 * (1 - y) * (1 - k);
+    
+            return {r: Math.round(r), g: Math.round(g), b: Math.round(b)};
+        }
+    
+        function rgbToHsv(color) {
+            let {r, g, b} = color;
+            r /= 255, g /= 255, b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, v = max;
+    
+            const d = max - min;
+            s = max === 0 ? 0 : d / max;
+    
+            if (max === min) {
+                h = 0;
+            } else {
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+    
+            return `${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(v * 100)}%`;
+        }
+    
+        function hsvToRgb(h, s, v) {
+            let r, g, b;
+    
+            const i = Math.floor(h * 6);
+            const f = h * 6 - i;
+            const p = v * (1 - s);
+            const q = v * (1 - f * s);
+            const t = v * (1 - (1 - f) * s);
+    
+            switch (i % 6) {
+                case 0: r = v, g = t, b = p; break;
+                case 1: r = q, g = v, b = p; break;
+                case 2: r = p, g = v, b = t; break;
+                case 3: r = p, g = q, b = v; break;
+                case 4: r = t, g = p, b = v; break;
+                case 5: r = v, g = p, b = q; break;
+            }
+    
+            return {r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255)};
+        }
+    
+        function generateRandomColor() {
+            const randomColor = Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+            hexInput.value = "#" + randomColor;
+            convertColor();
+        }
+    
+        function generateComplementaryColor() {
+            const color = hexToRgb(hexInput.value);
+            if (color) {
+                const hsl = rgbToHsl(color).split(',').map(n => parseFloat(n));
+                const complementaryHue = (hsl[0] + 180) % 360;
+                const complementaryColor = hslToRgb(complementaryHue / 360, hsl[1] / 100, hsl[2] / 100);
+                updateColorPreview(complementaryColor);
+                updateInputs(complementaryColor);
+            }
+        }
+    
+        function generateAnalogousColors() {
+            const color = hexToRgb(hexInput.value);
+            if (color) {
+                const hsl = rgbToHsl(color).split(',').map(n => parseFloat(n));
+                const analogousHue1 = (hsl[0] + 30) % 360;
+                const analogousHue2 = (hsl[0] - 30 + 360) % 360;
+                const analogousColor1 = hslToRgb(analogousHue1 / 360, hsl[1] / 100, hsl[2] / 100);
+                const analogousColor2 = hslToRgb(analogousHue2 / 360, hsl[1] / 100, hsl[2] / 100);
+                
+                // Update the main color preview
+                const gradientCSS = `linear-gradient(to right, 
+                    rgb(${analogousColor2.r}, ${analogousColor2.g}, ${analogousColor2.b}), 
+                    rgb(${color.r}, ${color.g}, ${color.b}), 
+                    rgb(${analogousColor1.r}, ${analogousColor1.g}, ${analogousColor1.b}))`;
+                
+                colorPreview.style.background = gradientCSS;
+                
+                // Convert RGB to HEX for display
+                const hexColor = rgbToHex(color);
+                const hexAnalogous1 = rgbToHex(analogousColor1);
+                const hexAnalogous2 = rgbToHex(analogousColor2);
+                
+                // Update the conversion results with input fields and gradient CSS
+                conversionResults.innerHTML = `
+                    <p>Analogous Colors:</p>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <div style="width: 30%; height: 30px; background-color: ${hexAnalogous2};"></div>
+                        <div style="width: 30%; height: 30px; background-color: ${hexColor};"></div>
+                        <div style="width: 30%; height: 30px; background-color: ${hexAnalogous1};"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <input type="text" value="${hexAnalogous2}" readonly style="width: 30%;">
+                        <input type="text" value="${hexColor}" readonly style="width: 30%;">
+                        <input type="text" value="${hexAnalogous1}" readonly style="width: 30%;">
+                    </div>
+                    <p>Gradient CSS:</p>
+                    <textarea readonly style="width: 100%; height: 60px; resize: none;">${gradientCSS}</textarea>
+                `;
+            }
+        }
+    
+        function resetConverter() {
+            const inputs = [hexInput, rgbInput, hslInput, cmykInput, hsvInput];
+            inputs.forEach(input => input.value = '');
+            colorPreview.style.background = '';
+            conversionResults.innerHTML = '';
+        }
+    
+        function copyToClipboard(inputId) {
+            const input = document.getElementById(inputId);
+            input.select();
+            document.execCommand('copy');
+        }
+    
+        document.querySelector('.convert-btn').addEventListener('click', convertColor);
+        document.querySelector('.action-btn.reset-btn').addEventListener('click', resetConverter);
+        document.querySelector('.feature-btn[onclick="generateRandomColor()"]').addEventListener('click', generateRandomColor);
+        document.querySelector('.feature-btn[onclick="generateComplementaryColor()"]').addEventListener('click', generateComplementaryColor);
+        document.querySelector('.feature-btn[onclick="generateAnalogousColors()"]').addEventListener('click', generateAnalogousColors);
+    
+        // Initialize with a blank state
+        resetConverter();
+    </script>
+</body>
+</html>
+
+

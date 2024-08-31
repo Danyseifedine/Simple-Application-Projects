@@ -1,0 +1,14 @@
+### Description
+This project appears to be a Gradient Generator web application.
+It allows users to create custom gradients, adjust their properties, 
+and obtain the corresponding CSS code. The interface is designed to 
+be user-friendly and interactive.
+
+
+### Features:
+1. Color stop management for gradient creation
+2. Toggle between linear and radial gradients
+3. Degree adjustment for linear gradients
+4. Real-time gradient preview
+5. CSS code generation for the created gradient
+6. Options to copy CSS code and download the gradient as an image

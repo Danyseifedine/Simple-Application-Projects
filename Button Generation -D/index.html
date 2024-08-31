@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" class="button-generator">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Button Generator</title>
+</head>
+<body>
+    <button id="toggleSidebar" class="toggle-btn">☰</button>
+    <div id="sidebar" class="sidebar">        
+        <div class="option-group">
+            <h2>Text</h2>
+            <div class="option">
+                <label for="text">Content:</label>
+                <input type="text" id="text" placeholder="Enter Button Text">
+            </div>
+            <div class="option">
+                <label for="className">Class Name:</label>
+                <input type="text" id="className" value="Button" placeholder="Enter the class name">
+            </div>
+        </div>
+
+        <hr class="separator">
+
+        <div class="option-group">
+            <h2>Font</h2>
+            <div class="option">
+                <label for="fontSize">Font Size: <span id="fontSizeValue">16px</span></label>
+                <input type="range" id="fontSize" class="slider" value="16" min="8" max="72">
+            </div>
+            <div class="option">
+                <label for="fontFamily">Font Family:</label>
+                <select id="fontFamily">
+                    <option value="Arial">Arial</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Palatino">Palatino</option>
+                    <option value="Garamond">Garamond</option>
+                    <option value="Bookman">Bookman</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
+                    <option value="Trebuchet MS">Trebuchet MS</option>
+                    <option value="Arial Black">Arial Black</option>
+                </select>
+            </div>
+            <div class="option">
+                <div class="checkbox">
+                    <input type="checkbox" id="bold">
+                    <label for="bold">Bold</label>
+                </div>
+            </div>
+            <div class="option">
+                <div class="checkbox">
+                    <input type="checkbox" id="italic">
+                    <label for="italic">Italic</label>
+                </div>
+            </div>
+        </div>
+
+        <hr class="separator">
+
+        <div class="option-group">
+            <h2>Colors</h2>
+            <div class="option">
+                <label for="textColor">Text Color:</label>
+                <input type="color" id="textColor" value="#000000">
+            </div>
+            <div class="option">
+                <label for="backgroundColor">Background Color:</label>
+                <input type="color" id="backgroundColor" value="#ffffff">
+            </div>
+            <div class="option">
+                <label for="hoverTextColor">Hover Text Color:</label>
+                <input type="color" id="hoverTextColor" value="#000000">
+            </div>
+            <div class="option">
+                <label for="hoverBackgroundColor">Hover Background Color:</label>
+                <input type="color" id="hoverBackgroundColor" value="#ffffff">
+            </div>
+        </div>
+
+        <hr class="separator">
+
+        <div class="option-group">
+            <h2>Border</h2>
+            <div class="option">
+                <label for="borderRadius">Border Radius: <span id="borderRadiusValue">0px</span></label>
+                <input type="range" id="borderRadius" class="slider" value="0" min="0" max="50">
+            </div>
+            <div class="option">
+                <label for="borderSize">Border Size: <span id="borderSizeValue">0px</span></label>
+                <input type="range" id="borderSize" class="slider" value="0" min="0" max="10">
+            </div>
+            <div class="option">
+                <label for="borderColor">Border Color:</label>
+                <input type="color" id="borderColor" value="#000000">
+            </div>
+        </div>
+
+        <hr class="separator">
+
+        <div class="option-group">
+            <h2>Shadow</h2>
+            <div class="sub-group">
+                <h3>Box Shadow</h3>
+                <div class="option">
+                    <div class="checkbox">
+                        <input type="checkbox" id="inset">
+                        <label for="inset">Inset</label>
+                    </div>
+                </div>
+                <div class="option">
+                    <label for="horizontalPosition">Horizontal Position: <span id="horizontalPositionValue">0px</span></label>
+                    <input type="range" id="horizontalPosition" class="slider" value="0" min="-50" max="50">
+                </div>
+                <div class="option">
+                    <label for="verticalPosition">Vertical Position: <span id="verticalPositionValue">0px</span></label>
+                    <input type="range" id="verticalPosition" class="slider" value="0" min="-50" max="50">
+                </div>
+                <div class="option">
+                    <label for="blurRadius">Blur Radius: <span id="blurRadiusValue">0px</span></label>
+                    <input type="range" id="blurRadius" class="slider" value="0" min="0" max="50">
+                </div>
+                <div class="option">
+                    <label for="spreadRadius">Spread Radius: <span id="spreadRadiusValue">0px</span></label>
+                    <input type="range" id="spreadRadius" class="slider" value="0" min="0" max="50">
+                </div>
+                <div class="option">
+                    <label for="boxShadowColor">Shadow Color:</label>
+                    <input type="color" id="boxShadowColor" value="#000000">
+                </div>
+                <div class="option">
+                    <label for="boxShadowOpacity">Shadow Opacity: <span id="boxShadowOpacityValue">1.00</span></label>
+                    <input type="range" id="boxShadowOpacity" class="slider" value="1" min="0" max="1" step="0.01">
+                </div>
+            </div>
+            <div class="sub-group">
+                <h3>Text Shadow</h3>
+                <div class="option">
+                    <label for="textHorizontalPosition">Horizontal Position: <span id="textHorizontalPositionValue">0px</span></label>
+                    <input type="range" id="textHorizontalPosition" class="slider" value="0" min="-50" max="50">
+                </div>
+                <div class="option">
+                    <label for="textVerticalPosition">Vertical Position: <span id="textVerticalPositionValue">0px</span></label>
+                    <input type="range" id="textVerticalPosition" class="slider" value="0" min="-50" max="50">
+                </div>
+                <div class="option">
+                    <label for="textBlurRadius">Blur Radius: <span id="textBlurRadiusValue">0px</span></label>
+                    <input type="range" id="textBlurRadius" class="slider" value="0" min="0" max="50">
+                </div>
+                <div class="option">
+                    <label for="textShadowColor">Shadow Color:</label>
+                    <input type="color" id="textShadowColor" value="#000000">
+                </div>
+                <div class="option">
+                    <label for="textShadowOpacity">Shadow Opacity: <span id="textShadowOpacityValue">1.00</span></label>
+                    <input type="range" id="textShadowOpacity" class="slider" value="1" min="0" max="1" step="0.01">
+                </div>
+            </div>
+        </div>
+
+        <hr class="separator">
+
+        <div class="option-group">
+            <h2>Spacing</h2>
+            <div class="sub-group">
+                <h3>Padding</h3>
+                <div class="option">
+                    <label for="paddingTop">Top: <span id="paddingTopValue">0px</span></label>
+                    <input type="range" id="paddingTop" class="slider" value="0" min="0" max="100">
+                </div>
+                <div class="option">
+                    <label for="paddingRight">Right: <span id="paddingRightValue">0px</span></label>
+                    <input type="range" id="paddingRight" class="slider" value="0" min="0" max="100">
+                </div>
+                <div class="option">
+                    <label for="paddingBottom">Bottom: <span id="paddingBottomValue">0px</span></label>
+                    <input type="range" id="paddingBottom" class="slider" value="0" min="0" max="100">
+                </div>
+                <div class="option">
+                    <label for="paddingLeft">Left: <span id="paddingLeftValue">0px</span></label>
+                    <input type="range" id="paddingLeft" class="slider" value="0" min="0" max="100">
+                </div>
+            </div>
+            <div class="sub-group">
+                <h3>Margin</h3>
+                <div class="option">
+                    <label for="marginTop">Top: <span id="marginTopValue">0px</span></label>
+                    <input type="range" id="marginTop" class="slider" value="0" min="0" max="100">
+                </div>
+                <div class="option">
+                    <label for="marginRight">Right: <span id="marginRightValue">0px</span></label>
+                    <input type="range" id="marginRight" class="slider" value="0" min="0" max="100">
+                </div>
+                <div class="option">
+                    <label for="marginBottom">Bottom: <span id="marginBottomValue">0px</span></label>
+                    <input type="range" id="marginBottom" class="slider" value="0" min="0" max="100">
+                </div>
+                <div class="option">
+                    <label for="marginLeft">Left: <span id="marginLeftValue">0px</span></label>
+                    <input type="range" id="marginLeft" class="slider" value="0" min="0" max="100">
+                </div>
+            </div>
+        </div>
+
+        <hr class="separator">
+
+        <div class="option-group">
+            <h2>Cursor</h2>
+            <div class="option">
+                <label for="cursorType">Cursor Type:</label>
+                <select id="cursorType">
+                    <option value="default">Default</option>
+                    <option value="pointer">Pointer</option>
+                    <option value="text">Text</option>
+                    <option value="move">Move</option>
+                    <option value="not-allowed">Not Allowed</option>
+                    <option value="grab">Grab</option>
+                    <option value="zoom-in">Zoom In</option>
+                    <option value="zoom-out">Zoom Out</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="preview-section">
+            <h2>Button Preview</h2>
+            <div class="button-container">
+                <button id="btn">Button</button>
+            </div>
+        </div>
+        <div class="code-section">
+            <h2>Generated CSS</h2>
+            <div class="generated-code"></div>
+            <div class="action-buttons">
+                <button id="copyButton" class="btn btn-primary">
+                    <i class="fas fa-copy"></i> Copy to Clipboard
+                </button>
+                <button id="clear" class="btn btn-secondary">
+                    <i class="fas fa-trash-alt"></i> Clear
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

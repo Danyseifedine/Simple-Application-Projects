@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Generator</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="email-generator">
+        <h1>Email Generator</h1>
+        <form id="email-form">
+            <div class="form-group">
+                <label for="length">Email Length:</label>
+                <input type="number" id="length" min="5" max="20" value="10" required>
+            </div>
+            <div class="form-group">
+                <label>Character Types:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="lowercase" checked>
+                    <label for="lowercase">Lowercase</label>
+                    <input type="checkbox" id="uppercase">
+                    <label for="uppercase">Uppercase</label>
+                    <input type="checkbox" id="numbers">
+                    <label for="numbers">Numbers</label>
+                    <input type="checkbox" id="symbols">
+                    <label for="symbols">Symbols</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="extension">Email Extension:</label>
+                <select id="extension">
+                    <option value="gmail">gmail</option>
+                    <option value="yahoo">yahoo</option>
+                    <option value="hotmail">hotmail</option>
+                    <option value="outlook">outlook</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="domain">Domain Extension:</label>
+                <select id="domain">
+                    <option value="com">.com</option>
+                    <option value="net">.net</option>
+                    <option value="org">.org</option>
+                    <option value="io">.io</option>
+                </select>
+            </div>
+            <!-- ... existing code ... -->
+            <div class="form-group">
+                <label for="prefix-type">Email Prefix Type:</label>
+                <select id="prefix-type">
+                    <option value="random">Random Characters</option>
+                    <option value="custom">Custom Prefix</option>
+                    <option value="word">Random Word</option>
+                    <option value="format">Name Format</option>
+                </select>
+            </div>
+            <div class="form-group" id="custom-prefix-group" style="display: none;">
+                <label for="custom-prefix">Custom Prefix:</label>
+                <input type="text" id="custom-prefix">
+            </div>
+            <div class="form-group" id="name-format-group" style="display: none;">
+                <label for="firstname">First Name:</label>
+                <input type="text" style="margin: 5px;" id="firstname">
+                <label for="lastname">Last Name:</label>
+                <input type="text" style="margin: 5px;" id="lastname">
+                <select id="name-format">
+                    <option value="firstlast">firstname.lastname</option>
+                    <option value="firstinitiallast">f.lastname</option>
+                    <option value="lastfirst">lastname.firstname</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="exclude-similar">
+                <label for="exclude-similar">Exclude similar-looking characters</label>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="temp-email">
+                <label for="temp-email">Generate temporary email</label>
+            </div>
+            <!-- ... existing code ... -->
+            <button type="submit">Generate Email</button>
+        </form>
+        <div class="result">
+            <input type="text" id="generated-email" readonly>
+            <button id="copy-btn">Copy</button>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>

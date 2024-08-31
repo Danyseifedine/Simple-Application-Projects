@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Flexbox Generator</title>
+</head>
+<body>
+    <div class="flexbox-generator">
+        <div class="header">
+            <h1>Flexbox Generator</h1>
+        </div>
+        <div class="content">
+            <div id="controls">
+                <!-- Flexbox controls will be added here dynamically -->
+            </div>
+
+            <div id="output">
+                <div id="flexContainer"></div>
+                <div id="itemControls"></div>
+
+                <div class="output-section">
+                    <h2>Generated CSS</h2>
+                    <textarea id="cssOutput" rows="1" readonly></textarea>
+                    <button onclick="copyCSS()" id="copyCSSButton">Copy CSS</button>
+                </div>
+                <div class="output-section">
+                    <h2>Generated HTML</h2>
+                    <textarea id="htmlOutput" readonly></textarea>
+                    <button onclick="copyHTML()" id="copyHTMLButton">Copy HTML</button>
+                </div>
+                <div class="output-section">
+                    <h2>Bootstrap Classes</h2>
+                    <textarea id="bootstrapOutput" readonly></textarea>
+                    <button onclick="copyBootstrap()" id="copyBootstrapButton">Copy Bootstrap</button>
+                </div>
+                <div class="output-section">
+                    <h2>Tailwind Classes</h2>
+                    <textarea id="tailwindOutput" readonly></textarea>
+                    <button onclick="copyTailwind()" id="copyTailwindButton">Copy Tailwind</button>
+                </div>
+            </div>
+
+            <div id="actions">
+                <button onclick="addFlexItem()">Add Flex Item</button>
+                <button onclick="reset()">Reset</button>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

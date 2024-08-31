@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Generator</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="card-generator">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <h2>Properties</h2>
+            <br>
+            <!-- Card Properties -->
+            <div class="property-group">
+                <h3>Card Properties</h3>
+                <div>
+                    <label for="cardWidth">Width:</label>
+                    <input type="number" id="cardWidthValue" min="0">
+                    <select id="cardWidth">
+                        <option value="px">px</option>
+                        <option value="fit-content">fit-content</option>
+                        <option value="min-content">min-content</option>
+                        <option value="max-content">max-content</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="cardHeight">Height:</label>
+                    <input type="number" id="cardHeightValue" min="0">
+                    <select id="cardHeight">
+                        <option value="px">px</option>
+                        <option value="fit-content">fit-content</option>
+                        <option value="min-content">min-content</option>
+                        <option value="max-content">max-content</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="cardDisplay">Display:</label>
+                    <select id="cardDisplay">
+                        <option value="block">block</option>
+                        <option value="inline-block">inline-block</option>
+                        <option value="flex">flex</option>
+                    </select>
+                </div>
+                <div id="cardFlexProperties" style="display: none;">
+                    <label for="cardFlexDirection">Flex Direction:</label>
+                    <select id="cardFlexDirection">
+                        <option value="row">row</option>
+                        <option value="column">column</option>
+                        <option value="row-reverse">row-reverse</option>
+                        <option value="column-reverse">column-reverse</option>
+                    </select>
+                    <label for="cardJustifyContent">Justify Content:</label>
+                    <select id="cardJustifyContent">
+                        <option value="flex-start">flex-start</option>
+                        <option value="flex-end">flex-end</option>
+                        <option value="center">center</option>
+                        <option value="space-between">space-between</option>
+                        <option value="space-around">space-around</option>
+                    </select>
+                    <label for="cardAlignItems">Align Items:</label>
+                    <select id="cardAlignItems">
+                        <option value="stretch">stretch</option>
+                        <option value="flex-start">flex-start</option>
+                        <option value="flex-end">flex-end</option>
+                        <option value="center">center</option>
+                        <option value="baseline">baseline</option>
+                    </select>
+                    <div>
+                        <label for="cardGap">Gap:</label>
+                        <span id="cardGapValue">0</span>px
+                        <input type="range" id="cardGap" min="0" max="50" value="0">
+                    </div>
+                </div>
+                <div>
+                    <label for="cardBgColor">Background Color:</label>
+                    <input type="color" id="cardBgColor" value="#FFFFFF">
+
+                    <label for="cardGradient">Use Gradient:</label>
+                    <input type="checkbox" id="cardGradient">
+
+                    <div id="gradientControls" style="display: none;">
+                        <label for="cardGradientColor">Gradient Color:</label>
+                        <input type="color" id="cardGradientColor">
+
+                        <label for="cardGradientOpacity">Gradient Opacity:
+                            <span id="cardGradientOpacityValue">1</span>
+                        </label>
+                        <input type="range" id="cardGradientOpacity" min="0" max="1" step="0.1" value="1">
+
+                        <label for="cardGradientDirection">Gradient Direction:</label>
+                        <select id="cardGradientDirection">
+                            <option value="to right">To Right</option>
+                            <option value="to left">To Left</option>
+                            <option value="to bottom">To Bottom</option>
+                            <option value="to top">To Top</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="cardBorderWidth">Border Width:</label>
+                    <input type="number" id="cardBorderWidth" min="0" value="1">
+                </div>
+                <div>
+                    <label for="cardBorderStyle">Border Style:</label>
+                    <select id="cardBorderStyle">
+                        <option value="solid">solid</option>
+                        <option value="dashed">dashed</option>
+                        <option value="dotted">dotted</option>
+                        <option value="double">double</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="cardBorderColor">Border Color:</label>
+                    <input type="color" id="cardBorderColor" value="#000000">
+                </div>
+                <div>
+                    <label for="cardBorderRadius">Border Radius:
+                        <span id="cardBorderRadiusValue">0</span> px
+                    </label>
+                    <input type="range" id="cardBorderRadius" min="0" max="50" value="0">
+                </div>
+                <div>
+                    <label>Padding:</label>
+
+                    <label for="cardPaddingTop">Top:
+                        <span id="cardPaddingTopValue">0</span> px
+                    </label>
+                    <input type="range" id="cardPaddingTop" min="0" max="50" value="0">
+
+                    <label for="cardPaddingRight">Right:
+                        <span id="cardPaddingRightValue">0</span> px 
+                    </label>
+                    <input type="range" id="cardPaddingRight" min="0" max="50" value="0">
+
+                    <label for="cardPaddingBottom">Bottom:
+                        <span id="cardPaddingBottomValue">0</span> px 
+                    </label>
+                    <input type="range" id="cardPaddingBottom" min="0" max="50" value="0">
+                    
+                    <label for="cardPaddingLeft">Left:
+                        <span id="cardPaddingLeftValue">0</span>px 
+                    </label>
+                    <input type="range" id="cardPaddingLeft" min="0" max="50" value="0">
+                </div>
+                <div>
+                    <label>Margin:</label>
+
+                    <label for="cardMarginTop">Top:
+                        <span id="cardMarginTopValue">0</span> px
+                    </label>
+                    <input type="range" id="cardMarginTop" min="0" max="50" value="0">
+
+                    <label for="cardMarginRight">Right:
+                        <span id="cardMarginRightValue">0</span> px
+                    </label>
+                    <input type="range" id="cardMarginRight" min="0" max="50" value="0">
+
+                    <label for="cardMarginBottom">Bottom:
+                        <span id="cardMarginBottomValue">0</span> px
+                    </label>
+                    <input type="range" id="cardMarginBottom" min="0" max="50" value="0">
+
+                    <label for="cardMarginLeft">Left:
+                        <span id="cardMarginLeftValue">0</span> px
+                    </label>
+                    <input type="range" id="cardMarginLeft" min="0" max="50" value="0">
+                </div>
+                <div>
+                    <label for="cardBoxShadow">Box Shadow:</label>
+
+                    <label for="cardBoxShadowX">X:
+                        <span id="cardBoxShadowXValue">0</span> px
+                    </label>
+                    <input type="range" id="cardBoxShadowX" min="-20" max="20" value="0">
+                    
+                    <label for="cardBoxShadowY">Y:
+                        <span id="cardBoxShadowYValue">0</span> px
+                    </label>
+                    <input type="range" id="cardBoxShadowY" min="-20" max="20" value="0">
+                    
+                    <label for="cardBoxShadowBlur">Blur:
+                        <span id="cardBoxShadowBlurValue">0</span> px
+                    </label>
+                    <input type="range" id="cardBoxShadowBlur" min="0" max="50" value="0">
+                    <input type="color" id="cardBoxShadowColor" value="#000000">
+                </div>
+                <div>
+                    <label for="cardAnimation">Hover Animation:</label>
+                    <select id="cardAnimation">
+                        <option value="">None</option>
+                        <option value="fade">Fade</option>
+                        <option value="slide">Slide</option>
+                        <option value="rotate">Rotate</option>
+                        <option value="scale">Scale</option>
+                        <option value="flip">Flip</option>
+                        <option value="shake">Shake</option>
+                        <option value="bounce">Bounce</option>
+                        <option value="pulse">Pulse</option>
+                        <option value="wobble">Wobble</option>
+                        <option value="swing">Swing</option>
+                    </select>
+                    <label for="cardAnimationDuration">Duration:
+                        <span id="cardAnimationDurationValue">1</span> s
+                    </label>
+                    <input type="range" id="cardAnimationDuration" min="0.1" max="2" step="0.1" value="1">
+                </div>
+            </div>
+            <!-- Element Properties -->
+            <div id="elementProperties" class="property-group hidden">
+                <h3>Element Properties</h3>
+                <button id="deleteElementBtn" class="delete-btn">Delete Element</button>
+                <div>
+                    <label for="elementWidth">Width:</label>
+                    <input type="number" id="elementWidthValue" min="0">
+                    <select id="elementWidth">
+                        <option value="px">px</option>
+                        <option value="fit-content">fit-content</option>
+                        <option value="min-content">min-content</option>
+                        <option value="max-content">max-content</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="elementHeight">Height:</label>
+                    <input type="number" id="elementHeightValue" min="0">
+                    <select id="elementHeight">
+                        <option value="px">px</option>
+                        <option value="fit-content">fit-content</option>
+                        <option value="min-content">min-content</option>
+                        <option value="max-content">max-content</option>
+                    </select>
+                </div>
+                <div id="elementFlexProperties" style="display: none;">
+                    <div>
+                        <label for="elementFlexGrow">Flex Grow:</label>
+                        <input type="range" id="elementFlexGrow" min="0" max="10" value="0" step="1">
+                        <span id="elementFlexGrowValue">0</span>
+                    </div>
+                    <div>
+                        <label for="elementFlexShrink">Flex Shrink:</label>
+                        <input type="range" id="elementFlexShrink" min="0" max="10" value="1" step="1">
+                        <span id="elementFlexShrinkValue">1</span>
+                    </div>
+                </div>
+                <div>
+                    <label for="elementFontSize">Font Size:</label>
+                    <input type="number" id="elementFontSize" min="0">px
+                </div>
+                <div>
+                    <label for="elementColor">Color:</label>
+                    <input type="color" id="elementColor" value="#000000">
+                </div>
+                <div>
+                    <label for="elementBgColor">Background Color:</label>
+                    <input type="color" id="elementBgColor" value="#FFFFFF">
+                </div>
+                <div>
+                    <label for="elementBorderWidth">Border Width:</label>
+                    <input type="number" id="elementBorderWidth" min="0" value="1">
+                </div>
+                <div>
+                    <label for="elementBorderStyle">Border Style:</label>
+                    <select id="elementBorderStyle">
+                        <option value="solid">solid</option>
+                        <option value="dashed">dashed</option>
+                        <option value="dotted">dotted</option>
+                        <option value="double">double</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="elementBorderColor">Border Color:</label>
+                    <input type="color" id="elementBorderColor" value="#000000">
+                </div>
+                <div>
+                    <label for="elementBorderRadius">Border Radius:
+                        <span id="elementBorderRadiusValue">0</span> px
+                    </label>
+                    <input type="range" id="elementBorderRadius" min="0" max="50" value="0">
+                </div>
+                <div>
+                    <label>Padding:</label>
+
+                    <label for="elementPaddingTop">Top:
+                        <span id="elementPaddingTopValue">0</span> px
+                    </label>
+                    <input type="range" id="elementPaddingTop" min="0" max="50" value="0">
+                    
+                    <label for="elementPaddingRight">Right:
+                        <span id="elementPaddingRightValue">0</span> px
+                    </label>
+                    <input type="range" id="elementPaddingRight" min="0" max="50" value="0">
+                    
+                    <label for="elementPaddingBottom">Bottom:
+                        <span id="elementPaddingBottomValue">0</span> px
+                    </label>
+                    <input type="range" id="elementPaddingBottom" min="0" max="50" value="0">
+                    
+                    <label for="elementPaddingLeft">Left:
+                        <span id="elementPaddingLeftValue">0</span> px
+                    </label>
+                    <input type="range" id="elementPaddingLeft" min="0" max="50" value="0">
+                </div>
+                <div>
+                    <label>Margin:</label>
+
+                    <label for="elementMarginTop">Top:
+                        <span id="elementMarginTopValue">0</span> px
+                    </label>
+                    <input type="range" id="elementMarginTop" min="0" max="50" value="0">
+                    
+                    <label for="elementMarginRight">Right:
+                        <span id="elementMarginRightValue">0</span> px
+                    </label>
+                    <input type="range" id="elementMarginRight" min="0" max="50" value="0">
+                    
+                    <label for="elementMarginBottom">Bottom:
+                        <span id="elementMarginBottomValue">0</span> px
+                    </label>
+                    <input type="range" id="elementMarginBottom" min="0" max="50" value="0">
+                    
+                    <label for="elementMarginLeft">Left:
+                        <span id="elementMarginLeftValue">0</span> px
+                    </label>
+                    <input type="range" id="elementMarginLeft" min="0" max="50" value="0">
+                </div>
+                <div>
+                    <label>Box Shadow:</label>
+
+                    <label for="elementBoxShadowX">X:
+                        <span id="elementBoxShadowXValue">0</span> px
+                    </label>
+                    <input type="range" id="elementBoxShadowX" min="-20" max="20" value="0">
+                    
+                    <label for="elementBoxShadowY">Y:
+                        <span id="elementBoxShadowYValue">0</span> px
+                    </label>
+                    <input type="range" id="elementBoxShadowY" min="-20" max="20" value="0">
+                    
+                    <label for="elementBoxShadowBlur">Blur:
+                        <span id="elementBoxShadowBlurValue">0</span> px
+                    </label>
+                    <input type="range" id="elementBoxShadowBlur" min="0" max="50" value="0">
+                    
+                    <label for="elementBoxShadowColor">Color:</label>
+                    <input type="color" id="elementBoxShadowColor" value="#000000">
+                </div>
+                
+                <div id="textShadowProperties">
+                    <label>Text Shadow:</label>
+
+                    <label for="elementTextShadowX">X:
+                        <span id="elementTextShadowXValue">0</span> px
+                    </label>
+                    <input type="range" id="elementTextShadowX" min="-10" max="10" value="0">
+                    
+                    <label for="elementTextShadowY">Y:
+                        <span id="elementTextShadowYValue">0</span> px
+                    </label>
+                    <input type="range" id="elementTextShadowY" min="-10" max="10" value="0">
+                    
+                    <label for="elementTextShadowBlur">Blur:
+                        <span id="elementTextShadowBlurValue">0</span> px
+                    </label>
+                    <input type="range" id="elementTextShadowBlur" min="0" max="10" value="0">
+                    
+                    <label for="elementTextShadowColor">Color:</label>
+                    <input type="color" id="elementTextShadowColor" value="#000000">
+                </div>
+
+                <div>
+                    <label for="elementAnimation">Hover Animation:</label>
+                    <select id="elementAnimation">
+                        <option value="">None</option>
+                        <option value="fade">Fade</option>
+                        <option value="slide">Slide</option>
+                        <option value="rotate">Rotate</option>
+                        <option value="scale">Scale</option>
+                        <option value="flip">Flip</option>
+                        <option value="shake">Shake</option>
+                        <option value="bounce">Bounce</option>
+                        <option value="pulse">Pulse</option>
+                        <option value="wobble">Wobble</option>
+                        <option value="swing">Swing</option>
+                    </select>
+
+                    <label for="elementAnimationDuration">Duration:
+                        <span id="elementAnimationDurationValue">1</span> s
+                    </label>
+                    <input type="range" id="elementAnimationDuration" min="0.1" max="2" step="0.1" value="1">
+                </div>
+                <div id="elementTextContent">
+                    <div>
+                        <label for="elementText" id="TextContentLabel">Text Content:</label>
+                        <input type="text" id="elementText">
+                    </div>
+                </div>
+                <div id="elementImageContent" style="display: none;">
+                    <div>
+                        <label for="elementImageUrl">Image URL:</label>
+                        <input type="text" id="elementImageUrl">
+                    </div>
+                    <button id="updateImageBtn">Update Image</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <button id="toggleSidebar" class="toggle-btn">☰</button>
+
+            <!-- Toolbox -->
+            <div id="toolbox" class="toolbox">
+                <button draggable="true" data-type="h1">H1</button>
+                <button draggable="true" data-type="h2">H2</button>
+                <button draggable="true" data-type="h3">H3</button>
+                <button draggable="true" data-type="h4">H4</button>
+                <button draggable="true" data-type="h5">H5</button>
+                <button draggable="true" data-type="h6">H6</button>
+                <button draggable="true" data-type="p">P</button>
+                <button draggable="true" data-type="button">Button</button>
+                <button draggable="true" data-type="input">Input</button>
+                <button draggable="true" data-type="img">Image</button>
+            </div>
+
+            <!-- Card Preview -->
+            <div id="cardPreview" class="card-preview"></div>
+
+            <!-- Code Outputs -->
+            <div class="code-outputs">
+                <div class="code-block">
+                    <h3>HTML</h3>
+                    <pre id="htmlOutput"></pre>
+                    <button onclick="copyToClipboard('htmlOutput')">Copy</button>
+                </div>
+                <div class="code-block">
+                    <h3>CSS</h3>
+                    <pre id="cssOutput"></pre>
+                    <button onclick="copyToClipboard('cssOutput')">Copy</button>
+                </div>
+
+            </div>
+
+            <button id="resetButton" class="reset-btn">Reset</button>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

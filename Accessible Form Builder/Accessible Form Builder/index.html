@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Accessible Form Builder</title>
+    <style>
+        * {
+            margin: 0%;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            --color: #E1E1E1;
+            background-color: #f5f5f5;
+            background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding-block: 1.5rem;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #000;
+            padding-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 0.3rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 0.3rem;
+            background-color: hsl(0, 0%, 98%);
+        }
+
+        .field_control {
+            width: 50%;
+            padding-inline: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .option {
+            width: 48%;
+            padding-inline: 0.5rem;
+        }
+
+        .design_control {
+            width: 50%;
+            max-height: 200px;
+            overflow: auto;
+            padding-inline: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .controls label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 14px;
+        }
+
+        .controls input[type="text"],
+        .controls input[type="number"],
+        .controls select {
+            width: 100%;
+            padding-inline: 0.5rem;
+            padding-block: 0.4rem;
+            border: 0;
+            outline: 0.01rem solid hsl(240, 100%, 35%);
+            border-radius: 0.3rem;
+            font-size: 15px;
+            transition: all 0.2s ease-in-out;
+            background-color: white;
+        }
+
+        .controls select {
+            cursor: pointer;
+        }
+
+        .controls input[type="color"] {
+            width: 100%;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .controls input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 0.4rem;
+            background: hsl(0, 0%, 85%);
+            outline: none;
+            border-radius: 0.25rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 0.8rem;
+            height: 0.8rem;
+            border-radius: 50%;
+            background: hsl(240, 100%, 35%);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .controls input[type="range"]::-moz-range-thumb {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: hsl(240, 100%, 35%);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .controls input[type="checkbox"] {
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+            appearance: checkbox;
+        }
+
+        .controls input[type="radio"] {
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+        }
+
+        #formPreview {
+            margin-top: 0.6rem;
+            padding-inline: 2rem;
+            padding-block: 1rem;
+            background-color: hsl(0, 0%, 98%);
+            border: 1px solid #ddd;
+            border-radius: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        #previewForm {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #generatedCode {
+            margin-top: 0.6rem;
+            padding-inline: 2rem;
+            padding-block: 1rem;
+            background-color: hsl(0, 0%, 98%);
+            border: 1px solid #ddd;
+            border-radius: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            overflow-x: auto;
+        }
+
+        .textareas {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        #generatedCode textarea {
+            width: 100%;
+            padding-inline: 0.5rem;
+            padding-block: 0.4rem;
+            border: 0;
+            outline: 0.01rem solid #ccc;
+            background-color: white;
+            border-radius: 0.3rem;
+            font-size: 15px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        #btn_copy {
+            background-color: hsl(240, 100%, 35%);
+            color: #f5f5f5;
+            padding-inline: 1rem;
+            padding-block: 0.6rem;
+            border: 0;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 0.2rem;
+        }
+
+        #btn_copy:hover {
+            background-color: hsl(240, 100%, 25%);
+        }
+
+        /* ======= Media ==== */
+        @media (max-width: 897px) {
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .field_control {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .option {
+                width: 48%;
+            }
+
+            .design_control {
+                margin-top: 1.5rem;
+                width: 100%;
+                justify-content: space-around;
+            }
+        }
+
+        @media (max-width: 630px) {
+            .textareas {
+                flex-direction: column;
+                justify-content: space-around;
+            }
+        }
+
+        @media (max-width: 481px) {
+            .option {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <style id="customStyles"></style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Accessible Form Builder</h1>
+
+        <div class="controls">
+
+            <div class="field_control">
+
+                <div class="option">
+                    <label for="fieldType">Field Type:</label>
+                    <select id="fieldType">
+                        <option value="text">Text Input</option>
+                        <option value="email">Email Input</option>
+                        <option value="number">Number Input</option>
+                        <option value="tel">Telephone Input</option>
+                        <option value="date">Date Input</option>
+                        <option value="datetime-local">Date and Time Input</option>
+                        <option value="checkbox">Checkbox</option>
+                        <option value="radio">Radio Button</option>
+                        <option value="select">Select Dropdown</option>
+                        <option value="textarea">Text Area</option>
+                        <option value="range">Range Input</option>
+                        <option value="color">Color Input</option>
+                        <option value="password">Password Input</option>
+                        <option value="search">Search Input</option>
+                        <option value="url">URL Input</option>
+                        <option value="time">Time Input</option>
+                        <option value="week">Week Input</option>
+                        <option value="month">Month Input</option>
+                        <option value="reset">Reset Button</option>
+                        <option value="submit">Submit Button</option>
+                    </select>
+                </div>
+
+                <div class="option" id="fieldLabelOption">
+                    <label for="fieldLabel">Field Label:</label>
+                    <input type="text" id="fieldLabel" placeholder="Enter label">
+                </div>
+
+                <div class="option" id="placeholderOption">
+                    <label for="fieldPlaceholder">Placeholder:</label>
+                    <input type="text" id="fieldPlaceholder" placeholder="Enter placeholder">
+                </div>
+
+                <div class="option" id="valueOption">
+                    <label for="fieldValue">Value:</label>
+                    <input type="text" id="fieldValue" placeholder="Enter value">
+                </div>
+
+                <div class="option" id="ch_rad_options" style="display: none;">
+                    <label for="fieldLabels">Labels (comma-separated):</label>
+                    <input type="text" id="fieldLabels" placeholder="Label 1, Label 2, Label 3...">
+                </div>
+
+                <div class="option" id="ch_rad_options" style="display: none;">
+                    <label for="fieldValues">Values (comma-separated):</label>
+                    <input type="text" id="fieldValues" placeholder="Value 1, Value 2, Value 3...">
+                </div>
+
+                <div class="option" id="accessibilityOption">
+                    <label for="accessibility">Input Accessibility:</label>
+                    <select id="accessibility">
+                        <option value="none" selected>None</option>
+                        <option value="required">Required</option>
+                        <option value="readonly">Readonly</option>
+                    </select>
+                </div>
+
+                <div class="option" id="min_max_Options" style="display: none;">
+                    <label for="inputMin">Min Value:</label>
+                    <input type="number" id="inputMin" placeholder="Enter the min number">
+                </div>
+
+                <div class="option" id="min_max_Options" style="display: none;">
+                    <label for="inputMax">Max Value:</label>
+                    <input type="number" id="inputMax" placeholder="Enter the max number">
+                </div>
+
+                <div class="option" id="textareaOptions" style="display: none;">
+                    <label for="rows">Rows:</label>
+                    <input type="range" id="rows" min="0" max="10" placeholder="Enter the textarea rows">
+                </div>
+
+                <div class="option" id="textareaOptions" style="display: none;">
+                    <label for="cols">Cols:</label>
+                    <input type="range" id="cols" min="0" max="50" placeholder="Enter the textarea cols">
+                </div>
+
+                <div class="option" id="selectOptions" style="display: none;">
+                    <label for="select_options">Options (comma-separated):</label>
+                    <input type="text" id="select_options" placeholder="option 1, option 2, option 3...">
+                </div>
+
+                <div class="option" id="selectOptions" style="display: none;">
+                    <label for="valueOptions">Values (comma-separated):</label>
+                    <input type="text" id="valueOptions" placeholder="Value 1, Value 2, Value 3...">
+                </div>
+
+            </div>
+
+            <div class="design_control" id="defaultDesign">
+
+                <div class="option">
+                    <label for="inputBgColor">Input Background Color:</label>
+                    <input type="color" id="inputBgColor" value="#ffffff">
+                </div>
+
+                <div class="option">
+                    <label for="inputTextColor">Input Text Color:</label>
+                    <input type="color" id="inputTextColor" value="#000000">
+                </div>
+
+                <div class="option">
+                    <label for="inputBorderColor">Border Color:</label>
+                    <input type="color" id="inputBorderColor" value="#cccccc">
+                </div>
+
+                <div class="option">
+                    <label for="inputOutlineColor">Outline Color:</label>
+                    <input type="color" id="inputOutlineColor" value="#cccccc">
+                </div>
+
+                <div class="option">
+                    <label for="borderStyle">Border Style:</label>
+                    <select id="borderStyle">
+                        <option value="none" selected>None</option>
+                        <option value="solid">Solid</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="inset">Inset</option>
+                        <option value="outset">Outset</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </div>
+
+                <div class="option">
+                    <label for="outlineStyle">Outline Style:</label>
+                    <select id="outlineStyle">
+                        <option value="none" selected>None</option>
+                        <option value="solid">Solid</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="inset">Inset</option>
+                        <option value="outset">Outset</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </div>
+
+                <div class="option">
+                    <label for="inputBorderRadius">Border Radius:</label>
+                    <input type="range" id="inputBorderRadius" min="0" max="30" value="4">
+                </div>
+
+                <div class="option">
+                    <label for="inputBorderWidth">Border Width:</label>
+                    <input type="range" id="inputBorderWidth" min="0" max="10" value="1">
+                </div>
+
+                <div class="option">
+                    <label for="inputOutlineWidth">Outline Width:</label>
+                    <input type="range" id="inputOutlineWidth" min="0" max="10" value="1">
+                </div>
+
+                <div class="option">
+                    <label for="inputFontSize">Input Font Size:</label>
+                    <input type="range" id="inputFontSize" min="5" max="24" value="16">
+                </div>
+
+                <div class="option">
+                    <label for="paddingInline">Padding inline:</label>
+                    <input type="range" id="paddingInline" min="0" max="15" value="4">
+                </div>
+
+                <div class="option">
+                    <label for="paddingBlock">Padding block:</label>
+                    <input type="range" id="paddingBlock" min="0" max="15" value="3">
+                </div>
+            </div>
+
+            <!-- ================== ch_radDesign =============== -->
+
+            <div class="design_control" id="ch_radDesign" style="display: none;">
+                <div class="option">
+                    <label style="display: flex; gap: 0.2rem; align-items: center; cursor: pointer;">
+                        <input type="checkbox" id="appearance_ch_rad">
+                        Custom Appearance
+                    </label>
+                </div>
+
+                <div class="option">
+                    <label for="ch_radSize">
+                        Size:
+                    </label>
+                    <input type="range" id="ch_radSize" min="0" max="50" value="16">
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for=ch_radBorderRadius">
+                        Border Radius:
+                    </label>
+                    <input type="range" id="ch_radBorderRadius" min="0" max="50" value="16">
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="ch_radBorderWidth">
+                        Border Width:
+                    </label>
+                    <input type="range" id="ch_radBorderWidth" min="0" max="50" value="1">
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="ch_radBorderStyle">Border Style:</label>
+                    <select id="ch_radBorderStyle">
+                        <option value="none" selected>None</option>
+                        <option value="solid">Solid</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="inset">Inset</option>
+                        <option value="outset">Outset</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="ch_radOutlineWidth">
+                        Outline Width:
+                    </label>
+                    <input type="range" id="ch_radOutlineWidth" min="0" max="50" value="1">
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="ch_radOutlineStyle">Outline Style:</label>
+                    <select id="ch_radOutlineStyle">
+                        <option value="none" selected>None</option>
+                        <option value="solid">Solid</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="inset">Inset</option>
+                        <option value="outset">Outset</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="ch_radBorderColor">Border Color:</label>
+                    <input type="color" id="ch_radBorderColor" value="#cccccc">
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="ch_radOutlineColor">Outline Color:</label>
+                    <input type="color" id="ch_radOutlineColor" value="#cccccc">
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="ch_radBgColor_unchecked">
+                        Bg Color (Unchecked):
+                    </label>
+                    <input type="color" id="ch_radBgColor_unchecked" value="#ffffff">
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="ch_radBgColor_checked">
+                        Bg Color (Checked):
+                    </label>
+                    <input type="color" id="ch_radBgColor_checked" value="#3498db">
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="checkmarkColor" style="display: flex; gap: 0.2rem; align-items: center;">
+                        Checkmark Color:
+                    </label>
+                    <input type="color" id="checkmarkColor" value="#ffffff">
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label for="markContent" style="display: flex; gap: 0.2rem; align-items: center;">
+                        Mark:
+                    </label>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 0.2rem; cursor: pointer;">
+                            <input type="radio" name="mark" id="mark" value="&#x2714;" checked> &#x2714;
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.2rem; cursor: pointer;">
+                            <input type="radio" name="mark" id="mark" value="&#x2716;"> &#x2716;
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.2rem; cursor: pointer;">
+                            <input type="radio" name="mark" id="mark" value=""> none
+                        </label>
+                    </div>
+                </div>
+
+                <div class="option" id="ch_radDesign_Ap" style="display: none;">
+                    <label style="display: flex; gap: 0.2rem; align-items: center; cursor: pointer;">
+                        <input type="checkbox" id="scaleActive">
+                        transform scale (onclick)
+                    </label>
+                </div>
+            </div>
+
+            <!-- ================== rangeDesign =============== -->
+            <div class="design_control" id="rangeDesign" style="display: none;">
+                <div class="option">
+                    <label for=rangeBorderRadius">
+                        Border Radius:
+                    </label>
+                    <input type="range" id="rangeBorderRadius" min="0" max="15" value="4">
+                </div>
+
+                <div class="option">
+                    <label for="rangeHeight">
+                        Height:
+                    </label>
+                    <input type="range" id="rangeHeight" min="1" max="30" value="16">
+                </div>
+
+                <div class="option">
+                    <label for="rangeBgColor">Background Color:</label>
+                    <input type="color" id="rangeBgColor" value="#cccccc">
+                </div>
+
+                <div class="option">
+                    <label for="rangeSliderThumbColor">
+                        Bg Color:
+                    </label>
+                    <input type="color" id="rangeSliderThumbColor" value="#ffffff">
+                </div>
+
+                <div class="option">
+                    <label for="rangeSize">
+                        Size:
+                    </label>
+                    <input type="range" id="rangeSize" min="1" max="30" value="16">
+                </div>
+
+                <div class="option">
+                    <label for="rangeRaduis">
+                        Raduis:
+                    </label>
+                    <input type="range" id="rangeRaduis" min="0" max="30" value="16">
+                </div>
+            </div>
+
+            <!-- =============== ColorInput design ================= -->
+            <div class="design_control" id="colorDesign" style="display: none;">
+                <div class="option">
+                    <label for="colorBgColor">Background Color:</label>
+                    <input type="color" id="colorBgColor" value="#ffffff">
+                </div>
+
+                <div class="option">
+                    <label for="colorValue">Value:</label>
+                    <input type="color" id="colorValue" value="#ffffff">
+                </div>
+
+                <div class="option">
+                    <label for="colorBorder">Border Color:</label>
+                    <input type="color" id="colorBorder" value="#cccccc">
+                </div>
+
+                <div class="option">
+                    <label for="colorOutline">Outline Color:</label>
+                    <input type="color" id="colorOutline" value="#cccccc">
+                </div>
+
+                <div class="option">
+                    <label for="colorBorderStyle">Border Style:</label>
+                    <select id="colorBorderStyle">
+                        <option value="none" selected>None</option>
+                        <option value="solid">Solid</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="inset">Inset</option>
+                        <option value="outset">Outset</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </div>
+
+                <div class="option">
+                    <label for="colorOutlineStyle">Outline Style:</label>
+                    <select id="colorOutlineStyle">
+                        <option value="none" selected>None</option>
+                        <option value="solid">Solid</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                        <option value="double">Double</option>
+                        <option value="groove">Groove</option>
+                        <option value="ridge">Ridge</option>
+                        <option value="inset">Inset</option>
+                        <option value="outset">Outset</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </div>
+
+                <div class="option">
+                    <label for="colorBorderRadius">Border Radius:</label>
+                    <input type="range" id="colorBorderRadius" min="0" max="30" value="4">
+                </div>
+
+                <div class="option">
+                    <label for="colorBorderWidth">Border Width:</label>
+                    <input type="range" id="colorBorderWidth" min="0" max="10" value="1">
+                </div>
+
+                <div class="option">
+                    <label for="colorOutlineWidth">Outline Width:</label>
+                    <input type="range" id="colorOutlineWidth" min="0" max="10" value="1">
+                </div>
+
+                <div class="option">
+                    <label for="colorPaddingInline">Padding inline:</label>
+                    <input type="range" id="colorPaddingInline" min="0" max="15" value="4">
+                </div>
+
+                <div class="option">
+                    <label for="colorPaddingBlock">Padding block:</label>
+                    <input type="range" id="colorPaddingBlock" min="0" max="15" value="3">
+                </div>
+            </div>
+
+        </div>
+
+        <div id="formPreview">
+            <h3>Form Preview</h3>
+            <div id="previewForm">
+            </div>
+        </div>
+        <div id="generatedCode">
+            <h3>Generated HTML and CSS Code</h3>
+            <div class="textareas">
+                <div class="htmlCode" style="width: 100%;">
+                    <h4 style="padding-bottom: 0.3rem; color: hsl(0, 100%, 60%);">Html</h4>
+                    <textarea rows="7" id="htmlCode"></textarea>
+                </div>
+                <div class="cssCode" style="width: 100%;">
+                    <h4 style="padding-bottom: 0.3rem; color: hsl(240, 100%, 60%);">Css</h4>
+                    <textarea rows="7" id="cssCode"></textarea>
+                </div>
+            </div>
+            <div style="width: 100%; text-align: end;">
+                <button id="btn_copy">Copy codes</button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+    function displayDesignForField(fieldType) {
+        const defaultDesign = document.getElementById('defaultDesign');
+
+        const fieldLabelOption = document.getElementById('fieldLabelOption');
+        const placeholderOption = document.getElementById('placeholderOption');
+        const valueOption = document.getElementById('valueOption');
+        const accessibilityOption = document.getElementById('accessibilityOption');
+
+        const ch_radDesign = document.getElementById('ch_radDesign');
+        const ch_radOptions = document.querySelectorAll('#ch_rad_options');
+
+        const rangeDesign = document.getElementById('rangeDesign');
+
+        const min_max_Options = document.querySelectorAll('#min_max_Options');
+
+        const textareaOptions = document.querySelectorAll('#textareaOptions');
+
+        const colorDesign = document.getElementById('colorDesign');
+
+        const selectOptions = document.querySelectorAll('#selectOptions');
+
+        switch (fieldType) {
+            case 'checkbox':
+            case 'radio':
+                defaultDesign.style.display = 'none';
+                fieldLabelOption.style.display = 'none';
+                placeholderOption.style.display = 'none';
+                valueOption.style.display = 'none';
+                accessibilityOption.style.display = 'none';
+                min_max_Options.forEach((e) => {
+                    e.style.display = 'none';
+                });
+                textareaOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                ch_radDesign.style.display = 'flex';
+                ch_radOptions.forEach((e) => {
+                    e.style.display = 'block';
+                });
+
+                rangeDesign.style.display = 'none';
+
+                colorDesign.style.display = 'none';
+
+                selectOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                break;
+
+            case 'textarea':
+                defaultDesign.style.display = 'flex';
+                fieldLabelOption.style.display = 'block';
+                placeholderOption.style.display = 'block';
+                valueOption.style.display = 'none';
+                accessibilityOption.style.display = 'block';
+                min_max_Options.forEach((e) => {
+                    e.style.display = 'none';
+                });
+                textareaOptions.forEach((e) => {
+                    e.style.display = 'block';
+                });
+
+                ch_radDesign.style.display = 'none';
+                ch_radOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                rangeDesign.style.display = 'none';
+
+                colorDesign.style.display = 'none';
+
+                selectOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                break;
+
+            case 'range':
+                defaultDesign.style.display = 'none';
+                fieldLabelOption.style.display = 'block';
+                placeholderOption.style.display = 'none';
+                valueOption.style.display = 'none';
+                accessibilityOption.style.display = 'none';
+                min_max_Options.forEach((e) => {
+                    e.style.display = 'block';
+                });
+                textareaOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                ch_radDesign.style.display = 'none';
+                ch_radOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                rangeDesign.style.display = 'flex';
+
+                colorDesign.style.display = 'none';
+
+                selectOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                break;
+
+            case 'date':
+            case 'datetime-local':
+            case 'month':
+            case 'week':
+            case 'time':
+                defaultDesign.style.display = 'flex';
+                fieldLabelOption.style.display = 'block';
+                placeholderOption.style.display = 'none';
+                valueOption.style.display = 'block';
+                accessibilityOption.style.display = 'block';
+                min_max_Options.forEach((e) => {
+                    e.style.display = 'none';
+                });
+                textareaOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                ch_radDesign.style.display = 'none';
+                ch_radOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                rangeDesign.style.display = 'none';
+
+                colorDesign.style.display = 'none';
+
+                selectOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                break;
+
+            case 'reset':
+            case 'submit':
+                defaultDesign.style.display = 'flex';
+                fieldLabelOption.style.display = 'block';
+                placeholderOption.style.display = 'none';
+                valueOption.style.display = 'block';
+                accessibilityOption.style.display = 'none';
+                min_max_Options.forEach((e) => {
+                    e.style.display = 'none';
+                });
+                textareaOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                ch_radDesign.style.display = 'none';
+                ch_radOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                rangeDesign.style.display = 'none';
+
+                colorDesign.style.display = 'none';
+
+                selectOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                break;
+
+            case 'color':
+                defaultDesign.style.display = 'none';
+                fieldLabelOption.style.display = 'block';
+                placeholderOption.style.display = 'none';
+                valueOption.style.display = 'none';
+                accessibilityOption.style.display = 'none';
+                min_max_Options.forEach((e) => {
+                    e.style.display = 'none';
+                });
+                textareaOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                ch_radDesign.style.display = 'none';
+                ch_radOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                rangeDesign.style.display = 'none';
+
+                colorDesign.style.display = 'flex';
+
+                selectOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                break;
+
+            case 'select':
+                defaultDesign.style.display = 'flex';
+                fieldLabelOption.style.display = 'none';
+                placeholderOption.style.display = 'none';
+                valueOption.style.display = 'none';
+                accessibilityOption.style.display = 'none';
+                min_max_Options.forEach((e) => {
+                    e.style.display = 'none';
+                });
+                textareaOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                ch_radDesign.style.display = 'none';
+                ch_radOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                rangeDesign.style.display = 'none';
+
+                colorDesign.style.display = 'none';
+
+                selectOptions.forEach((e) => {
+                    e.style.display = 'block';
+                });
+
+                break;
+
+            default:
+                defaultDesign.style.display = 'flex';
+                fieldLabelOption.style.display = 'block';
+                placeholderOption.style.display = 'block';
+                valueOption.style.display = 'block';
+                accessibilityOption.style.display = 'block';
+                min_max_Options.forEach((e) => {
+                    e.style.display = 'none';
+                });
+                textareaOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                ch_radDesign.style.display = 'none';
+                ch_radOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                rangeDesign.style.display = 'none';
+
+                colorDesign.style.display = 'none';
+
+                selectOptions.forEach((e) => {
+                    e.style.display = 'none';
+                });
+
+                break;
+        }
+    }
+
+    document.querySelector('#appearance_ch_rad').addEventListener('change', function () {
+        const ch_radDesign_Ap = document.querySelectorAll('#ch_radDesign_Ap');
+        ch_radDesign_Ap.forEach((e) => {
+            e.style.display = this.checked ? 'block' : 'none';
+        });
+    });
+
+
+    function generateCssCode() {
+        const fieldType = document.getElementById('fieldType').value;
+
+        let css = '';
+
+        /* default design */
+        const inputBgColor = document.getElementById('inputBgColor').value;
+        const inputTextColor = document.getElementById('inputTextColor').value;
+        const inputBorderColor = document.getElementById('inputBorderColor').value;
+        const inputOutlineColor = document.getElementById('inputOutlineColor').value;
+        const borderStyle = document.getElementById('borderStyle').value;
+        const outlineStyle = document.getElementById('outlineStyle').value;
+        const inputBorderRadius = document.getElementById('inputBorderRadius').value;
+        const inputBorderWidth = document.getElementById('inputBorderWidth').value;
+        const inputOutlineWidth = document.getElementById('inputOutlineWidth').value;
+        const inputFontSize = document.getElementById('inputFontSize').value;
+        const paddingInline = document.getElementById('paddingInline').value;
+        const paddingBlock = document.getElementById('paddingBlock').value;
+
+        /* checkbox and radio design */
+        const appearance_ch_rad = document.getElementById('appearance_ch_rad').checked;
+        const ch_radSize = document.getElementById('ch_radSize').value;
+        const ch_radBorderRadius = document.getElementById('ch_radBorderRadius').value;
+        const ch_radBorderWidth = document.getElementById('ch_radBorderWidth').value;
+        const ch_radBorderStyle = document.getElementById('ch_radBorderStyle').value;
+        const ch_radOutlineWidth = document.getElementById('ch_radOutlineWidth').value;
+        const ch_radOutlineStyle = document.getElementById('ch_radOutlineStyle').value;
+        const ch_radOutlineColor = document.getElementById('ch_radOutlineColor').value;
+        const ch_radBorderColor = document.getElementById('ch_radBorderColor').value;
+        const ch_radBgColor_unchecked = document.getElementById('ch_radBgColor_unchecked').value;
+        const ch_radBgColor_checked = document.getElementById('ch_radBgColor_checked').value;
+        const checkmarkColor = document.getElementById('checkmarkColor').value;
+        const mark = document.querySelector('[name="mark"]:checked').value;
+        const scaleActive = document.getElementById('scaleActive').checked;
+
+        /* range design */
+        const rangeBorderRadius = document.getElementById('rangeBorderRadius').value;
+        const rangeHeight = document.getElementById('rangeHeight').value;
+        const rangeBgColor = document.getElementById('rangeBgColor').value;
+        const rangeSliderThumbColor = document.getElementById('rangeSliderThumbColor').value;
+        const rangeSize = document.getElementById('rangeSize').value;
+        const rangeRaduis = document.getElementById('rangeRaduis').value;
+
+        /* color input design */
+        const colorBorder = document.getElementById('colorBorder').value;
+        const colorOutline = document.getElementById('colorOutline').value;
+        const colorBorderStyle = document.getElementById('colorBorderStyle').value;
+        const colorOutlineStyle = document.getElementById('colorOutlineStyle').value;
+        const colorBorderRadius = document.getElementById('colorBorderRadius').value;
+        const colorBorderWidth = document.getElementById('colorBorderWidth').value;
+        const colorOutlineWidth = document.getElementById('colorOutlineWidth').value;
+        const colorPaddingInline = document.getElementById('colorPaddingInline').value;
+        const colorPaddingBlock = document.getElementById('colorPaddingBlock').value;
+        const colorBgColor = document.getElementById('colorBgColor').value;
+
+        switch (fieldType) {
+            case 'text':
+            case 'email':
+            case 'number':
+            case 'tel':
+            case 'date':
+            case 'datetime-local':
+            case 'password':
+            case 'search':
+            case 'url':
+            case 'time':
+            case 'week':
+            case 'month':
+            case 'reset':
+            case 'submit':
+                css += `#previewForm input[type="${fieldType}"] {\n`;
+                css += `  background-color: ${inputBgColor};\n`;
+                css += `  color: ${inputTextColor};\n`;
+                css += `  border: ${inputBorderWidth}px ${borderStyle} ${inputBorderColor};\n`;
+                css += `  outline: ${inputOutlineWidth}px ${outlineStyle} ${inputOutlineColor};\n`;
+                css += `  border-radius: ${inputBorderRadius}px;\n`;
+                css += `  font-size: ${inputFontSize}px;\n`;
+                css += `  padding-inline: ${paddingInline}px;\n`;
+                css += `  padding-block: ${paddingBlock}px;\n`;
+                css += `}\n`;
+                break;
+
+            case 'textarea':
+                css += `#previewForm textarea {\n`;
+                css += `  background-color: ${inputBgColor};\n`;
+                css += `  color: ${inputTextColor};\n`;
+                css += `  border: ${inputBorderWidth}px ${borderStyle} ${inputBorderColor};\n`;
+                css += `  outline: ${inputOutlineWidth}px ${outlineStyle} ${inputOutlineColor};\n`;
+                css += `  border-radius: ${inputBorderRadius}px;\n`;
+                css += `  font-size: ${inputFontSize}px;\n`;
+                css += `  padding-inline: ${paddingInline}px;\n`;
+                css += `  padding-block: ${paddingBlock}px;\n`;
+                css += `}\n`;
+                break;
+
+            case 'checkbox':
+            case 'radio':
+                css += `#previewForm input[type="${fieldType}"] {\n`;
+                if (appearance_ch_rad) {
+                    css += `  appearance: none;\n`;
+                    css += `  -webkit-appearance: none\n`;
+                    css += `  -moz-appearance: none;\n`;
+                    css += `  position: relative;\n`;
+                    css += `  cursor: pointer;\n`;
+                    css += `  border-radius: ${ch_radBorderRadius}px;\n`;
+                    css += `  border: ${ch_radBorderWidth}px ${ch_radBorderStyle} ${ch_radBorderColor};\n`;
+                    css += `  outline: ${ch_radOutlineWidth}px ${ch_radOutlineStyle} ${ch_radOutlineColor};\n`;
+                    css += `  width: ${ch_radSize}px;\n`;
+                    css += `  height: ${ch_radSize}px;\n`;
+                    css += `  display: flex;\n`;
+                    css += `  justify-content: center;\n`;
+                    css += `  align-items: center;\n`;
+                    css += `}\n`;
+
+                    css += `#previewForm input[type="${fieldType}"]:not(:checked) {\n`;
+                    css += `  background-color: ${ch_radBgColor_unchecked};\n`;
+                    css += `}\n`;
+                    css += `input[type="${fieldType}"]:checked {\n`;
+                    css += `  background-color: ${ch_radBgColor_checked};\n`;
+                    css += `}\n`;
+
+                    css += `#previewForm input[type="${fieldType}"]:checked::after {\n`;
+                    css += `  content: '${mark}';\n`;
+                    css += `  color: ${checkmarkColor};\n`;
+                    css += `  transition: transform 0.3s ease;\n`;
+                    css += `}\n`;
+
+                    if (scaleActive) {
+                        css += `#previewForm input[type="${fieldType}"]:active {\n`;
+                        css += `  transform: scale(0.95);\n`;
+                        css += `}\n`;
+                    }
+
+                } else {
+                    css += `  width: ${ch_radSize}px;\n`;
+                    css += `  height: ${ch_radSize}px;\n`;
+                    css += `}\n`;
+                }
+
+                break;
+
+            case 'range':
+                css += `#previewForm input[type="${fieldType}"] {\n`;
+                css += `  appearance: none;\n`;
+                css += `  -webkit-appearance: none\n`;
+                css += `  -moz-appearance: none;\n`;
+                css += `  cursor: pointer;\n`;
+                css += `  border-radius: ${rangeBorderRadius}px;\n`;
+                css += `  height: ${rangeHeight}px;\n`;
+                css += `  background: ${rangeBgColor};\n`;
+                css += `  transition: all 0.2s ease-in-out;\n`;
+                css += `}\n`;
+
+                css += `#previewForm input[type="${fieldType}"]::-webkit-slider-thumb {\n`;
+                css += `  appearance: none;\n`;
+                css += `  -webkit-appearance: none\n`;
+                css += `  -moz-appearance: none;\n`;
+                css += `  cursor: pointer;\n`;
+                css += `  border-radius: ${rangeRaduis}px;\n`;
+                css += `  width: ${rangeSize}px;\n`;
+                css += `  height: ${rangeSize}px;\n`;
+                css += `  background: ${rangeSliderThumbColor};\n`;
+                css += `  transition: all 0.2s ease-in-out;\n`;
+                css += `}\n`;
+                break;
+
+            case 'color':
+                css += `#previewForm input[type="${fieldType}"] {\n`;
+                css += `  background-color: ${colorBgColor};\n`;
+                css += `  border: ${colorBorderWidth}px ${colorBorderStyle} ${colorBorder};\n`;
+                css += `  outline: ${colorOutlineWidth}px ${colorOutlineStyle} ${colorOutline};\n`;
+                css += `  border-radius: ${colorBorderRadius}px;\n`;
+                css += `  padding-inline: ${colorPaddingInline}px;\n`;
+                css += `  padding-block: ${colorPaddingBlock}px;\n`;
+                css += `  cursor: pointer;\n`;
+                css += `  width: 120px;\n`;
+                css += `}\n`;
+                break;
+
+            case 'select':
+                css += `#previewForm ${fieldType} {\n`;
+                css += `  appearance: none;\n`;
+                css += `  -webkit-appearance: none\n`;
+                css += `  -moz-appearance: none;\n`;
+                css += `  background-color: ${inputBgColor};\n`;
+                css +=
+                    `  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140"><polygon points="70,100 140,20 0,20" fill="blue"/></svg>');\n`;
+                css += `  background-repeat: no-repeat;\n`;
+                css += `  background-position: right 10px center;\n`;
+                css += `  background-size: 12px;\n`;
+                css += `  color: ${inputTextColor};\n`;
+                css += `  border: ${inputBorderWidth}px ${borderStyle} ${inputBorderColor};\n`;
+                css += `  outline: ${inputOutlineWidth}px ${outlineStyle} ${inputOutlineColor};\n`;
+                css += `  border-radius: ${inputBorderRadius}px;\n`;
+                css += `  font-size: ${inputFontSize}px;\n`;
+                css += `  padding-inline: ${paddingInline}px;\n`;
+                css += `  padding-block: ${paddingBlock}px;\n`;
+                css += `  cursor: pointer;\n`;
+                css += `  width: 200px;\n`;
+                css += `}\n`;
+                break;
+
+            default:
+                break;
+        }
+
+        /* display the style maked */
+        const styleElement = document.getElementById('customStyles');
+        styleElement.innerHTML = '';
+        styleElement.innerHTML = css;
+
+        document.getElementById('cssCode').value = css.replace(/#previewForm\s*/g, '');
+    }
+
+    function generateHtmlCode() {
+        /* options */
+        const fieldType = document.getElementById('fieldType').value;
+        const fieldLabel = document.getElementById('fieldLabel').value;
+        const placeholder = document.getElementById('fieldPlaceholder').value;
+        const value = document.getElementById('fieldValue').value;
+        const accessibility = document.getElementById('accessibility').value;
+        const inputMin = document.getElementById('inputMin').value;
+        const inputMax = document.getElementById('inputMax').value;
+        const rows = document.getElementById('rows').value;
+        const cols = document.getElementById('cols').value;
+        const colorValue = document.getElementById('colorValue').value;
+
+        let html = '';
+
+        switch (fieldType) {
+            case 'text':
+            case 'email':
+            case 'number':
+            case 'tel':
+            case 'password':
+            case 'search':
+            case 'url':
+                html =
+                    `<div class="field-input">\n <label>${fieldLabel}</label>\n <input type="${fieldType}" placeholder="${placeholder}" value="${value}" ${accessibility === 'none' ? '' : accessibility}>\n</div>`;
+                break;
+
+            case 'date':
+            case 'datetime-local':
+            case 'month':
+            case 'week':
+            case 'time':
+                html =
+                    `<div class="field-input">\n <label>${fieldLabel}</label>\n <input type="${fieldType}" value="${value}" ${accessibility === 'none' ? '' : accessibility}>\n</div>`;
+                break;
+
+            case 'textarea':
+                html =
+                    `<div class="field-input" style="display: flex; flex-direction: column; gap: 0.2rem;">\n <label>${fieldLabel}</label>\n<textarea placeholder="${placeholder}" rows="${rows}" cols="${cols}">${value}</textarea>\n</div>`;
+                break;
+
+            case 'select':
+                const options = document.getElementById('select_options').value.split(',');
+                const optionsValues = document.getElementById('valueOptions').value.split(',');
+                html += `<select id="${fieldType}">\n`;
+                options.forEach((options, index) => {
+                    html +=
+                        `<option value="${optionsValues[index] || ''}">${options}</option>\n`;
+                });
+                html += `</select>\n`;
+                break;
+
+            case 'checkbox':
+            case 'radio':
+                const labels = document.getElementById('fieldLabels').value.split(',');
+                const values = document.getElementById('fieldValues').value.split(',');
+                html += `<div class="field-input" style="display: flex; align-items: center; gap: 0.8rem;">\n`;
+                labels.forEach((label, index) => {
+                    html +=
+                        ` <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;" for="${fieldType + index}">\n  <input type="${fieldType}" name="${fieldType}" id="${fieldType + index}" value="${values[index] || ''}">${label}\n </label>\n`;
+                });
+                html += `</div>\n`;
+                break;
+
+            case 'range':
+                html =
+                    `<div class="field-input" style="display: flex; flex-direction: column; gap: 0.1rem;">\n <label>${fieldLabel}</label>\n <input type="range" min="${inputMin}" max="${inputMax}" value="${value}">\n</div>`;
+                break;
+
+            case 'color':
+                html =
+                    `<div class="field-input" style="display: flex; flex-direction: column; gap: 0.1rem;">\n <label>${fieldLabel}</label>\n <input type="${fieldType}" value="${colorValue}" ${accessibility === 'none' ? '' : accessibility}>\n</div>`;
+                break;
+
+            case 'image':
+                break;
+
+            case 'reset':
+            case 'submit':
+                html = `<input type="${fieldType}" value="${value}">`;
+                break;
+
+            default:
+                html = `<input type="${fieldType}" placeholder="${placeholder}" value="${value}">`;
+                break;
+        }
+
+        // Update the preview and the code output
+        document.getElementById('previewForm').innerHTML = html;
+        document.getElementById('htmlCode').value = html;
+    }
+
+    function generateCode() {
+        generateHtmlCode();
+        generateCssCode();
+    }
+
+    document.querySelectorAll('.controls input, .controls select').forEach(input => {
+        input.addEventListener('input', generateCode);
+    });
+
+    document.getElementById('fieldType').addEventListener('input', (e) => {
+        displayDesignForField(e.target.value);
+        generateCode();
+    });
+
+    generateCode();
+
+    // copy code action
+    document.addEventListener("DOMContentLoaded", function () {
+        const copyButton = document.getElementById("btn_copy");
+        const codes = `${document.getElementById('htmlCode').value} \n` + document.getElementById('cssCode')
+            .value;
+        let click = false;
+
+        copyButton.addEventListener("click", function () {
+            try {
+                navigator.clipboard.writeText(codes).then(function () {
+                    if (click === false) {
+                        setTimeout(function () {
+                            copyButton.innerHTML = '';
+                            copyButton.append('Copied!');
+                            copyButton.style.cursor = 'not-allowed';
+
+                            click = true;
+                        }, 0);
+
+                        setTimeout(function () {
+                            copyButton.innerHTML = '';
+                            copyButton.append('Copy Code');
+                            copyButton.style.cursor = 'pointer';
+
+                            click = false;
+                        }, 1500);
+                    }
+                });
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+        });
+    });
+
+    // display change for inputs values
+    function handleValues() {
+        const inputIds = [
+            'rows',
+            'cols',
+            'inputBorderRadius',
+            'inputBorderWidth',
+            'inputOutlineWidth',
+            'inputFontSize',
+            'paddingInline',
+            'paddingBlock',
+            'ch_radSize',
+            'ch_radBorderRadius',
+            'ch_radBorderWidth',
+            'ch_radOutlineWidth',
+            'rangeBorderRadius',
+            'rangeHeight',
+            'rangeSize',
+            'rangeRaduis',
+            'colorBorderRadius',
+            'colorBorderWidth',
+            'colorOutlineWidth',
+            'colorPaddingInline',
+            'colorPaddingBlock',
+        ];
+
+        inputIds.forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                const label = input.closest('.option').querySelector('label');
+                let valueSpan = label.querySelector('.range-value');
+
+                if (!valueSpan) {
+                    valueSpan = document.createElement('span');
+                    valueSpan.className = 'range-value';
+                    label.appendChild(valueSpan);
+                }
+
+                if(input.id == 'rows' || input.id == 'cols') {
+                    valueSpan.textContent = ' ' + input.value;
+                } else {
+                    valueSpan.textContent = ' ' + input.value + 'px';
+                }
+
+                input.addEventListener('input', () => {
+                    if(input.id == 'rows' || input.id == 'cols') {
+                        valueSpan.textContent = ' ' + input.value;
+                    } else {
+                        valueSpan.textContent = ' ' + input.value + 'px';
+                    }
+                });
+            }
+        });
+    }
+
+    handleValues();
+</script>
+
+</html>

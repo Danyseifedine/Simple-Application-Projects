@@ -1,0 +1,11 @@
+The UUID Generator is a versatile web application designed for creating, manipulating, and validating Universally Unique Identifiers (UUIDs). It offers a user-friendly interface with multiple UUID-related functionalities, making it an essential tool for developers and system administrators. This app streamlines UUID operations, from generating custom patterns to converting between different formats, all within a single, easy-to-use platform.
+
+
+Generate multiple UUIDs at once
+Create custom UUID patterns
+Validate existing UUIDs
+Decode UUID version and variant
+Convert UUIDs between standard, hexadecimal, and base64 formats
+Copy generated UUIDs to clipboard
+Clear output for new operations
+Simple and intuitive user interface

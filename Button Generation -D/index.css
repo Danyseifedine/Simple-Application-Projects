@@ -1,0 +1,345 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.button-generator body {
+    width: 100%;
+    height: 100%;
+    --color: #E1E1E1;
+    background-color: #f5f5f5;
+    background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+    background-size: 30px 30px;
+    background-position: -5px -5px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.button-generator .sidebar {
+    width: 300px;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transition: left 0.3s ease-in-out;
+}
+
+.button-generator .sidebar.closed {
+    left: -300px;
+}
+
+.button-generator .toggle-btn {
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #2d2d2d; /* Added background color */
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.button-generator .sidebar.closed .toggle-btn {
+    right: -40px;
+    background-color: #fff;
+    padding: 5px 10px;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.button-generator h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #F77E15;
+}
+
+.button-generator .separator {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    margin: 20px 0;
+}
+
+.button-generator .option-group {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.button-generator .option-group h2 {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #F77E15;
+    padding-bottom: 5px;
+    color: #F77E15;
+}
+
+.button-generator .sub-group {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.button-generator .sub-group h3 {
+    margin-bottom: 10px;
+    color: #F77E15;
+}
+
+.button-generator .option {
+    margin-bottom: 10px;
+}
+
+.button-generator label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.button-generator input[type="text"],
+.button-generator input[type="range"],
+.button-generator select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.button-generator input[type="color"] {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.button-generator input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.button-generator input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.button-generator .checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.button-generator .checkbox input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.button-generator .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.button-generator .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #F77E15;
+    cursor: pointer;
+}
+
+.button-generator .slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #F77E15;
+    cursor: pointer;
+}
+
+.button-generator #btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.button-generator .generated-code {
+    width: 100%;
+    max-width: none; /* Remove max-width constraint */
+    height: 200px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+}
+
+
+.button-generator .btn {
+    padding: 10px 20px;
+    background-color: #F77E15;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.button-generator .btn:hover {
+    background-color: #E66C00;
+}
+
+.button-generator #copyButton, .button-generator #clear {
+    margin: 0 10px;
+}
+
+.button-generator .main-content {
+    flex-grow: 1;
+    padding: 40px;
+    margin-left: 300px;
+    transition: margin-left 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.button-generator body.sidebar-closed .main-content {
+    margin-left: 0;
+}
+
+.button-generator .preview-section, .button-generator .code-section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.button-generator .preview-section h2, .button-generator .code-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    border-bottom: 2px solid #F77E15;
+    padding-bottom: 10px;
+}
+
+.button-generator .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    border: 1px dashed #ccc;
+}
+
+.button-generator .generated-code {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.button-generator .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.button-generator .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button-generator .btn:hover {
+    transform: translateY(-2px);
+}
+
+.button-generator .btn-primary {
+    background-color: #F77E15;
+    color: white;
+}
+
+.button-generator .btn-primary:hover {
+    background-color: #E66C00;
+}
+
+.button-generator .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.button-generator .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Add this if you're using Font Awesome icons */
+.button-generator .fas {
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .button-generator .main-content {
+        padding: 20px;
+    }
+
+    .button-generator .preview-section, .button-generator .code-section {
+        padding: 15px;
+    }
+
+    .button-generator .action-buttons {
+        flex-direction: column;
+    }
+
+    .button-generator .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+
+

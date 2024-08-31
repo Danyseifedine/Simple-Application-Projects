@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Transition Previewer</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+<body>
+    <div class="transitionPreviewer_app">
+        <h1>CSS Transition Previewer</h1>
+
+        <div class="box">
+
+            <div class="app_content">
+
+                <div class="controls">
+
+                    <div class="control-group">
+                        <div class="control">
+                            <label for="bgColor">Background color:</label>
+                            <input type="color" id="bgColor" value="#ffffff" style="width: 100%; padding: 0; border: 0; cursor: pointer;">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <span>Width Transition</span>
+
+                        <div class="control" style="margin-top: 1rem; padding-inline: 0.3rem;">
+                            <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                <input type="checkbox" id="width" value="width">
+                                Width
+                            </label>
+                        </div>
+
+                        <div class="control_options">
+
+                            <div class="control">
+                                <label for="widthValue">Width (px): </label>
+                                <input type="range" id="widthValue" min="0" max="500" step="1" value="0">
+                            </div>
+
+                            <div class="control">
+                                <label for="widthDuration">Duration (s): </label>
+                                <input type="range" id="widthDuration" min="0" max="10" step="0.1" value="1">
+                            </div>
+
+                            <div class="control">
+                                <label for="widthDelay">Delay (s): </label>
+                                <input type="range" id="widthDelay" min="0" max="10" step="0.1" value="0">
+                            </div>
+
+                            <div class="control">
+                                <label for="widthTimingFunction">Timing Function</label>
+                                <select id="widthTimingFunction">
+                                    <option value="ease">Ease</option>
+                                    <option value="linear">Linear</option>
+                                    <option value="ease-in">Ease-In</option>
+                                    <option value="ease-out">Ease-Out</option>
+                                    <option value="ease-in-out">Ease-In-Out</option>
+                                </select>
+                            </div>
+
+                            <div class="control" style="display: flex; align-items: center; gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;"><input type="checkbox" id="widthHover" value="hover"> Hover</label>
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;"><input type="checkbox" id="widthFocus" value="focus"> Focus</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <span>Height Transition</span>
+
+                        <div class="control" style="margin-top: 1rem; padding-inline: 0.3rem;">
+                            <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                <input type="checkbox" id="height" value="height">
+                                Height
+                            </label>
+                        </div>
+
+                        <div class="control_options">
+
+                            <div class="control">
+                                <label for="heightValue">Height (px): </label>
+                                <input type="range" id="heightValue" min="0" max="500" step="1" value="0">
+                            </div>
+
+                            <div class="control">
+                                <label for="heightDuration">Duration (s): </label>
+                                <input type="range" id="heightDuration" min="0" max="10" step="0.1" value="1">
+                            </div>
+
+                            <div class="control">
+                                <label for="heightDelay">Delay (s): </label>
+                                <input type="range" id="heightDelay" min="0" max="10" step="0.1" value="0">
+                            </div>
+
+                            <div class="control">
+                                <label for="heightTimingFunction">Timing Function</label>
+                                <select id="heightTimingFunction">
+                                    <option value="ease">Ease</option>
+                                    <option value="linear">Linear</option>
+                                    <option value="ease-in">Ease-In</option>
+                                    <option value="ease-out">Ease-Out</option>
+                                    <option value="ease-in-out">Ease-In-Out</option>
+                                </select>
+                            </div>
+
+                            <div class="control" style="display: flex; align-items: center; gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;"><input type="checkbox" id="heightHover" value="hover"> Hover</label>
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;"><input type="checkbox" id="heightFocus" value="focus"> Focus</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <span>Background Color Transition</span>
+
+                        <div class="control" style="margin-top: 1rem; padding-inline: 0.3rem;">
+                            <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                <input type="checkbox" id="background-color" value="background-color">
+                                Background Color
+                            </label>
+                        </div>
+
+                        <div class="control_options">
+
+                            <div class="control">
+                                <label for="bgColorPicker">Color:</label>
+                                <input type="color" id="bgColorPicker" value="#0000ff" style="width: 100%; padding: 0; border: 0; cursor: pointer;">
+                            </div>
+
+                            <div class="control">
+                                <label for="bgColorDuration">Duration (s): </label>
+                                <input type="range" id="bgColorDuration" min="0" max="10" step="0.1" value="1">
+                            </div>
+
+                            <div class="control">
+                                <label for="bgColorDelay">Delay (s): </label>
+                                <input type="range" id="bgColorDelay" min="0" max="10" step="0.1" value="0">
+                            </div>
+
+                            <div class="control">
+                                <label for="bgColorTimingFunction">Timing Function</label>
+                                <select id="bgColorTimingFunction">
+                                    <option value="ease">Ease</option>
+                                    <option value="linear">Linear</option>
+                                    <option value="ease-in">Ease-In</option>
+                                    <option value="ease-out">Ease-Out</option>
+                                    <option value="ease-in-out">Ease-In-Out</option>
+                                </select>
+                            </div>
+
+                            <div class="control" style="display: flex; align-items: center; gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;"><input type="checkbox" id="bgColorHover" value="hover"> Hover</label>
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;"><input type="checkbox" id="bgColorFocus" value="focus"> Focus</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <span>Transform Transition</span>
+
+                        <div class="control" style="margin-top: 1rem; padding-inline: 0.3rem;">
+                            <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                <input type="checkbox" id="transform" value="transform">
+                                Transform
+                            </label>
+                        </div>
+                    
+                        <div class="control_options">
+                    
+                            <div class="control">
+                                <label for="transformDuration">Duration (s): </label>
+                                <input type="range" id="transformDuration" min="0" max="10" step="0.1" value="1">
+                            </div>
+                    
+                            <div class="control">
+                                <label for="transformDelay">Delay (s): </label>
+                                <input type="range" id="transformDelay" min="0" max="10" step="0.1" value="0">
+                            </div>
+                    
+                            <div class="control">
+                                <label for="transformRotate">Rotate (deg): </label>
+                                <input type="range" id="transformRotate" min="-360" max="360" step="0.1" value="0">
+                            </div>
+
+                            <div class="control">
+                                <label for="transformScale">Scale: </label>
+                                <input type="range" id="transformScale" min="0" max="5" step="0.1" value="1">
+                            </div>
+
+                            <div class="control">
+                                <label for="translate-x">Translate X (px): </label>
+                                <input type="range" id="translate-x" name="translate-x" min="-100" max="100" step="1">
+                            </div>
+
+                            <div class="control">
+                                <label for="translate-y">Translate Y (px): </label>
+                                <input type="range" id="translate-y" name="translate-y" min="-100" max="100" step="1">
+                            </div>
+                    
+                            <div class="control">
+                                <label for="transformSkewX">Skew X (deg): </label>
+                                <input type="range" id="transformSkewX" min="-360" max="360" step="0.1" value="1">
+                            </div>
+
+                            <div class="control">
+                                <label for="transformSkewY">Skew Y (deg): </label>
+                                <input type="range" id="transformSkewY" min="-360" max="360" step="0.1" value="1">
+                            </div>
+                    
+                            <div class="control">
+                                <label for="transformTimingFunction">Timing Function</label>
+                                <select id="transformTimingFunction">
+                                    <option value="ease">Ease</option>
+                                    <option value="linear">Linear</option>
+                                    <option value="ease-in">Ease-In</option>
+                                    <option value="ease-out">Ease-Out</option>
+                                    <option value="ease-in-out">Ease-In-Out</option>
+                                </select>
+                            </div>
+                    
+                            <div class="control" style="display: flex; align-items: center; gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                    <input type="checkbox" id="transformHover" value="hover"> Hover
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                    <input type="checkbox" id="transformFocus" value="focus"> Focus
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <span>Opacity Transition</span>
+
+                        <div class="control" style="margin-top: 1rem; padding-inline: 0.3rem;">
+                            <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;">
+                                <input type="checkbox" id="opacity" value="opacity">
+                                Opacity
+                            </label>
+                        </div>
+
+                        <div class="control_options">
+
+                            <div class="control">
+                                <label for="opacityValue">Opacity: </label>
+                                <input type="range" id="opacityValue" min="0" max="1" step="0.1" value="1">
+                            </div>
+
+                            <div class="control">
+                                <label for="opacityDuration">Duration (s): </label>
+                                <input type="range" id="opacityDuration" min="0.1" max="10" step="0.1" value="1">
+                            </div>
+
+                            <div class="control">
+                                <label for="opacityDelay">Delay (s): </label>
+                                <input type="range" id="opacityDelay" min="0" max="10" step="0.1" value="0">
+                            </div>
+
+                            <div class="control">
+                                <label for="opacityTimingFunction">Timing Function</label>
+                                <select id="opacityTimingFunction">
+                                    <option value="ease">Ease</option>
+                                    <option value="linear">Linear</option>
+                                    <option value="ease-in">Ease-In</option>
+                                    <option value="ease-out">Ease-Out</option>
+                                    <option value="ease-in-out">Ease-In-Out</option>
+                                </select>
+                            </div>
+
+                            <div class="control" style="display: flex; align-items: center; gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;"><input type="checkbox" id="opacityHover" value="hover"> Hover</label>
+                                <label style="display: flex; align-items: center; gap: 0.1rem; cursor: pointer;"><input type="checkbox" id="opacityFocus" value="focus"> Focus</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="outpud_code">
+                    <div class="toggle_div">
+                        <button class="toggle-button">☰</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="output_card">
+                            <div class="card-content">
+                                <div id="preview-box" class="preview-box" tabindex="0"></div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="code" style="text-align: end;">
+                        <textarea id="textarea_code" readonly></textarea>
+                        <button type="button" class="btn_copy" id="copy-css">Copy Code</button>
+                        <button type="button" id="reset-transition">Reset</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+<script src="./assets/js/index.js"></script>
+
+</html>

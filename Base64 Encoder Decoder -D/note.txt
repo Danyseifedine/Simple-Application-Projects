@@ -1,0 +1,12 @@
+This Base64 Encoder/Decoder is a versatile web-based tool that allows users to easily convert text and files to and from Base64 format. It offers a user-friendly interface with multiple encoding and decoding options, making it ideal for developers, IT professionals, and anyone working with Base64 data. The application provides instant results and supports various file types, enhancing productivity in data conversion tasks.
+
+
+
+Text-to-Base64 encoding
+Base64-to-text decoding
+File-to-Base64 encoding
+URL-safe Base64 encoding option
+Copy output to clipboard functionality
+Download decoded output as a file
+Clear all inputs and outputs with one click
+Responsive design with a scrollable output area for large content

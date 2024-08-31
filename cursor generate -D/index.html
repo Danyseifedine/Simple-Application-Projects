@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Cursor Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            --color: #E1E1E1;
+            background-color: #F3F3F3;
+            background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent),
+            linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent);
+            background-size: 55px 55px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        .generator-panel {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .drawing-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #cursorCanvas {
+            border: 1px solid #ccc;
+            image-rendering: pixelated;
+        }
+
+        .cursor-preview {
+            width: 64px;
+            height: 64px;
+            border: 1px solid #ccc;
+            margin-top: 1rem;
+            background-color: #f0f0f0;
+        }
+
+        .controls {
+            flex: 1;
+        }
+
+        .tool-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-btn {
+            padding: 0.5rem 1rem;
+            background-color: #237387;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .tool-btn:hover {
+            background-color: #bdc3c7;
+        }
+
+        .tool-btn.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .control-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        input[type="color"],
+        input[type="number"],
+        input[type="range"],
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            flex-grow: 1;
+            padding: 0.75rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .output {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .color-picker-cursor {
+            cursor: crosshair;
+        }
+
+        #zoomControls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Advanced Cursor Generator</h1>
+        <div class="generator-panel">
+            <div class="drawing-area">
+                <canvas id="cursorCanvas" width="32" height="32"></canvas>
+                <div id="zoomControls">
+                    <button id="zoomIn">Zoom In</button>
+                    <button id="zoomOut">Zoom Out</button>
+                    <button id="toggleGrid">Toggle Grid</button>
+                </div>
+                <div class="cursor-preview" id="cursorPreview"></div>
+            </div>
+            <div class="controls">
+                <div class="tool-group">
+                    <button id="penTool" class="tool-btn active">Pen</button>
+                    <button id="eraserTool" class="tool-btn">Eraser</button>
+                    <button id="colorPickerTool" class="tool-btn">Color Picker</button>
+                    <button id="imageUploadTool" class="tool-btn">Upload Image</button>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                </div>
+                <div class="control-group">
+                    <label for="canvasSize">Canvas Size:</label>
+                    <select id="canvasSize">
+                        <option value="16">16x16</option>
+                        <option value="32" selected>32x32</option>
+                        <option value="64">64x64</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="penColor">Color:</label>
+                    <input type="color" id="penColor" value="#000000">
+                </div>
+                <div class="control-group">
+                    <label for="brushSize">Brush Size:</label>
+                    <input type="range" id="brushSize" min="1" max="10" value="1">
+                </div>
+                <div class="control-group">
+                    <label for="hotspotX">Hotspot X:</label>
+                    <input type="number" id="hotspotX" min="0" max="31" value="0">
+                </div>
+                <div class="control-group">
+                    <label for="hotspotY">Hotspot Y:</label>
+                    <input type="number" id="hotspotY" min="0" max="31" value="0">
+                </div>
+            </div>
+        </div>
+        <div class="action-buttons">
+            <button id="undoButton">Undo</button>
+            <button id="clearButton">Clear</button>
+            <button id="downloadButton">Download .cur</button>
+            <button id="generateCSSButton">Generate CSS</button>
+            <button id="copyCSSButton">Copy CSS</button>
+        </div>
+        <div id="output" class="output"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('cursorCanvas');
+            const ctx = canvas.getContext('2d');
+            const cursorPreview = document.getElementById('cursorPreview');
+            const penTool = document.getElementById('penTool');
+            const eraserTool = document.getElementById('eraserTool');
+            const colorPickerTool = document.getElementById('colorPickerTool');
+            const canvasSize = document.getElementById('canvasSize');
+            const penColor = document.getElementById('penColor');
+            const brushSize = document.getElementById('brushSize');
+            const hotspotX = document.getElementById('hotspotX');
+            const hotspotY = document.getElementById('hotspotY');
+            const clearButton = document.getElementById('clearButton');
+            const downloadButton = document.getElementById('downloadButton');
+            const generateCSSButton = document.getElementById('generateCSSButton');
+            const output = document.getElementById('output');
+            const imageUploadTool = document.getElementById('imageUploadTool');
+            const imageUpload = document.getElementById('imageUpload');
+            const copyCSSButton = document.getElementById('copyCSSButton');
+            const undoButton = document.getElementById('undoButton');
+            const zoomInButton = document.getElementById('zoomIn');
+            const zoomOutButton = document.getElementById('zoomOut');
+            const toggleGridButton = document.getElementById('toggleGrid');
+
+            let currentTool = 'pen';
+            let isDrawing = false;
+            let lastX, lastY;
+            let zoom = 8;
+            let showGrid = false;
+            let undoStack = [];
+
+            function initCanvas() {
+                const size = parseInt(canvasSize.value);
+                canvas.width = size;
+                canvas.height = size;
+                updateCanvasSize();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const centerX = Math.floor(canvas.width / 2);
+                const centerY = Math.floor(canvas.height / 2);
+                ctx.fillStyle = penColor.value;
+                ctx.fillRect(centerX, centerY, 1, 1);
+
+                hotspotX.value = centerX;
+                hotspotY.value = centerY;
+
+                updateCursorPreview();
+                saveState();
+            }
+
+            function updateCanvasSize() {
+                canvas.style.width = `${canvas.width * zoom}px`;
+                canvas.style.height = `${canvas.height * zoom}px`;
+            }
+
+            function updateCursorPreview() {
+                const dataURL = canvas.toDataURL();
+                cursorPreview.style.backgroundImage = `url(${dataURL})`;
+                cursorPreview.style.backgroundSize = 'contain';
+                canvas.style.cursor = `url(${dataURL}) ${hotspotX.value} ${hotspotY.value}, auto`;
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                const x = Math.floor((e.clientX - rect.left) * scaleX);
+                const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+                const size = parseInt(brushSize.value);
+
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = currentTool === 'eraser' ? 'rgba(0,0,0,0)' : penColor.value;
+                ctx.lineWidth = size;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+
+                if (currentTool === 'eraser') {
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.fillStyle = 'rgba(0,0,0,1)';
+                } else {
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.fillStyle = penColor.value;
+                }
+
+                ctx.beginPath();
+                ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.globalCompositeOperation = 'source-over';
+
+                updateCursorPreview();
+                [lastX, lastY] = [x, y];
+            }
+
+            function pickColor(e) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                const x = Math.floor((e.clientX - rect.left) * scaleX);
+                const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+                const imageData = ctx.getImageData(x, y, 1, 1);
+                const [r, g, b, a] = imageData.data;
+
+                if (a !== 0) {
+                    penColor.value = rgbToHex(r, g, b);
+                    currentTool = 'pen';
+                    updateToolButtons();
+                }
+
+                removeColorPickerCursor();
+            }
+
+            function rgbToHex(r, g, b) {
+                return '#' + [r, g, b].map(x => {
+                    const hex = x.toString(16);
+                    return hex.length === 1 ? '0' + hex : hex;
+                }).join('');
+            }
+
+            function loadImage(file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const img = new Image();
+                    img.onload = function () {
+                        const tempCanvas = document.createElement('canvas');
+                        const tempCtx = tempCanvas.getContext('2d');
+
+                        const size = parseInt(canvasSize.value);
+                        tempCanvas.width = size;
+                        tempCanvas.height = size;
+
+                        tempCtx.drawImage(img, 0, 0, size, size);
+
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(tempCanvas, 0, 0);
+
+                        updateCursorPreview();
+                        saveState();
+                    }
+                    img.src = event.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+
+            function updateToolButtons() {
+                const tools = ['pen', 'eraser', 'colorPicker', 'imageUpload'];
+                tools.forEach(tool => {
+                    const button = document.getElementById(`${tool}Tool`);
+                    button.classList.toggle('active', currentTool === tool);
+                });
+            }
+
+            function saveState() {
+                undoStack.push(canvas.toDataURL());
+            }
+
+            function undo() {
+                if (undoStack.length > 1) {
+                    loadState(undoStack[undoStack.length - 1]);
+                }
+            }
+
+            function loadState(state) {
+                const img = new Image();
+                img.onload = function () {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                    updateCursorPreview();
+                }
+                img.src = state;
+            }
+
+            function drawGrid() {
+                if (!showGrid) return;
+
+                ctx.save();
+                ctx.strokeStyle = 'rgba(200,200,200,0.5)';
+                ctx.lineWidth = 0.5;
+
+                for (let x = 0.5; x < canvas.width; x += 1) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+
+                for (let y = 0.5; y < canvas.height; y += 1) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+            }
+
+            canvas.addEventListener('mousedown', (e) => {
+                if (currentTool === 'colorPicker') {
+                    pickColor(e);
+                } else {
+                    isDrawing = true;
+                    const rect = canvas.getBoundingClientRect();
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+                    [lastX, lastY] = [
+                        Math.floor((e.clientX - rect.left) * scaleX),
+                        Math.floor((e.clientY - rect.top) * scaleY)
+                    ];
+                    saveState();
+                }
+            });
+
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', () => {
+                isDrawing = false;
+                updateCursorPreview();
+            });
+            canvas.addEventListener('mouseout', () => isDrawing = false);
+
+            penTool.addEventListener('click', () => {
+                currentTool = 'pen';
+                updateToolButtons();
+                removeColorPickerCursor();
+            });
+
+            eraserTool.addEventListener('click', () => {
+                currentTool = 'eraser';
+                updateToolButtons();
+                removeColorPickerCursor();
+            });
+
+            colorPickerTool.addEventListener('click', () => {
+                currentTool = 'colorPicker';
+                updateToolButtons();
+                canvas.classList.add('color-picker-cursor');
+            });
+
+            function removeColorPickerCursor() {
+                canvas.classList.remove('color-picker-cursor');
+            }
+
+            imageUploadTool.addEventListener('click', () => {
+                imageUpload.click();
+            });
+
+            imageUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    loadImage(file);
+                    currentTool = 'pen';
+                    updateToolButtons();
+                }
+            });
+
+            canvasSize.addEventListener('change', initCanvas);
+            penColor.addEventListener('input', () => currentTool = 'pen');
+
+            clearButton.addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                output.textContent = '';
+                canvas.style.cursor = 'default';
+                cursorPreview.style.backgroundImage = 'none';
+                saveState();
+            });
+
+            downloadButton.addEventListener('click', () => {
+                const link = document.createElement('a');
+                link.download = 'cursor.cur';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+
+            generateCSSButton.addEventListener('click', () => {
+                const dataURL = canvas.toDataURL();
+                const css = `cursor: url('${dataURL}') ${hotspotX.value} ${hotspotY.value}, auto;`;
+                output.textContent = css;
+                copyCSSButton.disabled = false;
+            });
+
+            copyCSSButton.addEventListener('click', () => {
+                const css = output.textContent;
+                if (css) {
+                    navigator.clipboard.writeText(css).then(() => {
+                        const originalText = copyCSSButton.textContent;
+                        copyCSSButton.textContent = 'Copied!';
+                        setTimeout(() => {
+                            copyCSSButton.textContent = originalText;
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                    });
+                }
+            });
+
+            undoButton.addEventListener('click', undo);
+
+            zoomInButton.addEventListener('click', () => {
+                if (zoom < 32) {
+                    zoom *= 2;
+                    updateCanvasSize();
+                }
+            });
+
+            zoomOutButton.addEventListener('click', () => {
+                if (zoom > 1) {
+                    zoom /= 2;
+                    updateCanvasSize();
+                }
+            });
+
+            toggleGridButton.addEventListener('click', () => {
+                showGrid = !showGrid;
+                updateCursorPreview();
+            });
+
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                const x = Math.floor((e.clientX - rect.left) * scaleX);
+                const y = Math.floor((e.clientY - rect.top) * scaleY);
+                
+                hotspotX.value = x;
+                hotspotY.value = y;
+            });
+
+            initCanvas();
+        });
+    </script>
+</body>
+</html>

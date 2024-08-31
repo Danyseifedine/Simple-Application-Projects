@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Encoder/Decoder</title>
+    <style>
+        body {
+            width: 100%;
+            background-color: #f5f5f5;
+            background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 800px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .checkbox-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9e9e9;
+            border-radius: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .output-controls {
+            margin-top: 10px;
+        }
+        .empty-message {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Base64 Encoder/Decoder</h1>
+        
+        <textarea id="input" placeholder="Enter text to encode/decode"></textarea>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="urlSafe" name="urlSafe">
+            <label for="urlSafe">URL-safe encoding</label>
+        </div>
+        
+        <input type="file" id="fileInput" accept="*/*">
+        
+        <button onclick="encode()">Encode</button>
+        <button onclick="decode()">Decode</button>
+        <button onclick="encodeFile()">Encode File</button>
+        <button onclick="clear()">Clear</button>
+        
+        <div class="result" id="output">
+            <span class="empty-message">Output will appear here</span>
+        </div>
+        <div class="output-controls">
+            <button onclick="copyOutput()">Copy Output</button>
+            <button id="downloadBtn" style="display: none;" onclick="downloadOutput()">Download Output</button>
+        </div>
+    </div>
+
+    <script>
+        function encode() {
+            const input = document.getElementById('input').value;
+            const urlSafe = document.getElementById('urlSafe').checked;
+            let encoded = btoa(input);
+            if (urlSafe) {
+                encoded = encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+            }
+            setOutput(encoded);
+            document.getElementById('downloadBtn').style.display = 'none';
+        }
+
+        function decode() {
+            const input = document.getElementById('input').value.trim();
+            try {
+                const decoded = atob(input);
+                setOutput(decoded);
+                document.getElementById('downloadBtn').style.display = 'inline-block';
+            } catch (error) {
+                setOutput("Error: Unable to decode the input");
+                document.getElementById('downloadBtn').style.display = 'none';
+            }
+        }
+
+        function encodeFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const base64 = event.target.result.split(',')[1];
+                    setOutput(base64);
+                    document.getElementById('downloadBtn').style.display = 'inline-block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                setOutput("Please select a file");
+                document.getElementById('downloadBtn').style.display = 'none';
+            }
+        }
+
+        function clear() {
+            document.getElementById('input').value = '';
+            setOutput('');
+            document.getElementById('fileInput').value = '';
+            document.getElementById('urlSafe').checked = false;
+            document.getElementById('downloadBtn').style.display = 'none';
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('output');
+            const range = document.createRange();
+            range.selectNode(output);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            alert('Output copied to clipboard!');
+        }
+
+        function downloadOutput() {
+            const output = document.getElementById('output').textContent;
+            const blob = new Blob([output], {type: 'application/octet-stream'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'decoded_file';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function setOutput(content) {
+            const outputElement = document.getElementById('output');
+            if (content.trim() === '') {
+                outputElement.innerHTML = '<span class="empty-message">Output will appear here</span>';
+            } else {
+                outputElement.textContent = content;
+            }
+        }
+    </script>
+</body>
+</html>

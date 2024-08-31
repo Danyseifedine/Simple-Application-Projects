@@ -1,0 +1,22 @@
+The Advanced Navbar Generator application allows users to create customized and responsive navigation bars
+for their websites effortlessly. Through an intuitive interface, users can tweak various settings, including
+general layout, spacing, colors, borders, and animations, to produce a unique and visually appealing navbar.
+This tool is perfect for web developers and designers looking to streamline the process of creating professional
+and functional navigation menus.
+
+
+General Settings: Customize the brand name and font family of the navbar.
+Spacing Settings: Adjust the padding and margin of the navbar and menu items.
+Color Settings: Choose the navbar background color, text color, and menu item colors, with an option for gradient backgrounds.
+Border Settings: Define the border width, color, and radius for the navbar.
+Container Settings: Set the width of the navbar container.
+Positioning Settings: Control the alignment and positioning of the brand and menu items.
+Hover Effects: Select from various hover effects for menu items, including underline, background color change, and more.
+Animation Settings: Apply animations to the navbar, with options like fade-in, slide-down, zoom-in, and more.
+Menu Items Management: Easily add, edit, and organize menu items in different sections (left, center, right) of the navbar.
+Responsive Settings: Configure the breakpoint for the burger menu and set the burger icon color.
+Live Preview: Instantly preview the customized navbar within the application.
+Interactive Tabs: Navigate through different customization options using tabbed sections.
+User-Friendly Interface: Enjoy a clean and intuitive interface that simplifies the customization process.
+Extensive Animation Options: Choose from a wide variety of animations to enhance the navbar's appearance.
+Burger Menu Customization: Customize the appearance and behavior of the burger menu for smaller screens.

@@ -1,0 +1,316 @@
+.path-generator body {
+    width: 100%;
+    height: 100%;
+    --color: #E1E1E1;
+    background-color: #f5f5f5;
+    background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+    background-size: 30px 30px;
+    background-position: -5px -5px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.path-generator .container {
+    text-align: center;
+    width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.path-generator h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.path-generator .controls {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.path-generator .controls label {
+    font-size: 1.2em;
+    color: #2c3e50;
+}
+
+.path-generator #clip-path {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 300px;
+}
+
+.path-generator #clip-path:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+.path-generator #shape-selector {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.path-generator #shape-selector:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+.path-generator .card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.path-generator .preview-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #ecf0f1;
+}
+
+.path-generator #svg-preview {
+    background-color: #ecf0f1;
+}
+
+.path-generator .css-code {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.path-generator .css-code h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.path-generator pre {
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: left;
+    font-size: 1em;
+    color: #333;
+    max-height: 100px;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.path-generator .point {
+    fill: red;
+    cursor: pointer;
+}
+
+.path-generator .footer {
+    position: fixed;
+    bottom: 10px;
+    right: 30px;
+    font-size: 13px;
+    color: #8a8989;
+}
+
+.path-generator #copy-button,.path-generator #download-button, .path-generator #generate-random-shape, .path-generator #add-point {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 1em;
+}
+
+.path-generator #copy-button:hover, .path-generator #download-button:hover, .path-generator #generate-random-shape:hover, .path-generator #add-point:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+.path-generator #copy-button:active, .path-generator #download-button:active, .path-generator #generate-random-shape:active, .path-generator #add-point:active {
+    transform: scale(0.95);
+}
+
+.path-generator input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.path-generator input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.path-generator input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.path-generator input[type="range"] {
+    -webkit-appearance: none;
+    width: 150px;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+}
+
+.path-generator input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #3498db;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.path-generator input[type="range"]::-webkit-slider-thumb:hover {
+    background: #2980b9;
+    transform: scale(1.2);
+}
+
+.path-generator input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(0.9);
+}
+
+.path-generator input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #3498db;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.path-generator input[type="range"]::-moz-range-thumb:hover {
+    background: #2980b9;
+    transform: scale(1.2);
+}
+
+.path-generator input[type="range"]::-moz-range-thumb:active {
+    transform: scale(0.9);
+}
+
+.path-generator .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.path-generator .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.path-generator .modal-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.path-generator .modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 0.9em;
+}
+
+.path-generator .modal-content input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.path-generator .modal-content input[type="number"]:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.path-generator .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.path-generator .modal-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.1s;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.path-generator #confirm-download {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.path-generator #confirm-download:hover {
+    background-color: #27ae60;
+}
+
+.path-generator #cancel-download {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.path-generator #cancel-download:hover {
+    background-color: #c0392b;
+}
+
+.path-generator .modal-content button:active {
+    transform: scale(0.95);
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Text Analyzer</title>
+    <style>
+        body {
+            --color: #E1E1E1;
+            background-color: #f5f5f5;
+            background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .textarea-container {
+            position: relative;
+            margin-bottom: 20px;
+            margin-right: 35px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            resize: vertical;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #2980b9;
+        }
+        .char-limit {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        #results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .result-item {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;margin-bottom: 5px;
+        }
+        .result-label {
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .result-value {
+            color: #2980b9;
+            font-size: 18px;
+        }
+        #letter-counts, #word-frequency {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .letter-count, .word-freq {
+            background-color: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        #sentiment {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .positive { color: #27ae60; }
+        .neutral { color: #f39c12; }
+        .negative { color: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Advanced Text Analyzer</h1>
+        <div class="textarea-container">
+            <textarea id="input-text" placeholder="Enter your text here (max 10000 characters)..." maxlength="10000"></textarea>
+            <div class="char-limit"><span id="char-count">0</span> / 10000</div>
+        </div>
+        <div id="results">
+            <div class="result-item">
+                <span class="result-label">Words:</span>
+                <span class="result-value" id="word-count">0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Characters (no spaces):</span>
+                <span class="result-value" id="char-count-no-spaces">0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Sentences:</span>
+                <span class="result-value" id="sentence-count">0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Paragraphs:</span>
+                <span class="result-value" id="paragraph-count">0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Reading Time:</span>
+                <span class="result-value" id="reading-time">0 min</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Speaking Time:</span>
+                <span class="result-value" id="speaking-time">0 min</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Longest Word:</span>
+                <span class="result-value" id="longest-word">N/A</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Avg. Word Length:</span>
+                <span class="result-value" id="avg-word-length">0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Sentiment:</span>
+                <span class="result-value" id="sentiment">Neutral</span>
+            </div>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Top 5 Words:</span>
+            <div id="word-frequency"></div>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Letter Frequency:</span>
+            <div id="letter-counts"></div>
+        </div>
+    </div>
+    <script>
+        const inputText = document.getElementById('input-text');
+        const charCount = document.getElementById('char-count');
+        const charCountNoSpaces = document.getElementById('char-count-no-spaces');
+        const wordCount = document.getElementById('word-count');
+        const sentenceCount = document.getElementById('sentence-count');
+        const paragraphCount = document.getElementById('paragraph-count');
+        const readingTime = document.getElementById('reading-time');
+        const speakingTime = document.getElementById('speaking-time');
+        const longestWord = document.getElementById('longest-word');
+        const avgWordLength = document.getElementById('avg-word-length');
+        const sentiment = document.getElementById('sentiment');
+        const wordFrequency = document.getElementById('word-frequency');
+        const letterCounts = document.getElementById('letter-counts');
+
+        inputText.addEventListener('input', updateAnalysis);
+
+        function updateAnalysis() {
+            const text = inputText.value;
+            const words = text.trim().split(/\s+/).filter(Boolean);
+
+            charCount.textContent = text.length;
+            charCountNoSpaces.textContent = text.replace(/\s/g, '').length;
+            wordCount.textContent = words.length;
+            sentenceCount.textContent = text.split(/[.!?]+/).filter(Boolean).length;
+            paragraphCount.textContent = text.split('\n\n').filter(Boolean).length;
+
+            const wordsPerMinute = 200;
+            readingTime.textContent = `${Math.ceil(words.length / wordsPerMinute)} min`;
+
+            const wordsPerMinuteSpeaking = 150;
+            speakingTime.textContent = `${Math.ceil(words.length / wordsPerMinuteSpeaking)} min`;
+
+            longestWord.textContent = words.reduce((a, b) => a.length > b.length ? a : b, '');
+
+            const totalChars = words.join('').length;
+            avgWordLength.textContent = words.length ? (totalChars / words.length).toFixed(2) : '0';
+
+            // Simple sentiment analysis
+            const positiveWords = ['good', 'great', 'excellent', 'happy', 'love', 'wonderful', 'fantastic', 'amazing', 'joyful', 'delightful', 'pleasant', 'beautiful', 'brilliant', 'outstanding', 'superb', 'fabulous', 'marvelous', 'terrific', 'awesome', 'blissful', 'cheerful', 'ecstatic', 'elated', 'glad', 'jubilant', 'lovely', 'optimistic', 'pleased', 'thrilled', 'upbeat', 'content', 'excited', 'grateful', 'inspired', 'peaceful', 'proud', 'relaxed', 'satisfied', 'sincere', 'thankful'];
+            const negativeWords = ['bad', 'awful', 'terrible', 'sad', 'hate', 'horrible', 'dreadful', 'miserable', 'depressing', 'disappointing', 'unpleasant', 'annoying', 'frustrating', 'irritating', 'disgusting', 'nasty', 'cruel', 'evil', 'wicked', 'vicious', 'angry', 'furious', 'enraged', 'hostile', 'bitter', 'gloomy', 'heartbroken', 'hopeless', 'lonely', 'unhappy', 'anxious', 'distressed', 'frightened', 'scared', 'worried', 'devastated', 'grieving', 'hurt', 'jealous', 'ashamed'];
+            let sentimentScore = 0;
+            words.forEach(word => {
+                if (positiveWords.includes(word.toLowerCase())) sentimentScore++;
+                if (negativeWords.includes(word.toLowerCase())) sentimentScore--;
+            });
+            if (sentimentScore > 0) {
+                sentiment.textContent = 'Positive';
+                sentiment.className = 'positive';
+            } else if (sentimentScore < 0) {
+                sentiment.textContent = 'Negative';
+                sentiment.className = 'negative';
+            } else {
+                sentiment.textContent = 'Neutral';
+                sentiment.className = 'neutral';
+            }
+
+            // Word frequency
+            const wordFreq = {};
+            words.forEach(word => {
+                wordFreq[word.toLowerCase()] = (wordFreq[word.toLowerCase()] || 0) + 1;
+            });
+            wordFrequency.innerHTML = Object.entries(wordFreq)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5)
+                .map(([word, count]) => `<span class="word-freq">${word}: ${count}</span>`)
+                .join('');
+
+            // Letter frequency
+            const letterFreq = {};
+            text.toLowerCase().replace(/[^a-z]/g, '').split('').forEach(letter => {
+                letterFreq[letter] = (letterFreq[letter] || 0) + 1;
+            });
+            letterCounts.innerHTML = Object.entries(letterFreq)
+                .sort((a, b) => b[1] - a[1])
+                .map(([letter, count]) => `<span class="letter-count">${letter}: ${count}</span>`)
+                .join('');
+        }
+    </script>
+</body>
+</html>

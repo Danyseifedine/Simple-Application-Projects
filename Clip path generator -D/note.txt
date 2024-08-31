@@ -1,0 +1,25 @@
+### Description 
+
+This application is a versatile clip path and shape generator for creating
+custom shapes with various fill options. Users can manipulate points to
+design simple to complex forms, with instant CSS code generation and SVG
+download capabilities. It's an intuitive tool for web designers and
+developers to create unique visual elements.
+
+
+### Features
+
+Instant Preview: Real-time button and shape preview with immediate visual feedback.
+Text Customization: Easily customize text properties, including content, font size, font family, font weight, font style, and color.
+Border Customization: Adjust border properties such as radius, size, and color to create unique button styles.
+Shadow Effects: Configure both box and text shadow effects for added depth and visual interest.
+Padding & Margin: Customize padding and margin settings to ensure perfect spacing and alignment.
+Background & Hover States: Personalize the background color and hover state to enhance interactivity.
+CSS Code Generation: Automatically generate CSS code for created button styles and shapes, streamlining the development process.
+Copy to Clipboard: Easily copy the generated CSS code to the clipboard with a single click.
+User-Friendly Interface: Enjoy a clean and intuitive interface with categorized styling options for a seamless user experience.
+Custom Shape Creation: Create custom shapes via point manipulation for precise design control.
+Clip-Path & SVG Export: Instant CSS clip-path code generation and copying for seamless integration, plus SVG file export functionality for high-quality, scalable graphics.
+Gradient Fill & Transparency: Apply customizable gradient fills with extensive color options and adjust shape transparency for layered design effects.
+Random Shape Generation: Generate random shapes with one click for quick inspiration.
+Shape Combinations: Combine multiple shapes for creating complex designs.

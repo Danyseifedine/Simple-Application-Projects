@@ -1,0 +1,18 @@
+### Description
+This password generator app is a user-friendly tool designed to create secure and customizable passwords.
+It offers a simple interface where users can specify their desired password length and character types.
+The app instantly generates a password based on the selected criteria and displays it for easy copying.
+A strength meter provides visual feedback on the generated password's security level.
+With its responsive design, the app is accessible on various devices, making password creation quick and convenient.
+
+### Features
+1. Customizable password length (8-50 characters)
+2. Options to include uppercase letters, lowercase letters, numbers, and symbols
+3. One-click password generation
+4. Password strength meter with color-coded indicators
+5. Responsive design for mobile and desktop use
+6. Real-time password strength calculation
+7. Visual feedback for selected options
+8. Copy to clipboard functionality
+9. Input validation to ensure at least one character type is selected
+10. Clean and intuitive user interface

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Previewer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .editor, .preview {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .editor {
+            background-color: #2c3e50;
+        }
+        #markdown-input {
+            width: 100%;
+            height: calc(100% - 40px);
+            resize: none;
+            background-color: #34495e;
+            color: #ecf0f1;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+        .preview {
+            background-color: #ecf0f1;
+            overflow-y: auto;
+        }
+        #preview-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .toolbar button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .toolbar button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="editor">
+            <div class="toolbar">
+                <button id="clear-btn"><i class="fas fa-trash"></i> Clear</button>
+                <button id="copy-btn"><i class="fas fa-copy"></i> Copy Markdown</button>
+            </div>
+            <textarea id="markdown-input" placeholder="Enter your Markdown here..."></textarea>
+        </div>
+        <div class="preview">
+            <div class="toolbar">
+                <button id="download-md-btn"><i class="fas fa-download"></i> Download Markdown</button>
+                <button id="download-html-btn"><i class="fas fa-download"></i> Download HTML</button>
+            </div>
+            <div id="preview-content"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+    <script>
+        const markdownInput = document.getElementById('markdown-input');
+        const previewContent = document.getElementById('preview-content');
+        const clearBtn = document.getElementById('clear-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const downloadMdBtn = document.getElementById('download-md-btn');
+        const downloadHtmlBtn = document.getElementById('download-html-btn');
+
+        function updatePreview() {
+            const rawHtml = marked.parse(markdownInput.value);
+            previewContent.innerHTML = rawHtml;
+            
+            // Execute any script tags in the preview
+            const scripts = previewContent.getElementsByTagName('script');
+            for (let script of scripts) {
+                eval(script.textContent);
+            }
+        
+            // Execute JavaScript code blocks
+            const codeBlocks = previewContent.querySelectorAll('pre code.language-javascript');
+            for (let codeBlock of codeBlocks) {
+                eval(codeBlock.textContent);
+            }
+        }
+    
+
+        markdownInput.addEventListener('input', updatePreview);
+
+        clearBtn.addEventListener('click', () => {
+            markdownInput.value = '';
+            updatePreview();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            markdownInput.select();
+            document.execCommand('copy');
+        });
+
+        downloadMdBtn.addEventListener('click', () => {
+            downloadFile('markdown.md', markdownInput.value);
+        });
+
+        downloadHtmlBtn.addEventListener('click', () => {
+            downloadFile('preview.html', previewContent.innerHTML);
+        });
+
+        function downloadFile(filename, content) {
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        // Initial preview update
+        updatePreview();
+    </script>
+</body>
+</html>

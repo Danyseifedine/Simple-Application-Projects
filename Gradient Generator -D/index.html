@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Generator</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
+</head>
+<body>
+    <div class="gradient-generator">
+        <h1>Gradient Generator</h1>
+        
+        <div class="gradient-preview" id="gradientPreview"></div>
+        
+        <div class="controls">
+            <div class="gradient-bar" id="gradientBar"></div>
+            
+            <div class="gradient-type">
+                <button id="linearBtn" class="active">Linear</button>
+                <button id="radialBtn">Radial</button>
+            </div>
+            
+            <div class="angle-control">
+                <label for="degreeInput" class="degree-label">Angle:</label>
+                <input type="number" id="degreeInput" min="0" max="360" value="90">
+                <button id="rotateLeftBtn">↺</button>
+                <button id="rotateRightBtn">↻</button>
+            </div>
+            
+            <div class="color-stops" id="colorStopsList"></div>
+            
+            <div class="additional-controls">
+                <button id="addRandomStopBtn">Add Random</button>
+                <button id="reverseGradientBtn">Reverse</button>
+            </div>
+        </div>
+        
+        <textarea id="gradientCode" readonly></textarea>
+        
+        <div class="action-buttons">
+            <button id="copyButton">Copy CSS</button>
+            <button id="downloadButton">Download Image</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
