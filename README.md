@@ -53,15 +53,3 @@ This repository contains a collection of 25 web-based utility applications desig
 
 Each application can be accessed by opening its corresponding HTML file in a web browser. Detailed usage instructions for each utility can be found within the application interface.
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgments
-
-- Thanks to all contributors who have helped to build and improve these utilities.
-- Special thanks to the open-source community for providing resources and inspiration.
